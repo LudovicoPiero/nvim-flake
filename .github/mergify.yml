@@ -1,41 +1,42 @@
-- name: Rebase pull requests once when it's labeled with `rebase`
-  conditions:
-    - label=rebase
-  actions:
-    rebase: {}
-    label:
-      remove:
-        - rebase
+pull_request_rules:
+  - name: Rebase pull requests once when it's labeled with `rebase`
+    conditions:
+      - label=rebase
+    actions:
+      rebase: {}
+      label:
+        remove:
+          - rebase
 
-- name: Automatic merge when CI passes
-  conditions:
-    - check-success=Run Flake Checker
-  actions:
-    merge:
-      method: rebase
+  - name: Automatic merge when CI passes
+    conditions:
+      - check-success=Run Flake Checker
+    actions:
+      merge:
+        method: rebase
 
-- name: Warn on conflicts
-  conditions:
-    - conflict
-  actions:
-    comment:
-      message: "@LudovicoPiero this pull request is now in conflict 😩"
-    label:
-      toggle:
-        - conflict
+  - name: Warn on conflicts
+    conditions:
+      - conflict
+    actions:
+      comment:
+        message: "@LudovicoPiero this pull request is now in conflict 😩"
+      label:
+        toggle:
+          - conflict
 
-- name: Toggle labels based on CI state
-  conditions:
-    - check-failure=Run Flake Checker
-  actions:
-    label:
-      toggle:
-        - "CI:fail"
+  - name: Toggle labels based on CI state
+    conditions:
+      - check-failure=Run Flake Checker
+    actions:
+      label:
+        toggle:
+          - "CI:fail"
 
-- name: Add "WIP" label when the title contains "WIP"
-  conditions:
-    - title~=WIP
-  actions:
-    label:
-      toggle:
-        - WIP
+  - name: Add "WIP" label when the title contains "WIP"
+    conditions:
+      - title~=WIP
+    actions:
+      label:
+        toggle:
+          - WIP
