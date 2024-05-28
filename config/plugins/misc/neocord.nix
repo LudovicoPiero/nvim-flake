@@ -1,6 +1,7 @@
+{ helpers, ... }:
 {
   plugins.neocord = {
-    enable = true;
+    enable = helpers.enableExceptInTests;
     settings = {
       auto_update = true;
       blacklist = [ ];
