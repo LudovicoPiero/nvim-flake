@@ -5,7 +5,7 @@
     ./syntax/treesitter.nix
     ./syntax/rainbow-delimiter.nix
     ./lsp/lsp.nix
-    ./lsp/conform.nix
+    ./lsp/none-ls.nix
     ./git/neogit.nix
     ./git/gitsigns.nix
     ./completion/cmp.nix
