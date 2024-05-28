@@ -33,7 +33,7 @@
         "<C-u>" = "cmp.mapping.scroll_docs(-4)"; # Up
         "<C-d>" = "cmp.mapping.scroll_docs(4)"; # Down
         "<C-Space>" = "cmp.mapping.complete()";
-        "<CR>" = "cmp.mapping.confirm({select = true,})";
+        "<CR>" = "cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace })";
 
         "<Tab>" = ''
           cmp.mapping(function(fallback)
@@ -76,51 +76,42 @@
     };
   };
   extraConfigLua = ''
-     luasnip = require("luasnip")
+    luasnip = require("luasnip")
 
-     kind_icons = {
-       Text = "󰊄 ",
-       Method = " ",
-       Function = "󰡱 ",
-       Constructor = " ",
-       Field = " ",
-       Variable = "󱀍 ",
-       Class = " ",
-       Interface = " ",
-       Module = "󰕳 ",
-       Property = " ",
-       Unit = " ",
-       Value = " ",
-       Enum = " ",
-       Keyword = " ",
-       Snippet = " ",
-       Color = " ",
-       File = " ",
-       Reference = " ",
-       Folder = " ",
-       EnumMember = " ",
-       Constant = " ",
-       Struct = " ",
-       Event = " ",
-       Operator = " ",
-       TypeParameter = " ",
-     }
+    kind_icons = {
+      Text = "󰊄 ",
+      Method = " ",
+      Function = "󰡱 ",
+      Constructor = " ",
+      Field = " ",
+      Variable = "󱀍 ",
+      Class = " ",
+      Interface = " ",
+      Module = "󰕳 ",
+      Property = " ",
+      Unit = " ",
+      Value = " ",
+      Enum = " ",
+      Keyword = " ",
+      Snippet = " ",
+      Color = " ",
+      File = " ",
+      Reference = " ",
+      Folder = " ",
+      EnumMember = " ",
+      Constant = " ",
+      Struct = " ",
+      Event = " ",
+      Operator = " ",
+      TypeParameter = " ",
+    }
 
-     local cmp = require'cmp'
-     cmp.setup({
-       window = {
-       completion = cmp.config.window.bordered(),
-       documentation = cmp.config.window.bordered(),
-       },
-     })
-
-     cmp.setup.cmdline(":", {
-     mapping = cmp.mapping.preset.cmdline(),
-     sources = cmp.config.sources({
-         { name = "path" },
-     }, {
-         { name = "cmdline" },
-     }),
+    local cmp = require'cmp'
+    cmp.setup({
+      window = {
+      completion = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered(),
+      },
     })
   '';
 }

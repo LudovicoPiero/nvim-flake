@@ -1,10 +1,7 @@
 {
   config = {
     opts = {
-      guicursor = "a:block";
-
       colorcolumn = "80";
-
       cursorline = true;
       relativenumber = true;
       smartindent = true;

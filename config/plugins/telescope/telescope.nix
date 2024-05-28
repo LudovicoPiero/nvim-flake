@@ -33,91 +33,91 @@
     };
     keymaps = {
       "<leader>sf" = {
-        action = "find_files, {}";
+        action = "find_files";
         options.desc = "[S]earch [F]iles";
+      };
+      "<leader>:" = {
+        action = "command_history";
+        options.desc = "[:] View command history";
+      };
+      "<leader><space>" = {
+        action = "buffers";
+        options.desc = "[ ] Find existing buffers";
+      };
+      "<leader>fr" = {
+        action = "oldfiles";
+        options.desc = "Recent";
       };
       "<leader>/" = {
         action = "current_buffer_fuzzy_find";
         options.desc = "[/] Fuzzily search in current buffer";
       };
-      "<leader>:" = {
-        action = "command_history, {}";
-        options.desc = "[:] View command history";
-      };
-      "<leader><space>" = {
-        action = "buffers, {}";
-        options.desc = "[ ] Find existing buffers";
-      };
-      "<leader>fr" = {
-        action = "oldfiles, {}";
-        options.desc = "Recent";
-      };
       "<leader>fb" = {
-        action = "buffers, {}";
+        action = "buffers";
         options.desc = "Buffers";
       };
       "<C-p>" = {
-        action = "git_files, {}";
+        action = "git_files";
         options.desc = "Search git files";
       };
       "<leader>gc" = {
-        action = "git_commits, {}";
+        action = "git_commits";
         options.desc = "Commits";
       };
       "<leader>gs" = {
-        action = "git_status, {}";
+        action = "git_status";
         options.desc = "Status";
       };
       "<leader>sa" = {
-        action = "autocommands, {}";
+        action = "autocommands";
         options.desc = "Auto Commands";
       };
       "<leader>sb" = {
-        action = "current_buffer_fuzzy_find, {}";
+        action = "current_buffer_fuzzy_find";
         options.desc = "Buffer";
       };
       "<leader>sc" = {
-        action = "command_history, {}";
+        action = "command_history";
         options.desc = "Command History";
       };
       "<leader>sC" = {
-        action = "commands, {}";
+        action = "commands";
         options.desc = "Commands";
       };
       "<leader>sD" = {
-        action = "diagnostics, {}";
+        action = "diagnostics";
         options.desc = "Workspace diagnostics";
       };
       "<leader>sh" = {
-        action = "help_tags, {}";
+        action = "help_tags";
         options.desc = "Help pages";
       };
       "<leader>sH" = {
-        action = "highlights, {}";
+        action = "highlights";
         options.desc = "Search Highlight Groups";
       };
       "<leader>sk" = {
-        action = "keymaps, {}";
+        action = "keymaps";
         options.desc = "Keymaps";
       };
       "<leader>sM" = {
-        action = "man_pages, {}";
+        action = "man_pages";
         options.desc = "Man pages";
       };
       "<leader>sm" = {
-        action = "marks, {}";
+        action = "marks";
         options.desc = "Jump to Mark";
       };
       "<leader>so" = {
-        action = "vim_options, {}";
+        action = "vim_options";
         options.desc = "Options";
       };
       "<leader>sR" = {
-        action = "resume, {}";
+        action = "resume";
         options.desc = "Resume";
       };
       "<leader>uC" = {
-        action = "colorscheme, {}";
+        action = "colorscheme";
         options.desc = "Colorscheme preview";
       };
     };
@@ -128,7 +128,7 @@
       key = "<leader>fp";
       action = "<cmd>Telescope projects<CR>";
       options = {
-        desc = "Projects";
+        desc = "[F]ind [P]rojects";
       };
     }
     {
@@ -137,6 +137,14 @@
       action = "<cmd>Telescope diagnostics bufnr=0<cr>";
       options = {
         desc = "Document diagnostics";
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>sg";
+      action = "<cmd>Telescope live_grep<cr>";
+      options = {
+        desc = "[S]earch by [G]rep";
       };
     }
     {
