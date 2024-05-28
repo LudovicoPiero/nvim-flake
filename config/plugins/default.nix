@@ -1,0 +1,19 @@
+{
+  imports = [
+    ./telescope/telescope.nix
+    ./syntax/vim-nix.nix
+    ./syntax/treesitter.nix
+    ./syntax/rainbow-delimiter.nix
+    ./lsp/lsp.nix
+    ./lsp/conform.nix
+    ./git/neogit.nix
+    ./git/gitsigns.nix
+    ./completion/cmp.nix
+    ./indent/indent-blankline.nix
+    ./keybinding/flash.nix
+    ./ui/lualine.nix
+    ./ui/colorscheme.nix
+    ./ui/bufferline.nix
+    ./keybinding/which-key.nix
+  ];
+}
