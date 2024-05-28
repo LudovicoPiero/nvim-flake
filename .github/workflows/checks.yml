@@ -1,0 +1,15 @@
+name: Nix Flake Checker
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  format:
+    name: Run Flake Checker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
+      - name: Run `nix flake check`
+        run: nix flake check
