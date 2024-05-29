@@ -3,6 +3,13 @@
     enable = true;
 
     extensions = {
+      file-browser = {
+        enable = true;
+        settings = {
+          hijack_netrw = true;
+          theme = "dropdown";
+        };
+      };
       fzf-native = {
         enable = true;
       };
