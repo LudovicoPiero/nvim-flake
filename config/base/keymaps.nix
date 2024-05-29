@@ -19,22 +19,22 @@
       {
         mode = "n";
         key = "[d";
-        action = "vim.diagnostic.goto_prev";
+        action = "<cmd>lua vim.diagnostic.goto_prev()<cr>";
       }
       {
         mode = "n";
         key = "]d";
-        action = "vim.diagnostic.goto_next";
+        action = "<cmd>lua vim.diagnostic.goto_next()<cr>";
       }
       {
         mode = "n";
         key = "<Space>e";
-        action = "vim.diagnostic.open_float";
+        action = "<cmd>lua vim.diagnostic.open_float()<cr>";
       }
       {
         mode = "n";
         key = "<Space>q";
-        action = "vim.diagnostic.setloclist";
+        action = "<cmd>lua vim.diagnostic.setloclist()<cr>";
       }
       {
         mode = "n";
