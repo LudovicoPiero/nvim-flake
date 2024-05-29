@@ -1,80 +1,67 @@
 {
-  imports = [ ./sources.nix ];
+  plugins = {
+    cmp-buffer.enable = true;
+    cmp-nvim-lua.enable = true;
+    cmp-path.enable = true;
+    cmp_luasnip.enable = true;
+    cmp-nvim-lsp.enable = true;
 
-  plugins.cmp = {
-    enable = true;
-    autoEnableSources = true;
-    settings = {
-      experimental = {
-        ghost_text = false;
-        native_menu = false;
-      };
-      formatting = {
-        fields = [
-          "kind"
-          "abbr"
-          "menu"
-        ];
-        format = ''
-          function(entry, vim_item)
-              vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-              vim_item.menu = ({
-                  path = "[Path]",
-                  nvim_lua = "[NVIM_LUA]",
-                  nvim_lsp = "[LSP]",
-                  luasnip = "[Snippet]",
-                  buffer = "[Buffer]",
-              })[entry.source.name]
-              return vim_item
-          end
-        '';
-      };
-      mapping = {
-        "<C-u>" = "cmp.mapping.scroll_docs(-4)"; # Up
-        "<C-d>" = "cmp.mapping.scroll_docs(4)"; # Down
-        "<C-Space>" = "cmp.mapping.complete()";
-        "<CR>" = "cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace })";
+    cmp = {
+      enable = true;
+      autoEnableSources = true;
+      settings = {
+        experimental = {
+          ghost_text = false;
+          native_menu = false;
+        };
+        mapping = {
+          "<C-u>" = "cmp.mapping.scroll_docs(-4)"; # Up
+          "<C-d>" = "cmp.mapping.scroll_docs(4)"; # Down
+          "<C-Space>" = "cmp.mapping.complete()";
+          "<CR>" = "cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace })";
 
-        "<Tab>" = ''
-          cmp.mapping(function(fallback)
-                  if cmp.visible() then
-                      cmp.select_next_item()
-                  elseif luasnip.expand_or_jumpable() then
-                      print("Luasnip can expand or jump!")
-                      luasnip.expand_or_jump()
-                  else
-                      fallback()
-                  end
-              end, { "i", "s" })
-        '';
-        "<S-Tab>" = ''
-          cmp.mapping(function(fallback)
-                  if cmp.visible() then
-                      cmp.select_prev_item()
-                  elseif luasnip.jumpable(-1) then
-                      luasnip.jump(-1)
-                  else
-                      fallback()
-                  end
+          "<Tab>" = ''
+            cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_next_item()
+                    elseif luasnip.expand_or_jumpable() then
+                        print("Luasnip can expand or jump!")
+                        luasnip.expand_or_jump()
+                    else
+                        fallback()
+                    end
                 end, { "i", "s" })
-        '';
-      };
-      snippet = {
-        expand = "luasnip";
-      };
-      sources = [
-        { name = "path"; }
-        { name = "nvim_lua"; }
-        { name = "nvim_lsp"; }
-        { name = "luasnip"; }
-        { name = "buffer"; }
-      ];
-      window = {
-        completion = { };
-        documentation = { };
+          '';
+
+          "<S-Tab>" = ''
+            cmp.mapping(function(fallback)
+                    if cmp.visible() then
+                        cmp.select_prev_item()
+                    elseif luasnip.jumpable(-1) then
+                        luasnip.jump(-1)
+                    else
+                        fallback()
+                    end
+                  end, { "i", "s" })
+          '';
+        };
+        sources = [
+          { name = "path"; }
+          { name = "nvim_lua"; }
+          { name = "nvim_lsp"; }
+          { name = "luasnip"; }
+          { name = "buffer"; }
+        ];
+        window = {
+          completion = { };
+          documentation = { };
+        };
+        snippet.expand = # lua
+          "function(args) require('luasnip').lsp_expand(args.body) end";
       };
     };
   };
+
   extraConfigLua = ''
     luasnip = require("luasnip")
 
