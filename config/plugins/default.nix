@@ -26,6 +26,9 @@
     # Misc
     ./misc/neocord.nix
     ./misc/wakatime.nix
+    ./misc/comment.nix
+    ./misc/neotree.nix
+    ./misc/mini.nix
 
     # UI
     ./ui/lualine.nix
@@ -34,5 +37,7 @@
     ./ui/bufferline.nix
     ./ui/nvim-colorizer.nix
     ./ui/todo.nix
+    ./ui/nvim-notify.nix
+    ./ui/noice.nix
   ];
 }

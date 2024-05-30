@@ -28,11 +28,6 @@
       }
       {
         mode = "n";
-        key = "<Space>e";
-        action = "<cmd>lua vim.diagnostic.open_float()<cr>";
-      }
-      {
-        mode = "n";
         key = "<Space>q";
         action = "<cmd>lua vim.diagnostic.setloclist()<cr>";
       }

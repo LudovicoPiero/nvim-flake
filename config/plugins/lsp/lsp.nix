@@ -2,7 +2,15 @@
 {
   plugins = {
     lsp-lines.enable = true;
-    luasnip.enable = true;
+
+    luasnip = {
+      enable = true;
+      extraConfig = {
+        history = true;
+        delete_check_events = "TextChanged";
+        fromVscode = [ { lazyLoad = true; } ];
+      };
+    };
 
     lspkind = {
       enable = true;
