@@ -211,125 +211,77 @@
         };
       };
     };
+
+    lspsaga = {
+      enable = true;
+      lightbulb.sign = false;
+      symbolInWinbar.enable = false;
+      ui.border = "rounded";
+    };
   };
 
-  keymaps = [
-    {
-      mode = "n";
-      key = "K";
-      action = "<cmd>lua vim.lsp.buf.hover()<CR>";
-      options = {
+  keymaps =
+    let
+      options = desc: {
         silent = true;
-        desc = "Hover Documentation";
+        noremap = true;
+        desc = desc;
       };
-    }
-    {
-      mode = "n";
-      key = "gD";
-      action = "<cmd>lua vim.lsp.buf.declaration()<CR>";
-      options = {
-        silent = true;
-        desc = "[G]oto [D]eclaration";
-      };
-    }
-    {
-      mode = "n";
-      key = "gd";
-      action = "<cmd>lua require('telescope.builtin').lsp_definitions()<CR>";
-      options = {
-        silent = true;
-        desc = "[G]oto [D]efinition";
-      };
-    }
-    {
-      mode = "n";
-      key = "gr";
-      action = "<cmd>lua require('telescope.builtin').lsp_references()<CR>";
-      options = {
-        silent = true;
-        desc = "[G]oto [R]eferences";
-      };
-    }
-    {
-      mode = "n";
-      key = "gI";
-      action = "<cmd>lua require('telescope.builtin').lsp_implementations()<CR>";
-      options = {
-        silent = true;
-        desc = "[G]oto [I]mplementation";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>rn";
-      action = "<cmd>lua vim.lsp.buf.rename()<CR>";
-      options = {
-        silent = true;
-        desc = "[R]e[n]ame";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>D";
-      action = "<cmd>lua require('telescope.builtin').lsp_type_definitions()<CR>";
-      options = {
-        silent = true;
-        desc = "Type [D]efinition";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>ds";
-      action = "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>";
-      options = {
-        silent = true;
-        desc = "[D]ocument [S]ymbols";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>ws";
-      action = "<cmd>lua require('telescope.builtin').lsp_dynamic_workspace_symbols()<CR>";
-      options = {
-        silent = true;
-        desc = "[W]orkspace [S]ymbols";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>wa";
-      action = "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>";
-      options = {
-        silent = true;
-        desc = "[W]orkspace [A]dd Folder";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>wr";
-      action = "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>";
-      options = {
-        silent = true;
-        desc = "[W]orkspace [R]emove Folder";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>wl";
-      action = "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>";
-      options = {
-        silent = true;
-        desc = "[W]orkspace [L]ist Folders";
-      };
-    }
-    {
-      mode = "n";
-      key = "<C-k>";
-      action = "<cmd>lua vim.lsp.buf.signature_help()<CR>";
-      options = {
-        silent = true;
-        desc = "Signature Documentation";
-      };
-    }
-  ];
+    in
+    [
+      {
+        action = "<CMD>Lspsaga code_action<CR>";
+        key = "<leader>la";
+        mode = "n";
+        options = options "Code action";
+      }
+      {
+        action = "<CMD>Lspsaga goto_definition<CR>";
+        key = "<leader>ld";
+        mode = "n";
+        options = options "Go to definition";
+      }
+      {
+        action = "<CMD>Lspsaga goto_type_definition<CR>";
+        key = "<leader>lt";
+        mode = "n";
+        options = options "Go to type definition";
+      }
+      {
+        action = "<CMD>Lspsaga diagnostic_jump_next<CR>";
+        key = "<leader>ll";
+        mode = "n";
+        options = options "Next diagnostic";
+      }
+      {
+        action = "<CMD>Lspsaga diagnostic_jump_prev<CR>";
+        key = "<leader>lh";
+        mode = "n";
+        options = options "Previous diagnostic";
+      }
+      {
+        action = "<CMD>Lspsaga finder<CR>";
+        key = "<leader>lr";
+        mode = "n";
+        options = options "Show references and implementations";
+      }
+      {
+        action = "<CMD>Lspsaga hover_doc<CR>";
+        key = "<leader>lk";
+        mode = "n";
+        options = options "Hover documentation";
+      }
+      {
+        action = "<CMD>Lspsaga outline<CR>";
+        key = "<leader>lo";
+        mode = "n";
+        options = options "Outline";
+      }
+      {
+        action = "<CMD>Lspsaga rename<CR>";
+        key = "<leader>lc";
+        mode = "n";
+        options = options "Rename";
+      }
+    ];
 }
