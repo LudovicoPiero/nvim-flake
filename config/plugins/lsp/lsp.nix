@@ -1,14 +1,14 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   plugins = {
     lsp-lines.enable = true;
 
     luasnip = {
       enable = true;
+      fromVscode = [ { paths = "${pkgs.vimPlugins.friendly-snippets}"; } ];
       extraConfig = {
         history = true;
         delete_check_events = "TextChanged";
-        fromVscode = [ { lazyLoad = true; } ];
       };
     };
 
