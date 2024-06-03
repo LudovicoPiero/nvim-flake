@@ -4,5 +4,6 @@
     ./clipboard.nix
     ./keymaps.nix
     ./options.nix
+    ./package.nix
   ];
 }
