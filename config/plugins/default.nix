@@ -37,7 +37,6 @@
     ./ui/bufferline.nix
     ./ui/nvim-colorizer.nix
     ./ui/todo.nix
-    ./ui/nvim-notify.nix
     ./ui/noice.nix
   ];
 }
