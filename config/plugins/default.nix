@@ -36,6 +36,7 @@
     ./ui/colorscheme.nix
     ./ui/bufferline.nix
     ./ui/nvim-colorizer.nix
+    ./ui/nvim-notify.nix
     ./ui/todo.nix
     ./ui/noice.nix
   ];
