@@ -2,6 +2,7 @@
   plugins.notify = {
     enable = true;
     timeout = 3000;
+    backgroundColour = "#000000";
     maxHeight = {
       __raw = "math.floor(vim.o.lines * 0.75)";
     };
