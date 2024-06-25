@@ -1,7 +1,14 @@
-{ pkgs, ... }:
+{ pkgs, self, ... }:
 {
   plugins = {
     lsp-lines.enable = true;
+
+    lspsaga = {
+      enable = true;
+      lightbulb.sign = false;
+      symbolInWinbar.enable = false;
+      ui.border = "rounded";
+    };
 
     luasnip = {
       enable = true;
@@ -153,6 +160,27 @@
         nixd = {
           enable = true;
           filetypes = [ "nix" ];
+          settings =
+            let
+              getFlake = ''(builtins.getFlake "${self}")'';
+            in
+            {
+              diagnostic.suppress = [
+                "sema-escaping-with"
+                "var-bind-to=this"
+              ];
+              formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
+              "nixpkgs" = {
+                "expr" = "import ${getFlake}.inputs.nixpkgs { }   ";
+              };
+              options = {
+                nixos.expr = ''${getFlake}.nixosConfigurations.sforza.options'';
+                nixvim.expr = ''${getFlake}.packages.${pkgs.system}.nvim.options'';
+                home-manager.expr = ''${getFlake}.homeConfigurations."airi@sforza".options'';
+                flake-parts.expr = ''${getFlake}.debug.init_options'';
+                flake-parts2.expr = ''${getFlake}.currentSystem.options'';
+              };
+            };
         };
 
         gopls = {
@@ -210,13 +238,7 @@
           };
         };
       };
-    };
 
-    lspsaga = {
-      enable = true;
-      lightbulb.sign = false;
-      symbolInWinbar.enable = false;
-      ui.border = "rounded";
     };
   };
 

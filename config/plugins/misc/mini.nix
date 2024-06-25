@@ -71,7 +71,7 @@
     }
     {
       action = ''
-        function() 
+        function()
           require("mini.bufremove").delete(0, true)
         end
       '';

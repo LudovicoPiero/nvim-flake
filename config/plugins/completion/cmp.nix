@@ -48,22 +48,10 @@
         };
 
         sources = [
-          {
-            name = "nvim_lsp";
-            priority = 1;
-          }
-          {
-            name = "nvim_lua";
-            priority = 2;
-          }
-          {
-            name = "luasnip";
-            priority = 3;
-          }
-          {
-            name = "buffer";
-            priority = 4;
-          }
+          { name = "nvim_lsp"; }
+          { name = "nvim_lua"; }
+          { name = "luasnip"; }
+          { name = "buffer"; }
           { name = "path"; }
           { name = "emoji"; }
           { name = "cmdli"; }

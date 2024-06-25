@@ -1,4 +1,3 @@
-{ helpers, ... }:
 {
   plugins.noice = {
     enable = true;
@@ -60,23 +59,6 @@
             { find = "%d fewer lines"; }
             { find = "%d more lines"; }
           ];
-        };
-        opts = {
-          skip = true;
-        };
-      }
-
-      # Hide unhelpful LSP info
-      {
-        filter = {
-          event = "lsp";
-          kind = "progress";
-          cond = helpers.mkRaw ''
-            function(message)
-              local client = vim.tbl_get(message.opts, "progress", "client")
-              return client == "lua_ls" or client == "null-ls" -- skip lua-ls and null-ls progress
-            end
-          '';
         };
         opts = {
           skip = true;

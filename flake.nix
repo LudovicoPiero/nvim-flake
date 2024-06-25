@@ -3,19 +3,25 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixvim.url = "github:nix-community/nixvim";
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
   outputs =
-    { nixvim, flake-parts, ... }@inputs:
+    {
+      self,
+      nixvim,
+      flake-parts,
+      ...
+    }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
+      debug = true;
+      systems = [ "x86_64-linux" ];
 
       perSystem =
         { pkgs, system, ... }:
@@ -28,6 +34,7 @@
             # You can use `extraSpecialArgs` to pass additional arguments to your module files
             extraSpecialArgs = {
               # inherit (inputs) foo;
+              inherit self;
             };
           };
           nvim = nixvim'.makeNixvimWithModule nixvimModule;
@@ -44,5 +51,48 @@
             default = nvim;
           };
         };
+
+      # Only used for nixd lsp
+      flake = {
+        nixosConfigurations = {
+          sforza = inputs.nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            modules = [
+              (
+                { pkgs, ... }:
+                {
+                  networking.hostName = "sforza";
+                  environment.systemPackages = with pkgs; [ nixd ];
+                  system.stateVersion = "24.11";
+                  boot.loader.grub.device = "/dev/disk/by-id/wwn-0x500001234567890a"; # FAKE ID, to make `nix flake check` happy.
+                  fileSystems."/" = {
+                    device = "/dev/disk/by-label/root";
+                    fsType = "ext4";
+                  };
+                }
+              )
+            ];
+          };
+        };
+
+        homeConfigurations = {
+          "airi@sforza" = inputs.home-manager.lib.homeManagerConfiguration {
+            pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
+            modules = [
+              {
+                home.stateVersion = "24.05";
+                home.username = "airi";
+                home.homeDirectory = "/home/sforza";
+              }
+              (
+                { pkgs, ... }:
+                {
+                  wayland.windowManager.hyprland.enable = true;
+                }
+              )
+            ];
+          };
+        };
+      };
     };
 }
