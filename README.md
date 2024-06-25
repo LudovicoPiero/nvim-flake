@@ -7,8 +7,9 @@ clarative and reproducible Neovim environment using Nix. Enjoy a consistent and 
 
 ## 📋 Table of Contents
 
-1. [Introduction](#introduction)
-2. [Usage](#usage)
+1. [Introduction](#-introduction)
+2. [Usage](#-usage)
+3. [Inspiration](#-inspiration)
 
 ## 🌟 Introduction
 
@@ -25,3 +26,11 @@ nix run .
 ## 🤝 Contributing
 
 Contributions are welcome! Feel free to open issues or pull requests if you have suggestions or improvements.
+
+## 🌙 Inspiration
+
+This configuration is inspired by:
+
+- [Khaneliman's config](https://github.com/khaneliman/khanelinix/tree/main/modules/home/programs/terminal/editors/neovim)
+- [Ruixi-rebirth's config](https://github.com/Ruixi-rebirth/nvim-flake)
+- [Traxys's config](https://github.com/traxys/Nixfiles/tree/master/neovim)
