@@ -20,7 +20,10 @@ pull_request_rules:
       - conflict
     actions:
       comment:
-        message: "@LudovicoPiero this pull request is now in conflict 😩"
+        message: |
+          This pull request is now in conflicts. Could you fix it @{{author}}? 🙏
+
+          CC @LudovicoPiero
       label:
         toggle:
           - conflict
