@@ -10,7 +10,7 @@ pull_request_rules:
 
   - name: Automatic merge when CI passes
     conditions:
-      - check-success=Run Flake Checker
+      - check-success=package default
     actions:
       merge:
         method: rebase
