@@ -1,17 +1,19 @@
 {
   plugins.flash = {
     enable = true;
-    labels = "asdfghjklqwertyuiopzxcvbnm";
-    search = {
-      mode = "fuzzy";
-    };
-    jump = {
-      autojump = true;
-    };
-    label = {
-      rainbow = {
-        enabled = true;
-        shade = 5;
+    settings = {
+      labels = "asdfghjklqwertyuiopzxcvbnm";
+      search = {
+        mode = "fuzzy";
+      };
+      jump = {
+        autojump = true;
+      };
+      label = {
+        rainbow = {
+          enabled = true;
+          shade = 5;
+        };
       };
     };
   };
