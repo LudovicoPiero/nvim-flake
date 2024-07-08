@@ -1,10 +1,15 @@
 {
   plugins.treesitter = {
     enable = true;
-    ignoreInstall = [ ];
-    ensureInstalled = "all";
-    folding = false;
-    indent = true;
+
     nixGrammars = true;
+    nixvimInjections = true;
+    folding = false;
+
+    settings = {
+      # ignoreInstall = [ ];
+      ensure_installed = [ "all" ];
+      indent.enable = true;
+    };
   };
 }
