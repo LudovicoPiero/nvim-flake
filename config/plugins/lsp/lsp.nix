@@ -13,7 +13,7 @@
     luasnip = {
       enable = true;
       fromVscode = [ { paths = "${pkgs.vimPlugins.friendly-snippets}"; } ];
-      extraConfig = {
+      settings = {
         history = true;
         delete_check_events = "TextChanged";
       };
