@@ -39,5 +39,6 @@
     ./ui/nvim-notify.nix
     ./ui/todo.nix
     ./ui/noice.nix
+    ./ui/web-devicons.nix
   ];
 }
