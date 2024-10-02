@@ -125,7 +125,7 @@
           filetypes = [ "css" ];
         };
 
-        tsserver = {
+        ts-ls = {
           enable = true;
           filetypes = [
             "ts"
