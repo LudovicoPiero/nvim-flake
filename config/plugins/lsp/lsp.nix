@@ -92,7 +92,7 @@
           initOptions.compilationDatabaseDirectory = "out/release";
         };
 
-        csharp-ls = {
+        csharp_ls = {
           enable = true;
           filetypes = [ "cs" ];
         };
@@ -125,7 +125,7 @@
           filetypes = [ "css" ];
         };
 
-        ts-ls = {
+        ts_ls = {
           enable = true;
           filetypes = [
             "ts"
@@ -137,7 +137,7 @@
           ];
         };
 
-        lua-ls = {
+        lua_ls = {
           enable = true;
           filetypes = [ "lua" ];
           extraOptions = {
@@ -201,7 +201,7 @@
           };
         };
 
-        rust-analyzer = {
+        rust_analyzer = {
           enable = true;
           filetypes = [ "rs" ];
           installCargo = true;
