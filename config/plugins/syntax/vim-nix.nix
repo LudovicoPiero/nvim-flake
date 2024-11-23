@@ -1,1 +1,1 @@
-{ plugins.nix.enable = true; }
+{plugins.nix.enable = true;}

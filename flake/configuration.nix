@@ -1,5 +1,8 @@
-{ inputs, ... }:
 {
+  inputs,
+  pkgs,
+  ...
+}: {
   # Only used for nixd lsp
   flake = {
     nixosConfigurations = {
@@ -27,6 +30,7 @@
             home.stateVersion = "24.11";
             home.username = "airi";
             home.homeDirectory = "/home/airi";
+            home.packages = [pkgs.hello];
           }
         ];
       };

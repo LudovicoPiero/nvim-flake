@@ -48,13 +48,13 @@
         };
 
         sources = [
-          { name = "nvim_lsp"; }
-          { name = "nvim_lua"; }
-          { name = "luasnip"; }
-          { name = "buffer"; }
-          { name = "path"; }
-          { name = "emoji"; }
-          { name = "cmdli"; }
+          {name = "nvim_lsp";}
+          {name = "nvim_lua";}
+          {name = "luasnip";}
+          {name = "buffer";}
+          {name = "path";}
+          {name = "emoji";}
+          {name = "cmdli";}
         ];
 
         experimental = {

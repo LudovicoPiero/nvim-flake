@@ -1,4 +1,3 @@
-{ pkgs, ... }:
-{
-  extraPlugins = [ pkgs.vimPlugins.vim-wakatime ];
+{pkgs, ...}: {
+  extraPlugins = [pkgs.vimPlugins.vim-wakatime];
 }

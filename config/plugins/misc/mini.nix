@@ -2,8 +2,8 @@
   plugins.mini = {
     enable = true;
     modules = {
-      pairs = { };
-      bufremove = { };
+      pairs = {};
+      bufremove = {};
       comment = {
         custom_commentstring = ''
           function()
