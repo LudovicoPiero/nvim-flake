@@ -169,7 +169,7 @@
                 "sema-escaping-with"
                 "var-bind-to=this"
               ];
-              formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
+              formatting.command = [ "${pkgs.alejandra}/bin/alejandra" ];
               "nixpkgs" = {
                 "expr" = "import ${getFlake}.inputs.nixpkgs { }   ";
               };
