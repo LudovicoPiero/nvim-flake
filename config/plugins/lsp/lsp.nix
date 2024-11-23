@@ -1,7 +1,18 @@
-{ pkgs, self, ... }:
 {
+  pkgs,
+  self,
+  ...
+}: {
   plugins = {
-    lsp-lines.enable = true;
+    lsp-lines = {
+      enable = true;
+      luaConfig.post = ''
+        vim.diagnostic.config({
+          virtual_lines = { only_current_line = true },
+          virtual_text = false,
+        })
+      '';
+    };
 
     lspsaga = {
       enable = true;
@@ -12,7 +23,7 @@
 
     luasnip = {
       enable = true;
-      fromVscode = [ { paths = "${pkgs.vimPlugins.friendly-snippets}"; } ];
+      fromVscode = [{paths = "${pkgs.vimPlugins.friendly-snippets}";}];
       settings = {
         history = true;
         delete_check_events = "TextChanged";
@@ -71,7 +82,6 @@
           vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
         end
         vim.diagnostic.config({
-          virtual_text = false,
           signs = true,
           underline = true,
           update_in_insert = true,
@@ -94,12 +104,12 @@
 
         csharp_ls = {
           enable = true;
-          filetypes = [ "cs" ];
+          filetypes = ["cs"];
         };
 
         dockerls = {
           enable = true;
-          filetypes = [ "dockerfile" ];
+          filetypes = ["dockerfile"];
         };
 
         bashls = {
@@ -112,17 +122,17 @@
 
         pyright = {
           enable = true;
-          filetypes = [ "py" ];
+          filetypes = ["py"];
         };
 
         html = {
           enable = true;
-          filetypes = [ "html" ];
+          filetypes = ["html"];
         };
 
         cssls = {
           enable = true;
-          filetypes = [ "css" ];
+          filetypes = ["css"];
         };
 
         ts_ls = {
@@ -139,7 +149,7 @@
 
         lua_ls = {
           enable = true;
-          filetypes = [ "lua" ];
+          filetypes = ["lua"];
           extraOptions = {
             settings = {
               Lua = {
@@ -159,33 +169,30 @@
 
         nixd = {
           enable = true;
-          filetypes = [ "nix" ];
-          settings =
-            let
-              getFlake = ''(builtins.getFlake "${self}")'';
-            in
-            {
-              diagnostic.suppress = [
-                "sema-escaping-with"
-                "var-bind-to=this"
-              ];
-              formatting.command = [ "${pkgs.alejandra}/bin/alejandra" ];
-              "nixpkgs" = {
-                "expr" = "import ${getFlake}.inputs.nixpkgs { }   ";
-              };
-              options = {
-                nixos.expr = ''${getFlake}.nixosConfigurations.sforza.options'';
-                nixvim.expr = ''${getFlake}.packages.${pkgs.system}.nvim.options'';
-                home-manager.expr = ''${getFlake}.homeConfigurations."airi@sforza".options'';
-                flake-parts.expr = ''${getFlake}.debug.init_options'';
-                flake-parts2.expr = ''${getFlake}.currentSystem.options'';
-              };
+          filetypes = ["nix"];
+          settings = let
+            getFlake = ''(builtins.getFlake "${self}")'';
+          in {
+            diagnostic.suppress = [
+              "sema-escaping-with"
+              "var-bind-to=this"
+            ];
+            formatting.command = ["${pkgs.alejandra}/bin/alejandra"];
+            "nixpkgs" = {
+              "expr" = "import ${getFlake}.inputs.nixpkgs { }   ";
             };
+            options = {
+              nixos.expr = ''${getFlake}.nixosConfigurations.sforza.options'';
+              nixvim.expr = ''${getFlake}.packages.${pkgs.system}.nvim.options'';
+              home-manager.expr = ''${getFlake}.homeConfigurations."airi@sforza".options'';
+              flake-parts.expr = ''let flake = ${getFlake}; in flake.debug.options // flake.currentSystem.options'';
+            };
+          };
         };
 
         gopls = {
           enable = true;
-          filetypes = [ "go" ];
+          filetypes = ["go"];
           extraOptions = {
             settings = {
               experimentalPostfixCompletions = true;
@@ -203,7 +210,7 @@
 
         rust_analyzer = {
           enable = true;
-          filetypes = [ "rs" ];
+          filetypes = ["rs"];
           installCargo = true;
           installRustc = true;
 
@@ -238,72 +245,69 @@
           };
         };
       };
-
     };
   };
 
-  keymaps =
-    let
-      options = desc: {
-        silent = true;
-        noremap = true;
-        desc = desc;
-      };
-    in
-    [
-      {
-        action = "<CMD>Lspsaga code_action<CR>";
-        key = "<leader>la";
-        mode = "n";
-        options = options "Code action";
-      }
-      {
-        action = "<CMD>Lspsaga goto_definition<CR>";
-        key = "<leader>ld";
-        mode = "n";
-        options = options "Go to definition";
-      }
-      {
-        action = "<CMD>Lspsaga goto_type_definition<CR>";
-        key = "<leader>lt";
-        mode = "n";
-        options = options "Go to type definition";
-      }
-      {
-        action = "<CMD>Lspsaga diagnostic_jump_next<CR>";
-        key = "<leader>ll";
-        mode = "n";
-        options = options "Next diagnostic";
-      }
-      {
-        action = "<CMD>Lspsaga diagnostic_jump_prev<CR>";
-        key = "<leader>lh";
-        mode = "n";
-        options = options "Previous diagnostic";
-      }
-      {
-        action = "<CMD>Lspsaga finder<CR>";
-        key = "<leader>lr";
-        mode = "n";
-        options = options "Show references and implementations";
-      }
-      {
-        action = "<CMD>Lspsaga hover_doc<CR>";
-        key = "<leader>lk";
-        mode = "n";
-        options = options "Hover documentation";
-      }
-      {
-        action = "<CMD>Lspsaga outline<CR>";
-        key = "<leader>lo";
-        mode = "n";
-        options = options "Outline";
-      }
-      {
-        action = "<CMD>Lspsaga rename<CR>";
-        key = "<leader>lc";
-        mode = "n";
-        options = options "Rename";
-      }
-    ];
+  keymaps = let
+    options = desc: {
+      silent = true;
+      noremap = true;
+      desc = desc;
+    };
+  in [
+    {
+      action = "<CMD>Lspsaga code_action<CR>";
+      key = "<leader>la";
+      mode = "n";
+      options = options "Code action";
+    }
+    {
+      action = "<CMD>Lspsaga goto_definition<CR>";
+      key = "<leader>ld";
+      mode = "n";
+      options = options "Go to definition";
+    }
+    {
+      action = "<CMD>Lspsaga goto_type_definition<CR>";
+      key = "<leader>lt";
+      mode = "n";
+      options = options "Go to type definition";
+    }
+    {
+      action = "<CMD>Lspsaga diagnostic_jump_next<CR>";
+      key = "<leader>ll";
+      mode = "n";
+      options = options "Next diagnostic";
+    }
+    {
+      action = "<CMD>Lspsaga diagnostic_jump_prev<CR>";
+      key = "<leader>lh";
+      mode = "n";
+      options = options "Previous diagnostic";
+    }
+    {
+      action = "<CMD>Lspsaga finder<CR>";
+      key = "<leader>lr";
+      mode = "n";
+      options = options "Show references and implementations";
+    }
+    {
+      action = "<CMD>Lspsaga hover_doc<CR>";
+      key = "<leader>lk";
+      mode = "n";
+      options = options "Hover documentation";
+    }
+    {
+      action = "<CMD>Lspsaga outline<CR>";
+      key = "<leader>lo";
+      mode = "n";
+      options = options "Outline";
+    }
+    {
+      action = "<CMD>Lspsaga rename<CR>";
+      key = "<leader>lc";
+      mode = "n";
+      options = options "Rename";
+    }
+  ];
 }
