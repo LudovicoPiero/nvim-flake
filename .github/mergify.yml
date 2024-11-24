@@ -10,7 +10,7 @@ pull_request_rules:
 
   - name: Automatic merge when CI passes
     conditions:
-      - check-success=package nvim [x86_64-linux]
+      - check-success=All Garnix checks
     actions:
       merge:
         method: rebase
@@ -29,7 +29,7 @@ pull_request_rules:
 
   - name: Toggle labels based on CI state
     conditions:
-      - check-failure=Run Flake Checker
+      - check-failure=All Garnix checks
     actions:
       label:
         toggle:
