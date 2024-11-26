@@ -31,6 +31,16 @@
         pattern = ["gitcommit"];
         command = "setlocal nonumber norelativenumber spell";
       }
+      {
+        # Highlight when yanking (copying) text
+        event = ["TextYankPost"];
+        pattern = ["*"];
+        command = ''
+          lua << EOF
+          vim.highlight.on_yank()
+          EOF
+        '';
+      }
     ];
   };
 }

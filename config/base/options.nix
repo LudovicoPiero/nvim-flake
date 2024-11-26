@@ -9,7 +9,8 @@
       shiftwidth = 2;
       shiftround = true;
       expandtab = true;
-      scrolloff = 5;
+      scrolloff = 10;
+      showmode = false;
       hlsearch = false;
       number = true;
       mouse = "a";
@@ -24,6 +25,11 @@
       splitbelow = true;
       list = true;
       inccommand = "split";
+      listchars = {
+        tab = "» ";
+        trail = "·";
+        nbsp = "␣";
+      };
       completeopt = "menuone,noselect";
       termguicolors = true;
     };
