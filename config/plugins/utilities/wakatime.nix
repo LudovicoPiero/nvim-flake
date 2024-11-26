@@ -1,0 +1,1 @@
+{plugins.wakatime.enable = true;}
