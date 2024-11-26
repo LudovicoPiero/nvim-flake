@@ -20,6 +20,8 @@
 
       statusline = {};
 
+      starter = {};
+
       surround = {
         mappings = {
           add = "gsa"; # -- Add surrounding in Normal and Visual modes
