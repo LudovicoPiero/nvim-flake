@@ -1,5 +1,6 @@
 {
   imports = [
+    ./copilot.nix
     ./sleuth.nix
     ./gitsigns.nix
     ./mini.nix
