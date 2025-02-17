@@ -10,9 +10,9 @@
         csharpier.enable = true;
 
         # Nix
-        alejandra = {
+        nixfmt = {
           enable = true;
-          package = pkgs.alejandra;
+          package = pkgs.nixfmt-rfc-style;
         };
 
         # Lua

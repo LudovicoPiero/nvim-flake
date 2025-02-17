@@ -16,7 +16,7 @@
     };
     nvim = nixvim'.makeNixvimWithModule nixvimModule;
   in {
-    formatter = pkgs.alejandra;
+    formatter = pkgs.nixfmt-rfc-style;
     checks = {
       # Run `nix flake check .` to verify that your config is not broken
       default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
