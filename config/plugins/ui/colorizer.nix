@@ -2,8 +2,8 @@
   plugins.colorizer = {
     enable = true;
     settings = {
-      filetypes = {};
-      buftypes = {};
+      filetypes = { };
+      buftypes = { };
       user_commands = true;
       user_default_options = {
         RGB = true;
@@ -19,7 +19,7 @@
         tailwind = true;
         sass = {
           enable = true;
-          parsers = ["css"];
+          parsers = [ "css" ];
         };
         virtualtext = "■";
         virtualtext_inline = false;

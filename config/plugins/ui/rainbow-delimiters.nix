@@ -1,1 +1,1 @@
-{plugins.rainbow-delimiters.enable = true;}
+{ plugins.rainbow-delimiters.enable = true; }

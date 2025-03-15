@@ -2,7 +2,8 @@
   pkgs,
   self,
   ...
-}: {
+}:
+{
   plugins.nix.enable = true;
   plugins.lsp.servers = {
     ccls = {
@@ -19,12 +20,12 @@
 
     csharp_ls = {
       enable = true;
-      filetypes = ["cs"];
+      filetypes = [ "cs" ];
     };
 
     dockerls = {
       enable = true;
-      filetypes = ["dockerfile"];
+      filetypes = [ "dockerfile" ];
     };
 
     bashls = {
@@ -37,17 +38,17 @@
 
     pyright = {
       enable = true;
-      filetypes = ["py"];
+      filetypes = [ "py" ];
     };
 
     html = {
       enable = true;
-      filetypes = ["html"];
+      filetypes = [ "html" ];
     };
 
     cssls = {
       enable = true;
-      filetypes = ["css"];
+      filetypes = [ "css" ];
     };
 
     ts_ls = {
@@ -64,7 +65,7 @@
 
     lua_ls = {
       enable = true;
-      filetypes = ["lua"];
+      filetypes = [ "lua" ];
       extraOptions = {
         settings = {
           Lua = {
@@ -84,30 +85,32 @@
 
     nixd = {
       enable = true;
-      filetypes = ["nix"];
-      settings = let
-        getFlake = ''(builtins.getFlake "${self}")'';
-      in {
-        diagnostic.suppress = [
-          "sema-escaping-with"
-          "var-bind-to=this"
-        ];
-        formatting.command = ["${pkgs.nixfmt-rfc-style}/bin/nixfmt"];
-        "nixpkgs" = {
-          "expr" = "import ${getFlake}.inputs.nixpkgs { }   ";
+      filetypes = [ "nix" ];
+      settings =
+        let
+          getFlake = ''(builtins.getFlake "${self}")'';
+        in
+        {
+          diagnostic.suppress = [
+            "sema-escaping-with"
+            "var-bind-to=this"
+          ];
+          formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
+          "nixpkgs" = {
+            "expr" = "import ${getFlake}.inputs.nixpkgs { }   ";
+          };
+          options = {
+            nixos.expr = ''${getFlake}.nixosConfigurations.sforza.options'';
+            nixvim.expr = ''${getFlake}.packages.${pkgs.system}.nvim.options'';
+            home-manager.expr = ''${getFlake}.homeConfigurations."airi@sforza".options'';
+            flake-parts.expr = ''let flake = ${getFlake}; in flake.debug.options // flake.currentSystem.options'';
+          };
         };
-        options = {
-          nixos.expr = ''${getFlake}.nixosConfigurations.sforza.options'';
-          nixvim.expr = ''${getFlake}.packages.${pkgs.system}.nvim.options'';
-          home-manager.expr = ''${getFlake}.homeConfigurations."airi@sforza".options'';
-          flake-parts.expr = ''let flake = ${getFlake}; in flake.debug.options // flake.currentSystem.options'';
-        };
-      };
     };
 
     gopls = {
       enable = true;
-      filetypes = ["go"];
+      filetypes = [ "go" ];
       extraOptions = {
         settings = {
           experimentalPostfixCompletions = true;
@@ -125,7 +128,7 @@
 
     rust_analyzer = {
       enable = true;
-      filetypes = ["rs"];
+      filetypes = [ "rs" ];
       installCargo = true;
       installRustc = true;
 

@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   plugins = {
     cmp-buffer.enable = true;
     cmp-nvim-lua.enable = true;
@@ -59,14 +60,14 @@
         };
 
         sources = [
-          {name = "copilot";}
-          {name = "nvim_lsp";}
-          {name = "nvim_lua";}
-          {name = "luasnip";}
-          {name = "buffer";}
-          {name = "path";}
-          {name = "emoji";}
-          {name = "cmdli";}
+          { name = "copilot"; }
+          { name = "nvim_lsp"; }
+          { name = "nvim_lua"; }
+          { name = "luasnip"; }
+          { name = "buffer"; }
+          { name = "path"; }
+          { name = "emoji"; }
+          { name = "cmdli"; }
         ];
 
         experimental = {
@@ -79,7 +80,7 @@
 
     luasnip = {
       enable = true;
-      fromVscode = [{paths = "${pkgs.vimPlugins.friendly-snippets}";}];
+      fromVscode = [ { paths = "${pkgs.vimPlugins.friendly-snippets}"; } ];
       settings = {
         history = true;
         delete_check_events = "TextChanged";

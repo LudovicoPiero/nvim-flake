@@ -13,10 +13,11 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
-  outputs = {flake-parts, ...} @ inputs:
-    flake-parts.lib.mkFlake {inherit inputs;} {
+  outputs =
+    { flake-parts, ... }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } {
       debug = true;
-      systems = ["x86_64-linux"];
-      imports = [./flake];
+      systems = [ "x86_64-linux" ];
+      imports = [ ./flake ];
     };
 }

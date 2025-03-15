@@ -6,7 +6,10 @@
         {
           __unkeyed-1 = "<leader>c";
           group = "[C]ode";
-          mode = ["n" "x"];
+          mode = [
+            "n"
+            "x"
+          ];
         }
         {
           __unkeyed-2 = "<leader>d";
@@ -31,17 +34,26 @@
         {
           __unkeyed-7 = "<leader>h";
           group = "Git [H]unk";
-          mode = ["n" "v"];
+          mode = [
+            "n"
+            "v"
+          ];
         }
         {
           __unkeyed-8 = "<leader>b";
           group = "[B]uffer";
-          mode = ["n" "v"];
+          mode = [
+            "n"
+            "v"
+          ];
         }
         {
           __unkeyed-8 = "<leader>f";
           group = "[F]ormat";
-          mode = ["n" "v"];
+          mode = [
+            "n"
+            "v"
+          ];
         }
       ];
     };

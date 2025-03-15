@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   plugins.none-ls = {
     enable = true;
     sources = {

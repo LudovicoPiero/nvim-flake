@@ -41,7 +41,7 @@
         NOTE = {
           icon = "󰠮 ";
           color = "hint";
-          alt = ["INFO"];
+          alt = [ "INFO" ];
         };
         TEST = {
           icon = "󰄬 ";

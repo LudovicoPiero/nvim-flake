@@ -3,8 +3,8 @@
     performance = {
       combinePlugins = {
         enable = true;
-        standalonePlugins = ["nvim-treesitter"];
-        pathsToLink = ["/copilot"];
+        standalonePlugins = [ "nvim-treesitter" ];
+        pathsToLink = [ "/copilot" ];
       };
       byteCompileLua.enable = true;
     };

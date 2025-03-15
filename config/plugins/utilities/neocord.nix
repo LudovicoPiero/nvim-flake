@@ -1,9 +1,10 @@
-{helpers, ...}: {
+{ helpers, ... }:
+{
   plugins.neocord = {
     enable = helpers.enableExceptInTests;
     settings = {
       auto_update = true;
-      blacklist = [];
+      blacklist = [ ];
       client_id = "1157438221865717891";
       debounce_timeout = 10;
       enable_line_number = false;

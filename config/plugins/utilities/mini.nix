@@ -6,7 +6,7 @@
         n_lines = 500;
       };
 
-      bufremove = {};
+      bufremove = { };
 
       comment = {
         custom_commentstring = ''
@@ -16,11 +16,11 @@
         '';
       };
 
-      pairs = {};
+      pairs = { };
 
-      statusline = {};
+      statusline = { };
 
-      starter = {};
+      starter = { };
 
       surround = {
         mappings = {
