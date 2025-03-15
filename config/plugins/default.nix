@@ -1,7 +1,0 @@
-{
-  imports = [
-    ./lsp
-    ./ui
-    ./utilities
-  ];
-}
