@@ -69,7 +69,7 @@ in
 
         vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, vim.tbl_extend("force", { desc = "Hover documentation" }, opts or {}))
         vim.keymap.set("n", "<leader>s", function() vim.lsp.buf.signature_help() end, vim.tbl_extend("force", { desc = "Show signature help" }, opts or {}))
-        vim.keymap.set("n", "<leader>ca", function() require('telescope.builtin').lsp_code_actions() end, vim.tbl_extend("force", { desc = "Code actions" }, opts or {}))
+        vim.keymap.set("n", "<leader>ca", function() require('telescope.builtin').lsp_code_actions() end, vim.tbl_extend("force", { desc = "[C]ode [A]ctions" }, opts or {}))
         vim.keymap.set("n", "<leader>n", function() vim.lsp.buf.rename() end, vim.tbl_extend("force", { desc = "Rename symbol" }, opts or {}))
 
         vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, vim.tbl_extend("force", { desc = "Go to previous diagnostic" }, opts or {}))
