@@ -9,6 +9,8 @@
       require('mini.diff').setup()
       require('mini.git').setup()
 
+      require('mini.splitjoin').setup()
+
       require('mini.bufremove').setup()
       require('mini.starter').setup()
       require('mini.pairs').setup()
