@@ -3,6 +3,7 @@
   pkg = pkgs.vimPlugins.mini-nvim;
   config = ''
     function()
+      require('mini.extra').setup()
       require('mini.ai').setup { n_lines = 500 }
 
       require('mini.diff').setup()
@@ -41,6 +42,19 @@
       statusline.section_location = function()
         return '%2l:%-2v'
       end
+
+
+      -- mini-pick
+      require('mini.pick').setup()
+      vim.keymap.set('n', '<leader>sd', "<Cmd>Pick diagnostic<CR>", { desc = '[S]earch [D]iagnostics' })
+      vim.keymap.set('n', '<leader>sh', "<Cmd>Pick help<CR>", { desc = '[S]earch [H]elp' })
+      vim.keymap.set('n', '<leader>sk', "<Cmd>Pick keymaps<CR>", { desc = '[S]earch [K]eymaps' })
+      vim.keymap.set('n', '<leader>sf', "<Cmd>Pick files<CR>", { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>sg', "<Cmd>Pick grep_live<CR>", { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>sr', "<Cmd>Pick resume<CR>", { desc = '[S]earch [R]esume' })
+      vim.keymap.set('n', '<leader>so', "<Cmd>Pick oldfiles<CR>", { desc = '[S]earch [O]ld Files' })
+      vim.keymap.set('n', '<leader>st', "<Cmd>Pick grep pattern='(TODO|FIXME|HACK|NOTE):'<CR>", { desc = '[S]earch [T]odo' })
+      vim.keymap.set('n', '<leader><leader>', "<Cmd>Pick buffers<CR>", { desc = '[ ] Find existing buffers' })
     end
   '';
 }
