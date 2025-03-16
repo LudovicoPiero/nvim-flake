@@ -5,6 +5,9 @@
     function()
       require('mini.ai').setup { n_lines = 500 }
 
+      require('mini.diff').setup()
+      require('mini.git').setup()
+
       require('mini.bufremove').setup()
       require('mini.starter').setup()
       require('mini.pairs').setup()
