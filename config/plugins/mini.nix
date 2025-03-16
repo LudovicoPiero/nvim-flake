@@ -33,7 +33,9 @@
         },
       })
 
-      -- Simple and easy statusline.
+      -- UI
+      require('mini.tabline').setup()
+      require('mini.icons').setup()
       local statusline = require 'mini.statusline'
       statusline.setup { use_icons = false }
 
