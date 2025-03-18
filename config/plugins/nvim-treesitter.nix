@@ -35,6 +35,11 @@ let
 in
 {
   pkg = pkgs.vimPlugins.nvim-treesitter;
+  event = [
+    "BufReadPost"
+    "BufNewFile"
+    "BufWritePre"
+  ];
   config = ''
     function()
       -- Uncomment if you want to enable folding
@@ -51,5 +56,4 @@ in
       }
     end
   '';
-  event = "BufRead";
 }

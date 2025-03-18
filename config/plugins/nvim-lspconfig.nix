@@ -10,6 +10,11 @@ let
 in
 {
   pkg = pkgs.vimPlugins.nvim-lspconfig;
+  event = [
+    "BufReadPost"
+    "BufNewFile"
+    "BufWritePre"
+  ];
   dependencies = with pkgs.vimPlugins; [
     nvim-cmp
   ];

@@ -6,7 +6,11 @@
 }:
 {
   pkg = pkgs.vimPlugins.none-ls-nvim;
-  lazy = false;
+  event = [
+    "BufReadPost"
+    "BufNewFile"
+    "BufWritePre"
+  ];
   dependencies = with pkgs.vimPlugins; [ plenary-nvim ];
   config = ''
     function()

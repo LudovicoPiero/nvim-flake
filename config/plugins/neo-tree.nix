@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   pkg = pkgs.vimPlugins.neo-tree-nvim;
+  cmd = "NeoTree";
   dependencies = with pkgs.vimPlugins; [
     plenary-nvim
     nvim-web-devicons

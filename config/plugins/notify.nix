@@ -1,6 +1,11 @@
 { pkgs, ... }:
 {
   pkg = pkgs.vimPlugins.nvim-notify;
+  event = [
+    "BufReadPost"
+    "BufNewFile"
+    "BufWritePre"
+  ];
   config = ''
     function()
       require("notify").setup({
