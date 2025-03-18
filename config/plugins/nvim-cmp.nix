@@ -6,14 +6,18 @@
   event = "InsertEnter";
   dependencies = with pkgs.vimPlugins; [
     lspkind-nvim
-    friendly-snippets
     cmp-nvim-lsp
     cmp-buffer
-    luasnip
     cmp_luasnip
     cmp-nvim-lua
     cmp-path
     cmp-cmdline
+    cmp-rg
+    cmp-calc
+    {
+      pkg = pkgs.vimPlugins.luasnip;
+      dependencies = [ pkgs.vimPlugins.friendly-snippets ];
+    }
     {
       pkg = pkgs.vimPlugins.copilot-cmp;
       dependencies = [
@@ -41,19 +45,6 @@
         end
       '';
     }
-    {
-      pkg = pkgs.vimPlugins.cmp-spell;
-      config = ''
-        function()
-          vim.cmd('highlight clear SpellBad')
-          vim.cmd('highlight clear SpellCap')
-          vim.cmd('highlight clear SpellLocal')
-          vim.cmd('highlight clear SpellRare')
-        end
-      '';
-    }
-    cmp-rg
-    cmp-calc
   ];
   config = ''
     function()
@@ -66,7 +57,7 @@
         return
       end
 
-      require("luasnip/loaders/from_vscode").lazy_load()
+      require("luasnip.loaders.from_vscode").lazy_load()
 
       local kind_icons = {
         Text = "󰊄",
@@ -171,14 +162,22 @@
           },
       })
 
-      -- cmp.setup.cmdline(":", {
-      --   mapping = cmp.mapping.preset.cmdline(),
-      --   sources = cmp.config.sources({
-      --     { name = "path" },
-      --   }, {
-      --     { name = "cmdline" },
-      --   }),
-      -- })
+      cmp.setup.cmdline({ '/', '?' }, {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer' }
+        }
+      })
+
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          { name = 'cmdline' }
+        }),
+        matching = { disallow_symbol_nonprefix_matching = false }
+      })
     end
   '';
 }
