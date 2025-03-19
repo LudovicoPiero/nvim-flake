@@ -67,22 +67,22 @@ in
         -- keymap
         local opts = { noremap = true, silent = true, buffer = bufnr }
 
-        vim.keymap.set("n", "gd", "<Cmd>Pick lsp scope='definition'<CR>", { desc = "Go to definition" }, opts or {})
-        vim.keymap.set("n", "gD", "<Cmd>Pick lsp scope='declaration'<CR>", { desc = "Go to declaration" }, opts or {})
-        vim.keymap.set("n", "gi", "<Cmd>Pick lsp scope='implementation'<CR>", { desc = "Go to implementation" }, opts or {})
-        vim.keymap.set("n", "gr", "<Cmd>Pick lsp scope='references'<CR>", { desc = "Find references" }, opts or {})
-        vim.keymap.set("n", "<leader>D", "<Cmd>Pick lsp scope='type_definition'<CR>", { desc = "Go to type definition" }, opts or {})
+        vim.keymap.set("n", "gd", function() require('telescope.builtin').lsp_definitions() end, vim.tbl_extend("force", { desc = "Go to definition" }, opts or {}))
+        vim.keymap.set("n", "gi", function() require('telescope.builtin').lsp_implementations() end, vim.tbl_extend("force", { desc = "Go to implementation" }, opts or {}))
+        vim.keymap.set("n", "gr", function() require('telescope.builtin').lsp_references() end, vim.tbl_extend("force", { desc = "Find references" }, opts or {}))
+        vim.keymap.set("n", "<leader>D", function() require('telescope.builtin').lsp_type_definitions() end, vim.tbl_extend("force", { desc = "Go to type definition" }, opts or {}))
 
         vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, vim.tbl_extend("force", { desc = "Hover documentation" }, opts or {}))
         vim.keymap.set("n", "<leader>s", function() vim.lsp.buf.signature_help() end, vim.tbl_extend("force", { desc = "Show signature help" }, opts or {}))
-        vim.keymap.set("n", "<leader>ca", "<Cmd>lua vim.lsp.buf.code_action()<CR>", { desc = "[C]ode [A]ctions" }, opts or {})
+        vim.keymap.set("n", "<leader>ca", function() require('telescope.builtin').lsp_code_actions() end, vim.tbl_extend("force", { desc = "[C]ode [A]ctions" }, opts or {}))
         vim.keymap.set("n", "<leader>n", function() vim.lsp.buf.rename() end, vim.tbl_extend("force", { desc = "Rename symbol" }, opts or {}))
-        vim.keymap.set("n", "<leader>xx", "<Cmd>lua vim.diagnostic.setloclist()<CR>", { desc = "Open diagnostic quickfix list" }, opts or {})
 
         vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, vim.tbl_extend("force", { desc = "Go to previous diagnostic" }, opts or {}))
         vim.keymap.set("n", "]d", function() vim.diagnostic.goto_next() end, vim.tbl_extend("force", { desc = "Go to next diagnostic" }, opts or {}))
 
         vim.keymap.set("n", "<leader>L", function() print(vim.inspect(vim.lsp.get_clients({ bufnr = bufnr }))) end, vim.tbl_extend("force", { desc = "List LSP clients" }, opts or {}))
+
+        -- vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]] -- use none-ls
       end
 
       local nvim_lsp = require("lspconfig")
