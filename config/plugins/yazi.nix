@@ -1,7 +1,10 @@
 { pkgs, helpers, ... }:
 {
   pkg = pkgs.vimPlugins.yazi-nvim;
-  dependencies = [ pkgs.vimPlugins.snacks-nvim ];
+  dependencies = with pkgs.vimPlugins; [
+    grug-far-nvim # for find and replace
+    snacks-nvim
+  ];
   keys = helpers.mkRaw ''
     {
       {
