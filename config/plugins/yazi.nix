@@ -2,6 +2,7 @@
 {
   pkg = pkgs.vimPlugins.yazi-nvim;
   dependencies = with pkgs.vimPlugins; [
+    fzf-lua # for search grep
     grug-far-nvim # for find and replace
     snacks-nvim
   ];
