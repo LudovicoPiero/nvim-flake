@@ -16,7 +16,17 @@ let
   nixFiles = builtins.filter (name: builtins.match ".*\\.nix" name != null) pluginFiles;
 
   # Import each .nix file dynamically, assuming it returns a single attribute set
-  loadPlugins = map (file: import (pluginDir + "/${file}") { inherit pkgs helpers lib self; }) nixFiles;
+  loadPlugins = map (
+    file:
+    import (pluginDir + "/${file}") {
+      inherit
+        pkgs
+        helpers
+        lib
+        self
+        ;
+    }
+  ) nixFiles;
 in
 {
   imports = [ ./base ];
@@ -31,4 +41,8 @@ in
     enable = true;
     plugins = loadPlugins;
   };
+
+  extraPackages = with pkgs; [
+    yazi
+  ];
 }
