@@ -149,16 +149,18 @@
               end,
           },
           sources = {
-              { name = "copilot" },
-              { name = "luasnip" },
-              { name = "nvim_lsp" },
-              { name = "nvim_lua" },
-              { name = "buffer" },
-              { name = "path" },
-              { name = "emoji" },
-              { name = "cmdli" },
-              { name = "rg" },
-              { name = "calc" },
+              -- Copilot.lua
+              { name = "copilot", group_index = 2 },
+              -- Other Sources
+              { name = "nvim_lsp", group_index = 2 },
+              { name = "nvim_lua", group_index = 2 },
+              { name = "path", group_index = 2 },
+              { name = "luasnip", group_index = 2 },
+              { name = "buffer", group_index = 2 },
+              { name = "calc", group_index = 2 },
+              { name = "rg", group_index = 2 },
+              { name = "emoji", group_index = 2 },
+              { name = "cmdli", group_index = 2 },
           },
       })
 
