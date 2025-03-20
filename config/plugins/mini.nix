@@ -9,7 +9,6 @@
 
       require('mini.bufremove').setup()
       require('mini.starter').setup()
-      require('mini.comment').setup()
     end
   '';
 }
