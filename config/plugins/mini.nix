@@ -8,7 +8,6 @@
       require('mini.splitjoin').setup()
 
       require('mini.bufremove').setup()
-      require('mini.starter').setup()
     end
   '';
 }
