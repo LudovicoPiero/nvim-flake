@@ -1,11 +1,7 @@
 { pkgs, ... }:
 {
   pkg = pkgs.vimPlugins.indent-blankline-nvim;
-  event = [
-    "BufReadPost"
-    "BufNewFile"
-    "BufWritePre"
-  ];
+  lazy = false;
   config = ''
     function()
       local highlight = {

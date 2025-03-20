@@ -1,6 +1,7 @@
 { pkgs, helpers, ... }:
 {
   pkg = pkgs.vimPlugins.yazi-nvim;
+  lazy = false;
   dependencies = with pkgs.vimPlugins; [
     fzf-lua # for search grep
     grug-far-nvim # for find and replace
@@ -39,7 +40,7 @@
   init = ''
     function()
       -- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
-      -- vim.g.loaded_netrw = 1
+      vim.g.loaded_netrw = 1
       vim.g.loaded_netrwPlugin = 1
     end
   '';
