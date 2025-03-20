@@ -134,12 +134,12 @@
                   end
               end, { "i", "s" }),
               ["<Tab>"] = cmp.mapping(function(fallback)
-                  if cmp.visible() then
-                      cmp.select_next_item()
+                  if cmp.visible() and has_words_before() then
+                    cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
                   elseif require("luasnip").expand_or_jumpable() then
                       require("luasnip").expand_or_jump()
                   else
-                      fallback()
+                    fallback()
                   end
               end, { "i", "s" }),
           },
