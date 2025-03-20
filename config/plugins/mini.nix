@@ -5,9 +5,6 @@
     function()
       require('mini.ai').setup { n_lines = 500 }
 
-      require('mini.diff').setup()
-      require('mini.git').setup()
-
       require('mini.splitjoin').setup()
 
       require('mini.bufremove').setup()
