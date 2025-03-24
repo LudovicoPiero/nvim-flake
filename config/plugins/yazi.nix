@@ -5,7 +5,12 @@
   dependencies = with pkgs.vimPlugins; [
     fzf-lua # for search grep
     grug-far-nvim # for find and replace
-    snacks-nvim
+    {
+      pkg = snacks-nvim;
+      lazy = false;
+      priority = 1000;
+      opts = { };
+    }
   ];
   keys = helpers.mkRaw ''
     {
