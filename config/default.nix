@@ -12,8 +12,10 @@ let
   # Get all files in the directory (as an attribute set)
   pluginFiles = builtins.attrNames (builtins.readDir pluginDir);
 
-  # Filter to include only .nix files
-  nixFiles = builtins.filter (name: builtins.match ".*\\.nix" name != null) pluginFiles;
+  # Filter to include only .nix files and exclude files starting with '_'
+  nixFiles = builtins.filter (
+    name: (builtins.match ".*\\.nix" name != null) && !(builtins.match "^_.*" name != null)
+  ) pluginFiles;
 
   # Import each .nix file dynamically, assuming it returns a single attribute set
   loadPlugins = map (
