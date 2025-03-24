@@ -16,12 +16,14 @@ in
     "BufWritePre"
   ];
   dependencies = with pkgs.vimPlugins; [
-    nvim-cmp
+    # nvim-cmp
+    blink-cmp
   ];
   config = ''
     function()
       -- Add additional capabilities supported by nvim-cmp
-      local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+      -- local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local cmp_capabilities = require('blink.cmp').get_lsp_capabilities()
       -- nvim hasn't added foldingRange to default capabilities, users must add it manually
       local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
 
