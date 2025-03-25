@@ -1,11 +1,12 @@
 {
   pkgs,
+  helpers,
   ...
 }:
 {
   pkg = pkgs.vimPlugins.blink-cmp;
   dependencies = with pkgs.vimPlugins; [
-    blink-copilot
+    blink-cmp-copilot
     friendly-snippets
     luasnip
     cmp-calc
@@ -17,16 +18,26 @@
     {
       pkg = pkgs.vimPlugins.copilot-lua;
       cmd = "Copilot";
-      event = "InsertEnter";
-      config = ''
-        function()
-          require("copilot").setup({
-            suggestion = { enabled = false, },
-            panel = { enabled = false },
+      event = "BufReadPost";
+      opts = helpers.mkRaw ''
+        {
+          suggestion = {
+            enabled = false,
+            auto_trigger = true,
+            hide_during_completion = true,
             copilot_node_command = "${pkgs.nodejs-18_x}/bin/node",
-            filetypes = { ["*"] = true, },
-          })
-        end
+            keymap = {
+              accept = false, -- handled by nvim-cmp / blink.cmp
+              next = "<M-]>",
+              prev = "<M-[>",
+            },
+          },
+          panel = { enabled = false },
+          filetypes = {
+            markdown = true,
+            help = true,
+          },
+        }
       '';
     }
   ];
@@ -53,27 +64,29 @@
       end
 
       require("blink.cmp").setup({
-        cmdline = { enabled = false },
+        cmdline = { enabled = true },
 
         keymap = {
-          preset = "none",
+          preset = "super-tab",
+          ['<C-y>'] = { 'select_and_accept' },
 
-          ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-          ["<C-e>"] = { "hide", "fallback" },
-          ["<CR>"] = { "accept", "fallback" },
+          -- preset = "none",
+          -- ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+          -- ["<C-e>"] = { "hide", "fallback" },
+          -- ["<CR>"] = { "accept", "fallback" },
 
-          ["<Up>"] = { "select_prev", "fallback" },
-          ["<Down>"] = { "select_next", "fallback" },
-          ["<Tab>"] = { "select_next", "fallback" },
-          ["<S-Tab>"] = { "select_prev", "fallback" },
+          -- ["<Up>"] = { "select_prev", "fallback" },
+          -- ["<Down>"] = { "select_next", "fallback" },
+          -- ["<Tab>"] = { "select_next", "fallback" },
+          -- ["<S-Tab>"] = { "select_prev", "fallback" },
 
-          ["<C-b>"] = { "scroll_documentation_up", "fallback" },
-          ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+          -- ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+          -- ["<C-f>"] = { "scroll_documentation_down", "fallback" },
 
-          ["<C-p>"] = { "snippet_forward", "fallback_to_mappings" },
-          ["<C-n>"] = { "snippet_backward", "fallback_to_mappings" },
+          -- ["<C-p>"] = { "snippet_forward", "fallback_to_mappings" },
+          -- ["<C-n>"] = { "snippet_backward", "fallback_to_mappings" },
 
-          ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
+          -- ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
         },
 
         completion = {
@@ -83,7 +96,9 @@
           menu = {
             auto_show = true,
 
+            border = "rounded";
             draw = {
+              treesitter = { "lsp" },
               columns = {
                 { "label", "label_description", gap = 1 },
                 { "kind_icon", "kind" },
@@ -91,13 +106,13 @@
             },
           },
 
-          documentation = { auto_show = true, auto_show_delay_ms = 500 },
+          documentation = { auto_show = true, auto_show_delay_ms = 300 },
 
           ghost_text = { enabled = true },
         },
 
         sources = {
-          default = { "copilot", "lsp", "path", "snippets", "buffer", "calc" },
+          default = { "lsp", "path", "snippets", "buffer", "calc", "copilot" },
           providers = {
             lsp = { score_offset = 5 },
             snippets = {
@@ -121,7 +136,7 @@
             copilot = {
               enabled = true,
               name = "copilot",
-              module = "blink-copilot",
+              module = "blink-cmp-copilot",
               score_offset = 100,
               async = true,
             },
@@ -129,6 +144,7 @@
               enabled = true,
               name = "calc",
               module = "blink.compat.source",
+              score_offset = 100,
               async = true,
             },
           },
