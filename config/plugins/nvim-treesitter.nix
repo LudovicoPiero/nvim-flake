@@ -1,32 +1,6 @@
 { pkgs, ... }:
 let
-  nvim-plugintree = pkgs.vimPlugins.nvim-treesitter.withPlugins (
-    p: with p; [
-      bash
-      c
-      cmake
-      cpp
-      diff
-      html
-      go
-      haskell
-      javascript
-      json
-      lua
-      luadoc
-      markdown
-      markdown_inline
-      meson
-      nix
-      python
-      query
-      rust
-      toml
-      vim
-      vimdoc
-      yaml
-    ]
-  );
+  nvim-plugintree = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
 
   treesitter-parsers = pkgs.symlinkJoin {
     name = "treesitter-parsers";
@@ -54,6 +28,21 @@ in
         highlight = { enable = true },
         indent = { enable = true },
       }
+
+      vim.filetype.add({
+        extension = { rasi = "rasi", rofi = "rasi", wofi = "rasi" },
+        filename = {
+          ["vifmrc"] = "vim",
+        },
+        pattern = {
+          [".*/waybar/config"] = "jsonc",
+          [".*/mako/config"] = "dosini",
+          [".*/kitty/.+%.conf"] = "kitty",
+          [".*/hypr/.+%.conf"] = "hyprlang",
+          ["%.env%.[%w_.-]+"] = "sh",
+        },
+      })
+      vim.treesitter.language.register("bash", "kitty")
     end
   '';
 }
