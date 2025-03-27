@@ -1,29 +1,35 @@
 {
   opts = {
+    breakindent = true;
+    colorcolumn = "80,100";
+    completeopt = "menuone,noselect";
+    cursorline = true;
+    expandtab = true;
+    hlsearch = false;
+    ignorecase = true;
+    inccommand = "split";
+    list = true;
+    listchars = {
+      tab = "» ";
+      trail = "·";
+      nbsp = "␣";
+    };
+    mouse = "a";
     number = true;
     relativenumber = true;
-    mouse = "a";
-    showmode = false;
-    clipboard = "unnamedplus";
-    breakindent = true;
-    undofile = true;
-    ignorecase = true;
-    smartcase = true;
-    signcolumn = "yes";
-    updatetime = 250;
-    timeoutlen = 300;
-    splitright = true;
-    splitbelow = true;
-    list = true;
-    #FIXME
-    # listchars = {
-    #   tab = "»";
-    #   trail = "·";
-    #   nbsp = "␣";
-    # };
-    inccommand = "split";
-    cursorline = true;
     scrolloff = 10;
-    confirm = true;
+    shiftwidth = 2;
+    shiftround = true;
+    showmode = false;
+    signcolumn = "yes";
+    smartcase = true;
+    smartindent = true;
+    splitbelow = true;
+    splitright = true;
+    tabstop = 4;
+    termguicolors = true;
+    timeoutlen = 300;
+    undofile = true;
+    updatetime = 250;
   };
 }
