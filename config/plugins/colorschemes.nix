@@ -41,6 +41,7 @@
           custom_highlights = {},
           default_integrations = true,
           integrations = {
+              blink_cmp = true,
               cmp = true,
               gitsigns = true,
               nvimtree = true,
