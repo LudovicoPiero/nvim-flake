@@ -5,6 +5,7 @@
 }:
 {
   pkg = pkgs.vimPlugins.blink-cmp;
+  event = "InsertEnter";
   dependencies = with pkgs.vimPlugins; [
     blink-cmp-copilot
     friendly-snippets
