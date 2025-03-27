@@ -18,7 +18,7 @@
     {
       pkg = pkgs.vimPlugins.copilot-lua;
       cmd = "Copilot";
-      event = "BufReadPost";
+      event = "InsertEnter";
       opts = helpers.mkRaw ''
         {
           suggestion = {
