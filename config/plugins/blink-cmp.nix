@@ -65,7 +65,7 @@
       end
 
       require("blink.cmp").setup({
-        cmdline = { enabled = true },
+        cmdline = { enabled = false },
 
         keymap = {
           preset = "super-tab",
