@@ -16,7 +16,12 @@
         end
       '';
     }
-
+    {
+      # Automatically remove trailing whitespace before saving the file
+      event = [ "BufWritePre" ];
+      pattern = [ "*" ];
+      command = "%s/\\s\\+$//e";
+    }
     {
       desc = "Make q close help, man, quickfix, dap floats";
       event = "BufWinEnter";
