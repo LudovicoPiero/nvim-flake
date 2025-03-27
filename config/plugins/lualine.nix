@@ -81,8 +81,15 @@
       end
 
       -- Inserts a component in lualine_x at right section
-      local function ins_right(component)
-        table.insert(config.sections.lualine_x, component)
+      -- local function ins_right(component)
+      --   table.insert(config.sections.lualine_x, component)
+      -- end
+      local function ins_right(component, pos)
+        if pos then
+          table.insert(config.sections.lualine_x, pos, component)
+        else
+          table.insert(config.sections.lualine_x, component)
+        end
       end
 
       ins_left {
@@ -224,6 +231,32 @@
         color = { fg = colors.blue },
         padding = { left = 1 },
       }
+
+      ins_right({
+        function()
+          local clients = (package.loaded["copilot"] and vim.lsp.get_clients({ name = "copilot", bufnr = 0 })) or {}
+          if #clients > 0 then
+            local status = require("copilot.api").status.data.status
+            local status_str = (status == "InProgress" and "pending") or (status == "Warning" and "error") or "ok"
+            return " " .. status_str
+          end
+          return ""
+        end,
+        color = function()
+          local clients = (package.loaded["copilot"] and vim.lsp.get_clients({ name = "copilot", bufnr = 0 })) or {}
+          if #clients > 0 then
+            local status = require("copilot.api").status.data.status
+            if status == "InProgress" then
+              return { fg = colors.yellow, gui = "bold" }
+            elseif status == "Warning" then
+              return { fg = colors.red, gui = "bold" }
+            else
+              return { fg = colors.blue, gui = "bold" }
+            end
+          end
+          return { fg = colors.fg }
+        end,
+      }, 2)
 
       -- Now don't forget to initialize lualine
       lualine.setup(config)
