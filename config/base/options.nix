@@ -5,6 +5,7 @@
     completeopt = "menuone,noselect";
     cursorline = true;
     expandtab = true;
+    exrc = true;
     hlsearch = false;
     ignorecase = true;
     inccommand = "split";
