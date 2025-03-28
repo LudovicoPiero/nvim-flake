@@ -35,6 +35,7 @@
           },
           panel = { enabled = false },
           filetypes = {
+            gitcommit = true,
             markdown = true,
             help = true,
           },
