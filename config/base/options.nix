@@ -6,6 +6,7 @@
     cursorline = true;
     expandtab = true;
     exrc = true;
+    guicursor = "n-v-i-c:block-Cursor";
     hlsearch = false;
     ignorecase = true;
     inccommand = "split";
