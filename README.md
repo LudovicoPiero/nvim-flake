@@ -5,12 +5,12 @@ clarative and reproducible Neovim environment using Nix. Enjoy a consistent and 
 
 ## 📋 Table of Contents
 
-1. [screenshots](#-screenshots)
+1. [Screenshots](#-screenshots)
 2. [Introduction](#-introduction)
 3. [Usage](#-usage)
 4. [Inspiration](#-inspiration)
 
-## 📷 screenshots
+## 📷 Screenshots
 
 <div style="display: flex; gap: 10px; justify-content: center;">
   <img src="assets/screenshot1.png" alt="Screenshot 1" style="width: 48%; border: 1px solid #ddd; border-radius: 4px; padding: 5px;">
