@@ -42,6 +42,19 @@
         }
       '';
     }
+    {
+      pkg = pkgs.vimPlugins.lazydev-nvim;
+      ft = "lua";
+      opts = helpers.mkRaw ''
+        {
+          library = {
+            -- See the configuration section for more details
+            -- Load luvit types when the `vim.uv` word is found
+            { path = "''${3rd}/luv/library", words = { "vim%.uv" } },
+          },
+        }
+      '';
+    }
   ];
 
   config = ''
@@ -114,7 +127,7 @@
         },
 
         sources = {
-          default = { "lsp", "path", "snippets", "buffer", "calc", "copilot" },
+          default = { "lsp", "lazydev", "path", "snippets", "buffer", "calc", "copilot" },
           providers = {
             lsp = { score_offset = 5 },
             snippets = {
@@ -148,6 +161,11 @@
               module = "blink.compat.source",
               score_offset = 100,
               async = true,
+            },
+            lazydev = {
+              name = "LazyDev",
+              module = "lazydev.integrations.blink",
+              score_offset = 100,
             },
           },
         },
