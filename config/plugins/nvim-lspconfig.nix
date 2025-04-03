@@ -179,7 +179,9 @@ in
 
       --lua
       nvim_lsp.lua_ls.setup({
-        cmd = { "${pkgs.lua-language-server}/bin/lua-language-server" },
+        cmd = { "${
+          self.inputs.emmylua.packages.${pkgs.stdenv.hostPlatform.system}.emmylua_ls
+        }/bin/emmylua_ls" },
         on_attach = on_attach_common,
         capabilities = cmp_capabilities,
         settings = {
@@ -195,12 +197,12 @@ in
             workspace = {
               -- Make the server aware of Neovim runtime files
               library = vim.api.nvim_get_runtime_file("", true),
-              checkThirdParty = false,
+              -- checkThirdParty = false,
             },
             -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-              enable = false,
-            },
+            -- telemetry = {
+            --   enable = false,
+            -- },
           },
         },
       })
