@@ -233,6 +233,12 @@ in
         },
       })
 
+      nvim_lsp.taplo.setup({
+        cmd = { "${pkgs.taplo}/bin/taplo", "lsp", "stdio" },
+        on_attach = on_attach_common,
+        capabilities = cmp_capabilities,
+      })
+
       nvim_lsp.html.setup({
         cmd = { "${pkgs.vscode-langservers-extracted}/bin/vscode-html-language-server", "--stdio" },
         on_attach = on_attach_common,
