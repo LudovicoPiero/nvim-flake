@@ -2,7 +2,7 @@
   pkgs,
   helpers,
   lib,
-  self,
+  inputs,
   ...
 }:
 let
@@ -25,13 +25,15 @@ let
         pkgs
         helpers
         lib
-        self
         ;
+      inherit (inputs) self;
     }
   ) nixFiles;
 in
 {
   imports = [ ./base ];
+
+  package = inputs.neovim-overlay.packages.${pkgs.system}.default;
 
   withNodeJs = true;
   wrapRc = true;
