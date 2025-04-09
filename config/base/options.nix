@@ -1,4 +1,8 @@
 {
+  diagnostics = {
+    virtual_lines.only_current_line = true;
+  };
+
   opts = {
     breakindent = true;
     colorcolumn = "80,100";
