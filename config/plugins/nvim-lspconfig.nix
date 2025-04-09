@@ -113,17 +113,11 @@ in
                     expr = 'import (builtins.getFlake "${getFlake}").inputs.nixpkgs { }   ',
                 },
                 options = {
-                    ["flake-parts"] = {
-                        expr = 'let flake = (builtins.getFlake "${getFlake}"); in flake.debug.options // flake.currentSystem.options',
-                    },
                     ["home-manager"] = {
                         expr = '(builtins.getFlake "${getFlake}").homeConfigurations."airi@sforza".options',
                     },
                     nixos = {
                         expr = '(builtins.getFlake "${getFlake}").nixosConfigurations.sforza.options',
-                    },
-                    nixvim = {
-                        expr = '(builtins.getFlake "${getFlake}").packages.x86_64-linux.nvim.options',
                     },
                 },
             },
