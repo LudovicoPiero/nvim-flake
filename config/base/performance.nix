@@ -1,4 +1,5 @@
 {
+  enableMan = false;
   performance = {
     combinePlugins = {
       enable = true;
