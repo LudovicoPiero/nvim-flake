@@ -153,7 +153,7 @@
           providers = {
             buffer = {
               min_keyword_length = function()
-                return vim.bo.filetype == "markdown" and 0 or 5
+                return vim.bo.filetype == "markdown" and 0 or 3
               end,
             },
             lsp = { score_offset = 5 },
