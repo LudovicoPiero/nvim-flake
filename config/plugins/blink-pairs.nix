@@ -1,6 +1,11 @@
-{ pkgs, helpers, ... }:
 {
-  pkg = pkgs.vimPlugins.blink-pairs;
+  inputs,
+  pkgs,
+  helpers,
+  ...
+}:
+{
+  pkg = inputs.blink-pairs.packages.${pkgs.system}.default;
   opts = helpers.mkRaw ''
     {
       mappings = {

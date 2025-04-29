@@ -22,6 +22,7 @@ let
     file:
     import (pluginDir + "/${file}") {
       inherit
+        inputs
         pkgs
         helpers
         lib

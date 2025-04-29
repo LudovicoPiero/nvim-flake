@@ -18,6 +18,12 @@
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
+
+    # Plugins
+    #TODO: remove after merged
+    # blink-pairs.url = "github:Saghen/blink.pairs";
+    blink-pairs.url = "github:xarvex/blink.pairs/nix-nightly-toolchain";
+    blink-pairs.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
