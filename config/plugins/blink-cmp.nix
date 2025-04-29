@@ -27,7 +27,7 @@
             enabled = false,
             auto_trigger = true,
             hide_during_completion = true,
-            copilot_node_command = "${pkgs.nodejs-18_x}/bin/node",
+            copilot_node_command = "${pkgs.nodejs_latest}/bin/node",
             keymap = {
               accept = false, -- handled by nvim-cmp / blink.cmp
               next = "<M-]>",

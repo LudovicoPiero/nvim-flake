@@ -30,7 +30,7 @@
               require("copilot").setup({
                 suggestion = { enabled = false },
                 panel = { enabled = false },
-                copilot_node_command = "${pkgs.nodejs-18_x}/bin/node",
+                copilot_node_command = "${pkgs.nodejs_latest}/bin/node",
               })
             end
           '';

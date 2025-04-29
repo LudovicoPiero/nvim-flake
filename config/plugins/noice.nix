@@ -13,7 +13,13 @@
                   ["vim.lsp.util.stylize_markdown"] = true,
               },
           },
-          presets = { bottom_search = true, command_palette = true, inc_rename = false, long_message_to_split = true, lsp_doc_border = false },
+          presets = {
+              bottom_search = true,
+              command_palette = true,
+              inc_rename = false,
+              long_message_to_split = true,
+              lsp_doc_border = false
+          },
           routes = {
               {
                   filter = {
