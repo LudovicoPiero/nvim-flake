@@ -33,5 +33,6 @@
     timeoutlen = 300;
     undofile = true;
     updatetime = 250;
+    winborder = "rounded";
   };
 }
