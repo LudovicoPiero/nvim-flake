@@ -5,9 +5,6 @@
   inputs,
   ...
 }:
-let
-  getFlake = ''(builtins.getFlake "${inputs.self}")'';
-in
 {
   pkg = pkgs.vimPlugins.nvim-lspconfig;
   event = [
@@ -26,15 +23,16 @@ in
       local on_attach_common = function(client, bufnr)
         -- keymap
         local opts = { noremap = true, silent = true, buffer = bufnr }
+        local fzf = require("fzf-lua")
 
-        vim.keymap.set("n", "gd", function() require('telescope.builtin').lsp_definitions() end, vim.tbl_extend("force", { desc = "Go to definition" }, opts or {}))
-        vim.keymap.set("n", "gi", function() require('telescope.builtin').lsp_implementations() end, vim.tbl_extend("force", { desc = "Go to implementation" }, opts or {}))
-        vim.keymap.set("n", "gr", function() require('telescope.builtin').lsp_references() end, vim.tbl_extend("force", { desc = "Find references" }, opts or {}))
-        vim.keymap.set("n", "<leader>D", function() require('telescope.builtin').lsp_type_definitions() end, vim.tbl_extend("force", { desc = "Go to type definition" }, opts or {}))
+        vim.keymap.set("n", "gd", fzf.lsp_definitions, vim.tbl_extend("force", { desc = "Go to definition" }, opts or {}))
+        vim.keymap.set("n", "gi", fzf.lsp_implementations, vim.tbl_extend("force", { desc = "Go to implementation" }, opts or {}))
+        vim.keymap.set("n", "gr", fzf.lsp_references, vim.tbl_extend("force", { desc = "Find references" }, opts or {}))
+        vim.keymap.set("n", "<leader>ca", fzf.lsp_code_actions, vim.tbl_extend("force", { desc = "[C]ode [A]ctions" }, opts or {}))
+        vim.keymap.set("n", "<leader>D", fzf.lsp_typedefs, vim.tbl_extend("force", { desc = "Go to type definition" }, opts or {}))
 
         vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, vim.tbl_extend("force", { desc = "Hover documentation" }, opts or {}))
         vim.keymap.set("n", "<leader>sS", function() vim.lsp.buf.signature_help() end, vim.tbl_extend("force", { desc = "[S]how [S]ignature help" }, opts or {}))
-        vim.keymap.set("n", "<leader>ca", function() require('telescope.builtin').lsp_code_actions() end, vim.tbl_extend("force", { desc = "[C]ode [A]ctions" }, opts or {}))
         vim.keymap.set("n", "<leader>n", function() vim.lsp.buf.rename() end, vim.tbl_extend("force", { desc = "Rename symbol" }, opts or {}))
 
         vim.keymap.set("n", "[d", function() vim.diagnostic.goto_prev() end, vim.tbl_extend("force", { desc = "Go to previous diagnostic" }, opts or {}))
