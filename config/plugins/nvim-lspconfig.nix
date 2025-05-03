@@ -56,23 +56,14 @@ in
         capabilities = cmp_capabilities,
         settings = {
             nixd = {
-                -- diagnostic = { suppress = { "sema-escaping-with", "var-bind-to=this" } },
-                formatting = {
-                    command = {
-                        "${lib.getExe' pkgs.nixfmt-rfc-style "nixfmt"}",
-                    },
-                },
-                nixpkgs = {
-                    expr = 'import (builtins.getFlake "${getFlake}").inputs.nixpkgs { }   ',
-                },
-                options = {
-                    ["home-manager"] = {
-                        expr = '(builtins.getFlake "${getFlake}").homeConfigurations."airi@sforza".options',
-                    },
-                    nixos = {
-                        expr = '(builtins.getFlake "${getFlake}").nixosConfigurations.sforza.options',
-                    },
-                },
+              formatting = {
+                  command = {
+                      "${lib.getExe' pkgs.nixfmt-rfc-style "nixfmt"}",
+                  },
+              },
+              nixpkgs = {
+                expr = "import <nixpkgs> { }",
+              },
             },
         },
       })
