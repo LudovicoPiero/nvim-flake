@@ -6,7 +6,7 @@
     "CmdlineEnter"
   ];
   dependencies = with pkgs.vimPlugins; [
-    blink-cmp-copilot
+    blink-copilot
     cmp-calc
     friendly-snippets
     lspkind-nvim
@@ -123,7 +123,7 @@
       },
 
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "calc", "copilot", "lazydev", },
+        default = { "lsp", "snippets", "buffer", "path", "calc", "copilot", "lazydev", },
         providers = {
           lazydev = {
             module = "lazydev.integrations.blink",
@@ -157,7 +157,7 @@
           copilot = {
             enabled = true,
             name = "copilot",
-            module = "blink-cmp-copilot",
+            module = "blink-copilot",
             score_offset = 100,
             async = true,
           },
@@ -186,5 +186,4 @@
       },
     }
   '';
-
 }
