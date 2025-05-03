@@ -1,9 +1,9 @@
-{ pkgs, helpers, ... }:
+{ pkgs, ... }:
 {
   pkg = pkgs.vimPlugins.lualine-nvim;
   lazy = false;
   dependencies = with pkgs.vimPlugins; [ nvim-web-devicons ];
-  opts = helpers.mkRaw ''
+  opts.__raw = ''
     function()
       -- Eviline config for lualine
       -- Author: shadmansaleh

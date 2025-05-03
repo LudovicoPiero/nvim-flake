@@ -2,11 +2,11 @@
 {
   pkgs,
   lib,
-  self,
+  inputs,
   ...
 }:
 let
-  getFlake = ''(builtins.getFlake "${self}")'';
+  getFlake = ''(builtins.getFlake "${inputs.self}")'';
 in
 {
   pkg = pkgs.vimPlugins.nvim-lspconfig;
@@ -127,7 +127,7 @@ in
       --lua
       nvim_lsp.lua_ls.setup({
         cmd = { "${
-          self.inputs.emmylua.packages.${pkgs.stdenv.hostPlatform.system}.emmylua_ls
+          inputs.emmylua.packages.${pkgs.stdenv.hostPlatform.system}.emmylua_ls
         }/bin/emmylua_ls" },
         on_attach = on_attach_common,
         capabilities = cmp_capabilities,

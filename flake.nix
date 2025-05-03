@@ -29,6 +29,9 @@
     blink-pairs.inputs.nixpkgs.follows = "nixpkgs";
     blink-pairs.inputs.fenix.follows = "fenix";
     blink-pairs.inputs.flake-parts.follows = "flake-parts";
+
+    nui-nvim.url = "github:MunifTanjim/nui.nvim";
+    nui-nvim.flake = false;
   };
 
   outputs =

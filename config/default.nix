@@ -1,6 +1,5 @@
 {
   pkgs,
-  helpers,
   lib,
   inputs,
   ...
@@ -18,18 +17,7 @@ let
   ) pluginFiles;
 
   # Import each .nix file dynamically, assuming it returns a single attribute set
-  loadPlugins = map (
-    file:
-    import (pluginDir + "/${file}") {
-      inherit
-        inputs
-        pkgs
-        helpers
-        lib
-        ;
-      inherit (inputs) self;
-    }
-  ) nixFiles;
+  loadPlugins = map (file: import (pluginDir + "/${file}") { inherit inputs pkgs lib; }) nixFiles;
 in
 {
   imports = [ ./base ];
@@ -47,7 +35,5 @@ in
     plugins = loadPlugins;
   };
 
-  extraPackages = with pkgs; [
-    yazi
-  ];
+  extraPackages = with pkgs; [ yazi ];
 }

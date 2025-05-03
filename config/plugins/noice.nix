@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   pkg = pkgs.vimPlugins.noice-nvim;
   event = "VeryLazy";
-  dependencies = [ pkgs.vimPlugins.nui-nvim ];
+  dependencies = [ (pkgs.vimPlugins.nui-nvim.overrideAttrs { src = inputs.nui-nvim; }) ];
   config = ''
     function()
       require("noice").setup({

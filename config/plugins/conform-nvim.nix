@@ -1,8 +1,4 @@
-{
-  pkgs,
-  helpers,
-  ...
-}:
+{ pkgs, ... }:
 {
   pkg = pkgs.vimPlugins.conform-nvim;
   lazy = true;
@@ -73,7 +69,7 @@
     end
   '';
 
-  keys = helpers.mkRaw ''
+  keys.__raw = ''
     {
       {
         "<leader>ff",

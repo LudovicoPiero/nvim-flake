@@ -1,11 +1,11 @@
-{ pkgs, helpers, ... }:
+{ pkgs, ... }:
 {
   pkg = pkgs.vimPlugins.trouble-nvim;
   cmd = "Trouble";
-  opts = helpers.mkRaw ''
+  opts.__raw = ''
     {  }
   '';
-  keys = helpers.mkRaw ''
+  keys.__raw = ''
     {
       {
         "<leader>xx",

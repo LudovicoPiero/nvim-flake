@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 {
   pkg = pkgs.vimPlugins.neocord;
   event = "VeryLazy";

@@ -1,7 +1,7 @@
-{ pkgs, helpers, ... }:
+{ pkgs, ... }:
 {
   pkg = pkgs.vimPlugins.gitsigns-nvim;
-  opts = helpers.mkRaw ''
+  opts.__raw = ''
     {
       signs = {
         add = { text = '+' },

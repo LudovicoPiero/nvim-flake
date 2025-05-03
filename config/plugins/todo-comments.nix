@@ -1,8 +1,8 @@
-{ pkgs, helpers, ... }:
+{ pkgs, ... }:
 {
   pkg = pkgs.vimPlugins.todo-comments-nvim;
   dependencies = [ pkgs.vimPlugins.plenary-nvim ];
-  opts = helpers.mkRaw ''
+  opts.__raw = ''
     {
       signs = true, -- show icons in the signs column
       sign_priority = 8, -- sign priority

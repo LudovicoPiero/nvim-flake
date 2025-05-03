@@ -1,8 +1,8 @@
-{ pkgs, helpers, ... }:
+{ pkgs, ... }:
 {
   pkg = pkgs.vimPlugins.which-key-nvim;
   event = "VimEnter";
-  opts = helpers.mkRaw ''
+  opts.__raw = ''
     {
       delay = 0,
       icons = {

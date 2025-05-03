@@ -1,12 +1,7 @@
-{
-  inputs,
-  pkgs,
-  helpers,
-  ...
-}:
+{ inputs, pkgs, ... }:
 {
   pkg = inputs.blink-pairs.packages.${pkgs.system}.default;
-  opts = helpers.mkRaw ''
+  opts.__raw = ''
     {
       mappings = {
         -- you can call require("blink.pairs.mappings").enable() and require("blink.pairs.mappings").disable() to enable/disable mappings at runtime
@@ -29,6 +24,23 @@
         },
       },
       debug = false,
+    }
+  '';
+  keys.__raw = ''
+    {
+      {
+        "<leader>tp",
+        function()
+          if vim.g.minipairs_disable then
+            require("blink.pairs.mappings").enable()
+            vim.g.minipairs_disable = false
+          else
+            require("blink.pairs.mappings").disable()
+            vim.g.minipairs_disable = true
+          end
+        end,
+        desc = "Toggle auto pairs",
+      },
     }
   '';
 }

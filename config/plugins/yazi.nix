@@ -1,4 +1,4 @@
-{ pkgs, helpers, ... }:
+{ pkgs, ... }:
 {
   pkg = pkgs.vimPlugins.yazi-nvim;
   lazy = false;
@@ -10,7 +10,7 @@
         headerMaxWidth = 80;
       };
       cmd = "GrugFar";
-      keys = helpers.mkRaw ''
+      keys.__raw = ''
         {
           {
             "<leader>sr",
@@ -38,7 +38,7 @@
       opts = { };
     }
   ];
-  keys = helpers.mkRaw ''
+  keys.__raw = ''
     {
       {
         "<leader>tf",
@@ -59,7 +59,7 @@
       },
     }
   '';
-  opts = helpers.mkRaw ''
+  opts.__raw = ''
     {
       -- if you want to open yazi instead of netrw, see below for more info
       open_for_directories = true,

@@ -1,8 +1,4 @@
-{
-  pkgs,
-  helpers,
-  ...
-}:
+{ pkgs, ... }:
 {
   pkg = pkgs.vimPlugins.blink-cmp;
   event = [
@@ -15,9 +11,22 @@
     blink-nerdfont-nvim
     cmp-calc
     friendly-snippets
-    lazydev-nvim
     lspkind-nvim
     luasnip
+    {
+      pkg = lazydev-nvim;
+      config = ''
+        function()
+          require('lazydev').setup({
+            library = {
+              -- See the configuration section for more details
+              -- Load luvit types when the `vim.uv` word is found
+              { path = "''${3rd}/luv/library", words = { "vim%.uv" } },
+            },
+          })
+        end
+      '';
+    }
     {
       pkg = blink-compat;
       opts = { };
@@ -26,7 +35,7 @@
       pkg = pkgs.vimPlugins.copilot-lua;
       cmd = "Copilot";
       event = "InsertEnter";
-      opts = helpers.mkRaw ''
+      opts.__raw = ''
         {
           suggestion = {
             enabled = false,
@@ -50,7 +59,7 @@
     }
   ];
 
-  opts = helpers.mkRaw ''
+  opts.__raw = ''
     {
       cmdline = { enabled = false },
       keymap = {
@@ -67,7 +76,7 @@
 
       completion = {
         documentation = { auto_show = true, auto_show_delay_ms = 500 },
-        ghost_text = { enabled = true },
+        ghost_text = { enabled = false },
         menu = {
           auto_show = true,
           border = "rounded",
@@ -118,7 +127,11 @@
       sources = {
         default = { "lsp", "path", "snippets", "buffer", "calc", "copilot", "lazydev", "conventional_commits", "nerdfont" },
         providers = {
-          lazydev = { module = "lazydev.integrations.blink", score_offset = 100 },
+          lazydev = {
+            module = "lazydev.integrations.blink",
+            name = "LazyDev",
+            score_offset = 100
+          },
           conventional_commits = {
             module = "blink-cmp-conventional-commits",
             name = "Conventional Commits",

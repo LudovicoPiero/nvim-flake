@@ -1,11 +1,11 @@
-{ pkgs, helpers, ... }:
+{ pkgs, ... }:
 {
   pkg = pkgs.vimPlugins.flash-nvim;
   event = "VeryLazy";
-  opts = helpers.mkRaw ''
+  opts.__raw = ''
     {  }
   '';
-  keys = helpers.mkRaw ''
+  keys.__raw = ''
     {
       { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
       -- { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
