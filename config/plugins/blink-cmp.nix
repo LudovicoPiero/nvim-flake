@@ -7,8 +7,6 @@
   ];
   dependencies = with pkgs.vimPlugins; [
     blink-cmp-copilot
-    blink-cmp-conventional-commits
-    blink-nerdfont-nvim
     cmp-calc
     friendly-snippets
     lspkind-nvim
@@ -125,26 +123,12 @@
       },
 
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "calc", "copilot", "lazydev", "conventional_commits", "nerdfont" },
+        default = { "lsp", "path", "snippets", "buffer", "calc", "copilot", "lazydev", },
         providers = {
           lazydev = {
             module = "lazydev.integrations.blink",
             name = "LazyDev",
             score_offset = 100
-          },
-          conventional_commits = {
-            module = "blink-cmp-conventional-commits",
-            name = "Conventional Commits",
-            enabled = function()
-              return vim.bo.filetype == "gitcommit"
-            end,
-            opts = {},
-          },
-          nerdfont = {
-            module = "blink-nerdfont",
-            name = "Nerd Fonts",
-            score_offset = 15, -- Tune by preference
-            opts = { insert = true }, -- Insert nerdfont icon (default) or complete its name
           },
           buffer = {
             min_keyword_length = function()
