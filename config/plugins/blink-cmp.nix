@@ -8,7 +8,14 @@
   dependencies = with pkgs.vimPlugins; [
     blink-copilot
     cmp-calc
-    friendly-snippets
+    {
+      pkg = friendly-snippets;
+      config = ''
+        function()
+          require("luasnip.loaders.from_vscode").lazy_load()
+        end
+    '';
+    }
     lspkind-nvim
     luasnip
     {
@@ -61,7 +68,8 @@
     {
       cmdline = { enabled = false },
       keymap = {
-        preset = "default",
+        preset = "enter",
+        ["<C-y>"] = { "select_and_accept" },
       },
 
       appearance = {
