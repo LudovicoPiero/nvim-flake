@@ -3,6 +3,13 @@
   pkg = pkgs.vimPlugins.bufferline-nvim;
   lazy = false;
   dependencies = with pkgs.vimPlugins; [ nvim-web-devicons ];
+  init = ''
+    function()
+      vim.keymap.set("n", "<Tab>", ":bnext<CR>", { silent = true })
+
+      vim.keymap.set("n", "<S-Tab>", ":bprevious<CR>", { silent = true })
+    end
+  '';
   config = ''
     function()
       local bufferline = require('bufferline')
