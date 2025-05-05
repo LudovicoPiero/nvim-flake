@@ -1,12 +1,10 @@
 pull_request_rules:
-  - name: Rebase pull requests once when it's labeled with `rebase`
+  - name: Automatic rebase for PRs marked as "keep-up-to-date"
     conditions:
-      - label=rebase
+      - label=keep-up-to-date
+      - -draft
     actions:
-      rebase: {}
-      label:
-        remove:
-          - rebase
+      update:
 
   - name: Automatic merge when CI passes
     conditions:
@@ -21,24 +19,7 @@ pull_request_rules:
       - conflict
     actions:
       comment:
-        message: |
-          This pull request is now in conflicts. Could you fix it @{{author}}? 🙏
+        message: "@{{author}} this pull request is now in conflict 😩"
       label:
-        toggle:
+        add:
           - conflict
-
-  - name: Toggle labels based on CI state
-    conditions:
-      - check-failure=All Garnix checks
-    actions:
-      label:
-        toggle:
-          - "CI:fail"
-
-  - name: Add "WIP" label when the title contains "WIP"
-    conditions:
-      - title~=WIP
-    actions:
-      label:
-        toggle:
-          - WIP
