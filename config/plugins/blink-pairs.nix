@@ -26,21 +26,4 @@
       debug = false,
     }
   '';
-  keys.__raw = ''
-    {
-      {
-        "<leader>tp",
-        function()
-          if vim.g.minipairs_disable then
-            require("blink.pairs.mappings").enable()
-            vim.g.minipairs_disable = false
-          else
-            require("blink.pairs.mappings").disable()
-            vim.g.minipairs_disable = true
-          end
-        end,
-        desc = "Toggle auto pairs",
-      },
-    }
-  '';
 }
