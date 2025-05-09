@@ -8,6 +8,9 @@
     fenix.url = "github:nix-community/fenix";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
 
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
     neovim-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-overlay.inputs.nixpkgs.follows = "nixpkgs";
     neovim-overlay.inputs.flake-parts.follows = "flake-parts";

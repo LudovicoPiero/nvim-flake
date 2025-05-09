@@ -244,6 +244,26 @@
         "type": "github"
       }
     },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1746287478,
+        "narHash": "sha256-z3HiHR2CNAdwyZTWPM2kkzhE1gD1G6ExPxkaiQfNh7s=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "75268f62525920c4936404a056f37b91e299c97e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "ixx": {
       "inputs": {
         "flake-utils": [
@@ -416,6 +436,7 @@
         "emmylua": "emmylua",
         "fenix": "fenix",
         "flake-parts": "flake-parts",
+        "home-manager": "home-manager",
         "neovim-overlay": "neovim-overlay",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
