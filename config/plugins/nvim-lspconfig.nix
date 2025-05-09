@@ -5,6 +5,9 @@
   inputs,
   ...
 }:
+let
+  getFlake = ''(builtins.toString "${inputs.self}")'';
+in
 {
   pkg = pkgs.vimPlugins.nvim-lspconfig;
   event = [
@@ -63,14 +66,14 @@
                     },
                 },
                 nixpkgs = {
-                    expr = 'import (builtins.getFlake "${getFlake}").inputs.nixpkgs { }   ',
+                    expr = 'import (builtins.getFlake \"${inputs.self}\").inputs.nixpkgs { }',
                 },
                 options = {
-                    ["home-manager"] = {
-                        expr = '(builtins.getFlake "${getFlake}").homeConfigurations."airi@sforza".options',
-                    },
                     nixos = {
-                        expr = '(builtins.getFlake "${getFlake}").nixosConfigurations.sforza.options',
+                        expr = '(builtins.getFlake \"${inputs.self}\").nixosConfigurations.sforza.options',
+                    },
+                    ["home-manager"] = {
+                        expr = '(builtins.getFlake \"${inputs.self}\").homeConfigurations."airi@sforza".options',
                     },
                 },
             },
