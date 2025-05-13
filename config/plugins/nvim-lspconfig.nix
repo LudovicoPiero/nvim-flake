@@ -66,7 +66,7 @@ in
                     },
                 },
                 nixpkgs = {
-                    expr = 'import (builtins.getFlake \"${inputs.self}\").inputs.nixpkgs { }',
+                    expr = 'import <nixpkgs> { }',
                 },
                 options = {
                     nixos = {
