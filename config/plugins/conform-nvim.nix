@@ -38,9 +38,6 @@
           prettier = {
             command = "${pkgs.nodePackages.prettier}/bin/prettier",
           },
-          prettierd = {
-            command = "${pkgs.prettierd}/bin/prettierd",
-          },
           rustfmt = {
             command = "${pkgs.rustfmt}/bin/rustfmt",
           },
@@ -57,11 +54,8 @@
           go = { "gofumpt" },
           nix = { "nixfmt" },
           sh = { "shfmt" },
-          javascript = {
-            "prettierd",
-            "prettier",
-            stop_after_first = true,
-          },
+          html = { "prettier" },
+          javascript = { "prettier" },
           rust = { "rustfmt", lsp_format = "fallback" },
           gn = { "gn" },
         },
