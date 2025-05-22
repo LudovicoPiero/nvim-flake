@@ -31,6 +31,7 @@
           },
           nixfmt = {
             command = "${pkgs.nixfmt-rfc-style}/bin/nixfmt",
+            prepend_args = { "--strict" },
           },
           shfmt = {
             command = "${pkgs.shfmt}/bin/shfmt",
