@@ -13,16 +13,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1745754250,
-        "narHash": "sha256-bjPnA4qZYxlaZgOrNjfdvREQ/5simxoVbMPH1tk0h6s=",
-        "owner": "xarvex",
+        "lastModified": 1748461242,
+        "narHash": "sha256-o7fqzOOaF7hvo6S3SAmqVhWlTz5IeBhfJfQMQeD67J8=",
+        "owner": "Saghen",
         "repo": "blink.pairs",
-        "rev": "99859ff8f73b7881e92a28e7f6ff3c1f1b32bd71",
+        "rev": "ddddba3bd1d4df37251a82ac968bc654bac5c029",
         "type": "github"
       },
       "original": {
-        "owner": "xarvex",
-        "ref": "nix-nightly-toolchain",
+        "owner": "Saghen",
         "repo": "blink.pairs",
         "type": "github"
       }

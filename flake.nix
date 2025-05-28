@@ -23,9 +23,7 @@
     emmylua.inputs.nixpkgs.follows = "nixpkgs";
 
     # Plugins
-    #TODO: remove after merged
-    # blink-pairs.url = "github:Saghen/blink.pairs";
-    blink-pairs.url = "github:xarvex/blink.pairs/nix-nightly-toolchain";
+    blink-pairs.url = "github:Saghen/blink.pairs";
     blink-pairs.inputs.nixpkgs.follows = "nixpkgs";
     blink-pairs.inputs.fenix.follows = "fenix";
     blink-pairs.inputs.flake-parts.follows = "flake-parts";
