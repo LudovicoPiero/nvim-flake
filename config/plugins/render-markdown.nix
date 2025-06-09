@@ -2,11 +2,23 @@
 {
   pkg = pkgs.vimPlugins.render-markdown-nvim;
   dependencies = [ pkgs.vimPlugins.nvim-web-devicons ];
-  config = ''
-    function()
-      require('render-markdown').setup({
-          completions = { blink = { enabled = true } },
-      })
-    end
+
+  ft = [
+    "markdown"
+    "norg"
+    "org"
+  ];
+
+  opts.__raw = ''
+    {
+      render_modes = { "n", "c", "t" },
+      preset = "lazy",
+      code = {
+        sign = true,
+      },
+      heading = {
+        sign = true,
+      },
+    }
   '';
 }

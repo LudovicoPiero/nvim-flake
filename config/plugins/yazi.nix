@@ -1,38 +1,40 @@
 { pkgs, ... }:
+let
+  grug-far = {
+    pkg = pkgs.vimPlugins.grug-far-nvim;
+    opts = {
+      headerMaxWidth = 80;
+    };
+    cmd = "GrugFar";
+    keys.__raw = ''
+      {
+        {
+          "<leader>sr",
+          function()
+            local grug = require("grug-far")
+            local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+            grug.open({
+              transient = true,
+              prefills = {
+                filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+              },
+            })
+          end,
+          mode = { "n", "v" },
+          desc = "[S]earch and [R]eplace",
+        },
+      }
+    '';
+  };
+in
 {
   pkg = pkgs.vimPlugins.yazi-nvim;
-  lazy = false;
-  dependencies = with pkgs.vimPlugins; [
-    fzf-lua # for search grep
+  event = "VeryLazy";
+  dependencies = [
+    pkgs.vimPlugins.fzf-lua # for search grep
+    grug-far
     {
-      pkg = grug-far-nvim;
-      opts = {
-        headerMaxWidth = 80;
-      };
-      cmd = "GrugFar";
-      keys.__raw = ''
-        {
-          {
-            "<leader>sr",
-            function()
-              local grug = require("grug-far")
-              local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
-              grug.open({
-                transient = true,
-                prefills = {
-                  filesFilter = ext and ext ~= "" and "*." .. ext or nil,
-                },
-              })
-            end,
-            mode = { "n", "v" },
-            desc = "[S]earch and [R]eplace",
-          },
-        }
-
-      '';
-    }
-    {
-      pkg = snacks-nvim;
+      pkg = pkgs.vimPlugins.snacks-nvim;
       lazy = false;
       priority = 1000;
       opts = { };
@@ -62,17 +64,10 @@
   opts.__raw = ''
     {
       -- if you want to open yazi instead of netrw, see below for more info
-      open_for_directories = true,
+      open_for_directories = false,
       keymaps = {
         show_help = "<f1>",
       },
     }
-  '';
-  init = ''
-    function()
-      -- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
-      vim.g.loaded_netrw = 1
-      vim.g.loaded_netrwPlugin = 1
-    end
   '';
 }

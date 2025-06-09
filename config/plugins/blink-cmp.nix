@@ -1,10 +1,7 @@
 { pkgs, ... }:
 {
   pkg = pkgs.vimPlugins.blink-cmp;
-  event = [
-    "InsertEnter"
-    "CmdlineEnter"
-  ];
+  event = [ "InsertEnter" ];
   dependencies = with pkgs.vimPlugins; [
     blink-copilot
     cmp-calc
@@ -14,7 +11,7 @@
         function()
           require("luasnip.loaders.from_vscode").lazy_load()
         end
-    '';
+      '';
     }
     lspkind-nvim
     luasnip
