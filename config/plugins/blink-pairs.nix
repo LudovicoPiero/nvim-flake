@@ -1,6 +1,6 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
-  pkg = inputs.blink-pairs.packages.${pkgs.system}.default;
+  pkg = pkgs.vimPlugins.blink-pairs;
   init = ''
     function()
       vim.keymap.set("n", "<leader>tp", function()
