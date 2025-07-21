@@ -1,31 +1,5 @@
 {
   "nodes": {
-    "blink-pairs": {
-      "inputs": {
-        "fenix": [
-          "fenix"
-        ],
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1752623011,
-        "narHash": "sha256-F8k87B5tn3WsiVHPIgvJ+O0ww/GZyahm8fpcLY2hubQ=",
-        "owner": "Saghen",
-        "repo": "blink.pairs",
-        "rev": "9c2ac08700f9a6950e6fa56cacbebe8bc640d881",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Saghen",
-        "repo": "blink.pairs",
-        "type": "github"
-      }
-    },
     "emmylua": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -433,7 +407,6 @@
     },
     "root": {
       "inputs": {
-        "blink-pairs": "blink-pairs",
         "emmylua": "emmylua",
         "fenix": "fenix",
         "flake-parts": "flake-parts",
