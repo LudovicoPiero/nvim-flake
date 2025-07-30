@@ -1,13 +1,10 @@
 queue_rules:
   - name: default
-    queue_conditions:
+    merge_conditions:
       - check-success=All Garnix checks
       - -title~=(WIP|wip)
-      - -merged
-      - -closed
       - -draft
       - -author~=\[bot\]$
-    merge_conditions: []
     merge_method: merge
     update_method: merge
 
@@ -16,8 +13,6 @@ pull_request_rules:
     conditions:
       - label=keep-up-to-date
       - -draft
-      - -merged
-      - -closed
     actions:
       update:
 
