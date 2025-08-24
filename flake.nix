@@ -5,9 +5,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    fenix.url = "github:nix-community/fenix/f2eb76a4605b0f055e2a9eac47fe1797f19d21c1";
-    fenix.inputs.nixpkgs.follows = "nixpkgs";
-
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -18,9 +15,6 @@
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.inputs.flake-parts.follows = "flake-parts";
-
-    emmylua.url = "github:CppCXY/emmylua-analyzer-rust";
-    emmylua.inputs.nixpkgs.follows = "nixpkgs";
 
     # Plugins
     nui-nvim.url = "github:MunifTanjim/nui.nvim";
