@@ -13,7 +13,7 @@
     function()
       local bufferline = require('bufferline')
       bufferline.setup {
-        highlights = require("catppuccin.groups.integrations.bufferline").get(),
+        highlights = require("catppuccin.groups.integrations.bufferline").get_theme(),
         options = {
           show_close_icon = false,
           show_buffer_close_icons = false,
