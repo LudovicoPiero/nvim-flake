@@ -5,6 +5,7 @@ pull_request_rules:
       - -draft
       - -closed
       - -merged
+      - "#commits-behind>0"
     actions:
       update:
 
