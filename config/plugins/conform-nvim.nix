@@ -13,12 +13,15 @@
             command = "${pkgs.stylua}/bin/stylua",
             prepend_args = { "--indent-type", "Spaces", "--indent-width", "2" },
           },
-          isort = {
-            command = "${pkgs.isort}/bin/isort",
-            prepend_args = { "--stdout", "--filename", "$FILENAME", "-" },
+          ruff_format = {
+            command = "${pkgs.ruff}/bin/ruff",
+            args = { "format", "--stdin-filename", "$FILENAME", "-" },
+            stdin = true,
           },
-          black = {
-            command = "${pkgs.black}/bin/black",
+          ruff_fix = {
+            command = "${pkgs.ruff}/bin/ruff",
+            args = { "check", "--fix", "--stdin-filename", "$FILENAME", "-" },
+            stdin = true,
           },
           clang_format = {
             command = "${pkgs.clang-tools}/bin/clang-format",
@@ -29,12 +32,21 @@
           gofumpt = {
             command = "${pkgs.gofumpt}/bin/gofumpt",
           },
+          goimports = {
+            command = "${pkgs.gotools}/bin/goimports",
+          },
           nixfmt = {
             command = "${pkgs.nixfmt-rfc-style}/bin/nixfmt",
             prepend_args = { "--strict" },
           },
           shfmt = {
             command = "${pkgs.shfmt}/bin/shfmt",
+          },
+          shellcheck = {
+            command = "${pkgs.shellcheck}/bin/shellcheck",
+          },
+          shellharden = {
+            command = "${pkgs.shellharden}/bin/shellharden",
           },
           prettier = {
             command = "${pkgs.nodePackages.prettier}/bin/prettier",
@@ -48,17 +60,27 @@
         },
         formatters_by_ft = {
           lua = { "stylua" },
-          python = { "isort", "black" },
+          python = { "ruff_fix", "ruff_format" },
           c = { "clang_format" },
           cpp = { "clang_format" },
           cmake = { "cmake_format" },
-          go = { "gofumpt" },
+          go = { "gofumpt", "goimports" },
           nix = { "nixfmt" },
-          sh = { "shfmt" },
+          sh = { "shellcheck", "shellharden", "shfmt" },
+          bash = { "shellcheck", "shellharden", "shfmt" },
           html = { "prettier" },
           javascript = { "prettier" },
+          json = { "prettier" },
           rust = { "rustfmt", lsp_format = "fallback" },
           gn = { "gn" },
+          yaml = { "prettier" },
+          markdown = { "prettier" },
+          css = { "prettier" },
+          scss = { "prettier" },
+          less = { "prettier" },
+          typescript = { "prettier" },
+          typescriptreact = { "prettier" },
+          javascriptreact = { "prettier" },
         },
       })
     end
