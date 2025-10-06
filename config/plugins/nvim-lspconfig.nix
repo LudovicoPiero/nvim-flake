@@ -42,7 +42,7 @@
         -- vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]] -- use none-ls
       end
 
-      local nvim_lsp = require("lspconfig")
+      local nvim_lsp = vim.lsp.config or require("lspconfig")
       ---------------------
       -- setup languages --
       ---------------------
