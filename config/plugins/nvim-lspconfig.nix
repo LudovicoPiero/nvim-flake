@@ -16,13 +16,70 @@
   config = ''
     function()
       local nvim_lsp = vim.lsp.config or require("lspconfig")
+
       ---------------------
       -- setup languages --
       ---------------------
-      local cmp_capabilities = require("blink.cmp").get_lsp_capabilities()
+      local cmp_capabilities = require('blink.cmp').get_lsp_capabilities()
+      local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
+      local capabilities = vim.tbl_deep_extend("force", lsp_capabilities, cmp_capabilities)
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      }
+
+      -- Table to track the floating window
+      local diag_float = {}
       local on_attach_common = function(client, bufnr)
         local opts = { noremap = true, silent = true, buffer = bufnr }
         local fzf = require("fzf-lua")
+
+        local augroup = vim.api.nvim_create_augroup("LspDiagnosticsFloat", { clear = true })
+        vim.api.nvim_create_autocmd("CursorHold", {
+          buffer = bufnr,
+          group = augroup,
+          callback = function()
+            local line = vim.api.nvim_win_get_cursor(0)[1]
+
+            -- Check if we have a valid float already for this line
+            if diag_float[bufnr] then
+              local win = diag_float[bufnr].win
+              if win and vim.api.nvim_win_is_valid(win) and diag_float[bufnr].line == line then
+                return
+              end
+              -- Close old float if it exists
+              if win and vim.api.nvim_win_is_valid(win) then
+                vim.api.nvim_win_close(win, true)
+              end
+            end
+
+            -- Only open float if there are diagnostics on this line
+            local diagnostics = vim.diagnostic.get(0, { lnum = line - 1 })
+            if vim.tbl_isempty(diagnostics) then
+              diag_float[bufnr] = nil
+              return
+            end
+
+            -- Diagnostic options
+            local opts = {
+              focusable = false,
+              close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+              border = "rounded",
+              source = "always",
+              prefix = " ",
+              scope = "line",
+            }
+
+            local float_win = vim.diagnostic.open_float(nil, opts)
+
+            -- Track the float window and the line it is for
+            if float_win then
+              diag_float[bufnr] = { win = float_win, line = line }
+            else
+              diag_float[bufnr] = nil
+            end
+          end,
+        })
 
         vim.keymap.set("n", "gd", fzf.lsp_definitions, vim.tbl_extend("force", { desc = "Go to definition" }, opts))
         vim.keymap.set("n", "gi", fzf.lsp_implementations, vim.tbl_extend("force", { desc = "Go to implementation" }, opts))
@@ -46,7 +103,7 @@
         vim.lsp.config("nixd", {
           cmd = { "${pkgs.nixd}/bin/nixd" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
           settings = {
             nixd = {
               formatting = {
@@ -72,7 +129,7 @@
         vim.lsp.config("gopls", {
           cmd = { "${pkgs.gopls}/bin/gopls" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
           settings = {
             gopls = {
               experimentalPostfixCompletions = true,
@@ -96,7 +153,7 @@
         vim.lsp.config("basedpyright", {
           cmd = { "${pkgs.basedpyright}/bin/basedpyright-langserver", "--stdio" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
           settings = {
             python = {
               analysis = {
@@ -112,7 +169,7 @@
         vim.lsp.config("lua_ls", {
           cmd = { "${pkgs.emmylua-ls}/bin/emmylua_ls" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
           settings = {
             Lua = {
               runtime = { version = "LuaJIT" },
@@ -128,7 +185,7 @@
             on_attach_common(client, bufnr)
             vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
           end,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
           settings = {
             ["rust-analyzer"] = {
               diagnostics = { enable = true, styleLints = { enable = true } },
@@ -149,37 +206,37 @@
         vim.lsp.config("taplo", {
           cmd = { "${pkgs.taplo}/bin/taplo", "lsp", "stdio" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
 
         vim.lsp.config("html", {
           cmd = { "${pkgs.vscode-langservers-extracted}/bin/vscode-html-language-server", "--stdio" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
 
         vim.lsp.config("cssls", {
           cmd = { "${pkgs.vscode-langservers-extracted}/bin/vscode-css-language-server", "--stdio" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
 
         vim.lsp.config("ts_ls", {
           cmd = { "${pkgs.typescript-language-server}/bin/typescript-language-server", "--stdio" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
 
         vim.lsp.config("vue_ls", {
           cmd = { "${pkgs.vue-language-server}/bin/vue-language-server", "--stdio" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
 
         vim.lsp.config("bashls", {
           cmd = { "${pkgs.bash-language-server}/bin/bash-language-server", "start" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
 
         vim.lsp.config("hls", {
@@ -188,7 +245,7 @@
             on_attach_common(client, bufnr)
             vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
           end,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
 
         vim.lsp.config("clangd", {
@@ -208,13 +265,13 @@
             "--pretty",
           },
           on_attach = on_attach_common,
-          capabilities = vim.tbl_deep_extend("force", cmp_capabilities, { offsetEncoding = { "utf-16" } }),
+          capabilities = vim.tbl_deep_extend("force", capabilities, { offsetEncoding = { "utf-16" } }),
         })
 
         vim.lsp.config("cmake", {
           cmd = { "${pkgs.cmake-language-server}/bin/cmake-language-server" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
 
         vim.lsp.config("mesonlsp", {
@@ -223,7 +280,7 @@
             on_attach_common(client, bufnr)
             vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
           end,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
 
         -- ---------------------
@@ -248,7 +305,7 @@
         nvim_lsp.nixd.setup({
           cmd = { "${pkgs.nixd}/bin/nixd" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
           settings = {
               nixd = {
                   -- diagnostic = { suppress = { "sema-escaping-with", "var-bind-to=this" } },
@@ -276,7 +333,7 @@
         nvim_lsp["gopls"].setup({
           cmd = { "${pkgs.gopls}/bin/gopls" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
           settings = {
             gopls = {
               experimentalPostfixCompletions = true,
@@ -306,7 +363,7 @@
         nvim_lsp.basedpyright.setup({
           cmd = { "${pkgs.basedpyright}/bin/basedpyright-langserver", "--stdio" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
           settings = {
             python = {
               analysis = {
@@ -323,7 +380,7 @@
         nvim_lsp.lua_ls.setup({
           cmd = { "${pkgs.emmylua-ls}/bin/emmylua_ls" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
           settings = {
             Lua = {
               runtime = {
@@ -353,7 +410,7 @@
             on_attach_common(client, bufnr)
             vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
           end,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
           settings = {
               ["rust-analyzer"] = {
                   diagnostics = { enable = true, styleLints = { enable = true } },
@@ -376,37 +433,37 @@
         nvim_lsp.taplo.setup({
           cmd = { "${pkgs.taplo}/bin/taplo", "lsp", "stdio" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
 
         nvim_lsp.html.setup({
           cmd = { "${pkgs.vscode-langservers-extracted}/bin/vscode-html-language-server", "--stdio" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
 
         nvim_lsp.cssls.setup({
           cmd = { "${pkgs.vscode-langservers-extracted}/bin/vscode-css-language-server", "--stdio" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
 
         nvim_lsp.ts_ls.setup({
           cmd = { "${pkgs.typescript-language-server}/bin/typescript-language-server", "--stdio" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
 
         nvim_lsp.volar.setup({
           cmd = { "${pkgs.vue-language-server}/bin/vue-language-server", "--stdio" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
 
         nvim_lsp.bashls.setup({
           cmd = { "${pkgs.bash-language-server}/bin/bash-language-server", "start" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
 
         nvim_lsp.hls.setup({
@@ -415,7 +472,7 @@
             on_attach_common(client, bufnr)
             vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
           end,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
 
         nvim_lsp.clangd.setup({
@@ -435,7 +492,7 @@
             "--pretty",
           },
           on_attach = on_attach_common,
-          capabilities = vim.tbl_deep_extend("force", cmp_capabilities, {
+          capabilities = vim.tbl_deep_extend("force", capabilities, {
             offsetEncoding = { "utf-16" },
           }),
         })
@@ -443,7 +500,7 @@
         nvim_lsp.cmake.setup({
           cmd = { "${pkgs.cmake-language-server}/bin/cmake-language-server" },
           on_attach = on_attach_common,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
 
         nvim_lsp.mesonlsp.setup({
@@ -452,7 +509,7 @@
             on_attach_common(client, bufnr)
             vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
           end,
-          capabilities = cmp_capabilities,
+          capabilities = capabilities,
         })
       end
     end
