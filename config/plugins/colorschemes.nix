@@ -1,62 +1,22 @@
 { pkgs, ... }:
 {
-  pkg = pkgs.vimPlugins.catppuccin-nvim;
+  pkg = pkgs.vimPlugins.gruvbox-material;
   lazy = false;
   priority = 1000;
   config = ''
     function()
-      require("catppuccin").setup({
-          flavour = "mocha", -- latte, frappe, macchiato, mocha
-          background = { -- :h background
-              light = "latte",
-              dark = "mocha",
-          },
-          transparent_background = true, -- disables setting the background color.
-          show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
-          term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
-          dim_inactive = {
-              enabled = false, -- dims the background color of inactive window
-              shade = "dark",
-              percentage = 0.15, -- percentage of the shade to apply to the inactive window
-          },
-          no_italic = false, -- Force no italic
-          no_bold = false, -- Force no bold
-          no_underline = true, -- Force no underline
-          styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
-              comments = { "italic" }, -- Change the style of comments
-              conditionals = { "bold" },
-              loops = {},
-              functions = {},
-              keywords = {},
-              strings = {},
-              variables = {},
-              numbers = {},
-              booleans = {},
-              properties = {},
-              types = {},
-              operators = {},
-              -- miscs = {}, -- Uncomment to turn off hard-coded styles
-          },
-          color_overrides = {},
-          custom_highlights = {},
-          default_integrations = true,
-          integrations = {
-              blink_cmp = true,
-              cmp = true,
-              gitsigns = true,
-              nvimtree = true,
-              treesitter = true,
-              notify = true,
-              mini = {
-                  enabled = true,
-                  indentscope_color = "",
-              },
-              -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
-          },
-      })
+      -- For dark version
+      vim.o.background = "dark"
 
-      -- setup must be called before loading
-      vim.cmd.colorscheme "catppuccin"
+      -- Available values: 'hard', 'medium' (default), 'soft'
+      vim.g.gruvbox_material_background = "hard"
+
+      -- For better performance
+      vim.g.gruvbox_material_better_performance = 1
+      vim.g.gruvbox_material_transparent_background = 1
+
+      -- Load colorscheme
+      vim.cmd.colorscheme("gruvbox-material")
     end
   '';
 }
