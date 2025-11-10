@@ -126,9 +126,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "a8458b79a957a6e3e217d84106a0fd4b9470ff4c",
-      "url": "https://github.com/ibhagwan/fzf-lua/archive/a8458b79a957a6e3e217d84106a0fd4b9470ff4c.tar.gz",
-      "hash": "sha256-OloQKfJZIP8Hu9O6+b2iVUtaD52dyYrfDy16Kd3KXHM="
+      "revision": "b19dabe6ddc0b1cef4e0b30e864aca88fdabc551",
+      "url": "https://github.com/ibhagwan/fzf-lua/archive/b19dabe6ddc0b1cef4e0b30e864aca88fdabc551.tar.gz",
+      "hash": "sha256-5tit+xOA2intcfBSUby5UyWO2OL9o4AKrLq1aS/V/PY="
     },
     "gitsigns.nvim": {
       "type": "Git",
@@ -243,9 +243,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "411503d3bedeff88484de572f2509c248e499b38",
-      "url": "https://github.com/folke/todo-comments.nvim/archive/411503d3bedeff88484de572f2509c248e499b38.tar.gz",
-      "hash": "sha256-VE7n/yoYPEkp4WQ89ftscspnijPrEMroPg5qVYyVcbM="
+      "revision": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",
+      "url": "https://github.com/folke/todo-comments.nvim/archive/31e3c38ce9b29781e4422fc0322eb0a21f4e8668.tar.gz",
+      "hash": "sha256-VGeIRfwQsHgSO89Pmn6yIP9na1F6mmYZx0HDLe9IKCQ="
     },
     "tokyonight.nvim": {
       "type": "Git",
@@ -295,9 +295,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "b625a2b102c7cbb488e84a0f05fd9907b05a4a32",
-      "url": "https://github.com/mikavilpas/yazi.nvim/archive/b625a2b102c7cbb488e84a0f05fd9907b05a4a32.tar.gz",
-      "hash": "sha256-sedlzvZLS0K8tGLmy8YndFXBBbQSNePj67HAls8f5Rk="
+      "revision": "733277c9bba896d55a2a8ab4b82d469855ed17b2",
+      "url": "https://github.com/mikavilpas/yazi.nvim/archive/733277c9bba896d55a2a8ab4b82d469855ed17b2.tar.gz",
+      "hash": "sha256-KVXbRoSR1lBaLB0vKatFZnvOgpv6LZGSFfikMiLouWc="
     }
   },
   "version": 7
