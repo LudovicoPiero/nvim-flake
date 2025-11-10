@@ -1,0 +1,54 @@
+name: "Update Packages"
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 16 * * 0"
+    - cron: "0 16 * * 3"
+
+jobs:
+  update-packages:
+    if: github.repository == 'ludovicopiero/nvim-flake' # Don't run in forks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Install Lix
+        uses: DeterminateSystems/nix-installer-action@v20
+        with:
+          diagnostic-endpoint: ""
+          source-url: "https://install.lix.systems/lix/lix-installer-x86_64-linux"
+
+      - name: Run nvfetcher updates
+        run: |
+          pushd packages
+          rm _sources/blink* -rf
+          nix run github:ludovicopiero/nvfetcher -- --commit-changes
+          popd
+
+      - name: Run npins update
+        run: |
+          nix run github:ludovicopiero/dotfiles#npins -- update
+          if ! git diff --quiet; then
+            git add .
+            git commit -m "npins: update Neovim plugins"
+          else
+            echo "No plugin updates, skipping commit."
+          fi
+
+      - name: Create or update Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          title: "Automated package updates"
+          body: |
+            This PR combines:
+            - nvfetcher source updates
+            - npins update ( for neovim plugins )
+          labels: automated, uwu, keep-up-to-date
+          branch: "package-update"
+          delete-branch: true
