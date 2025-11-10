@@ -16,6 +16,7 @@ jobs:
       - run: git config --global user.name "Maximilian Sforza"
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
+
       - name: Update flake.lock
         uses: DeterminateSystems/update-flake-lock@main
         with:
@@ -29,3 +30,19 @@ jobs:
           pr-labels: | # Labels to be set on the PR
             automated
             keep-up-to-date
+
+      - name: Run nvfetcher updates
+        run: |
+          pushd packages
+          nix run github:ludovicopiero/nvfetcher -- --commit-changes
+          popd
+
+      - name: Run npins update
+        run: |
+          nix run github:ludovicopiero/dotfiles#npins -- update
+          if ! git diff --quiet; then
+            git add .
+            git commit -m "npins: update Neovim plugins"
+          else
+            echo "No plugin updates, skipping commit."
+          fi
