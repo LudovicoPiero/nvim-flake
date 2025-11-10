@@ -20,6 +20,7 @@ jobs:
       - name: Run nvfetcher updates
         run: |
           pushd packages
+          rm _sources/blink* -rf
           nix run github:ludovicopiero/nvfetcher -- --commit-changes
           popd
 
