@@ -43,10 +43,10 @@ return {
       require("luasnip.loaders.from_vscode").lazy_load()
       require("blink.cmp").setup({
         cmdline = { enabled = false },
-        keymap = {
-          preset = "enter",
-          ["<C-y>"] = { "select_and_accept" },
-        },
+        -- keymap = {
+        --   preset = "enter",
+        --   ["<C-y>"] = { "select_and_accept" },
+        -- },
 
         appearance = {
           nerd_font_variant = "mono",
