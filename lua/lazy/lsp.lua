@@ -2,7 +2,7 @@
 return {
   { "fidget.nvim" },
   { "nvim-web-devicons" },
-  { "blink.cmp" },
+  --- LSPCONFIG HERE
   {
     "nvim-lspconfig",
     event = "DeferredUIEnter", -- This is equivalent to lazy.nvim's VeryLazy event
@@ -18,120 +18,38 @@ return {
       require("fidget").setup({})
 
       vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("nvim-lsp-attach", { clear = true }),
+        group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
         callback = function(event)
           local map = function(keys, func, desc, mode)
             mode = mode or "n"
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
           end
 
-          -- Rename the variable under your cursor.
-          --  Most Language Servers support renaming across files, etc.
-          map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
-
-          -- Execute a code action, usually your cursor needs to be on top of an error
-          -- or a suggestion from your LSP for this to activate.
-          map("gra", function()
-            FzfLua.lsp_code_actions()
-          end, "[G]oto Code [A]ction", { "n", "x" })
-
-          -- Find references for the word under your cursor.
-          map("grr", function()
-            FzfLua.lsp_definitions()
-          end, "[G]oto [R]eferences")
-
-          -- Jump to the implementation of the word under your cursor.
-          --  Useful when your language has ways of declaring types without an actual implementation.
-          map("gri", function()
-            FzfLua.lsp_implementations()
-          end, "[G]oto [I]mplementation")
-
-          -- Jump to the definition of the word under your cursor.
-          --  This is where a variable was first declared, or where a function is defined, etc.
-          --  To jump back, press <C-t>.
-          map("grd", function()
-            FzfLua.lsp_definitions()
-          end, "[G]oto [D]efinition")
-
-          -- WARN: This is not Goto Definition, this is Goto Declaration.
-          --  For example, in C this would take you to the header.
-          map("grD", function()
-            FzfLua.declarations()
-          end, "[G]oto [D]eclaration")
-
-          -- Fuzzy find all the symbols in your current document.
-          --  Symbols are things like variables, functions, types, etc.
-          map("gO", function()
-            FzfLua.lsp_document_symbols()
-          end, "Open Document Symbols")
-
-          -- Fuzzy find all the symbols in your current workspace.
-          --  Similar to document symbols, except searches over your entire project.
-          map("gW", function()
-            FzfLua.lsp_workspace_symbols()
-          end, "Open Workspace Symbols")
-
-          -- Jump to the type of the word under your cursor.
-          --  Useful when you're not sure what type a variable is and you want to see
-          --  the definition of its *type*, not where it was *defined*.
-          map("grt", function()
-            FzfLua.lsp_typedefs()
-          end, "[G]oto [T]ype Definition")
-
-          -- Toggle to show/hide diagnostic messages
-          map("<leader>td", function()
-            vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-          end, "[T]oggle [D]iagnostics")
-
-          -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
-          ---@param client vim.lsp.Client
-          ---@param method vim.lsp.protocol.Method
-          ---@param bufnr? integer some lsp support methods only in specific files
-          ---@return boolean
-          local function client_supports_method(client, method, bufnr)
-            if vim.fn.has("nvim-0.11") == 1 then
-              return client:supports_method(method, bufnr)
-            else
-              return client.supports_method(method, { bufnr = bufnr })
-            end
-          end
-
-          -- The following two autocommands are used to highlight references of the
-          -- word under your cursor when your cursor rests there for a little while.
-          --    See `:help CursorHold` for information about when this is executed
-          --
-          -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
-          if
-            client
-            and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf)
-          then
-            local highlight_augroup = vim.api.nvim_create_augroup("nvim-lsp-highlight", { clear = false })
+
+          -- highlight references
+          if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
+            local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
             vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
               buffer = event.buf,
               group = highlight_augroup,
               callback = vim.lsp.buf.document_highlight,
             })
-
             vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
               buffer = event.buf,
               group = highlight_augroup,
               callback = vim.lsp.buf.clear_references,
             })
-
             vim.api.nvim_create_autocmd("LspDetach", {
-              group = vim.api.nvim_create_augroup("nvim-lsp-detach", { clear = true }),
-              callback = function(event2)
+              group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+              callback = function(ev)
                 vim.lsp.buf.clear_references()
-                vim.api.nvim_clear_autocmds({ group = "nvim-lsp-highlight", buffer = event2.buf })
+                vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = ev.buf })
               end,
             })
           end
 
-          -- The following code creates a keymap to toggle inlay hints in your
-          -- code, if the language server you are using supports them
-          --
-          -- This may be unwanted, since they displace some of your code
+          -- toggle inlay hints
           if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
             map("<leader>th", function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
@@ -140,12 +58,14 @@ return {
         end,
       })
 
-      -- Diagnostic Config
-      -- See :help vim.diagnostic.Opts
+      -- =========================================================
+      -- Diagnostic config
+      -- =========================================================
       vim.diagnostic.config({
         severity_sort = true,
         float = { border = "rounded", source = "if_many" },
-        signs = {
+        underline = { severity = vim.diagnostic.severity.ERROR },
+        signs = vim.g.have_nerd_font and {
           text = {
             [vim.diagnostic.severity.ERROR] = "󰅚 ",
             [vim.diagnostic.severity.WARN] = "󰀪 ",
@@ -156,43 +76,140 @@ return {
         virtual_text = {
           source = "if_many",
           spacing = 2,
+          format = function(diagnostic)
+            return diagnostic.message
+          end,
         },
       })
 
+      -- =========================================================
+      -- Capabilities
+      -- =========================================================
       local cmp_capabilities = require("blink.cmp").get_lsp_capabilities()
-      local lsp_capabilities = vim.lsp.protocol.make_client_capabilities()
-      local capabilities = vim.tbl_deep_extend("force", lsp_capabilities, cmp_capabilities)
-      capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true,
-      }
+      local base_cap = vim.lsp.protocol.make_client_capabilities()
+      local capabilities = vim.tbl_deep_extend("force", base_cap, cmp_capabilities)
+      capabilities.textDocument.foldingRange = { dynamicRegistration = false, lineFoldingOnly = true }
 
-      vim.lsp.config("nixd", {
-        cmd = { "nixd" },
-        capabilities = capabilities,
+      local diag_float = {}
+      local on_attach_common = function(client, bufnr)
+        local augroup = vim.api.nvim_create_augroup("LspDiagnosticsFloat", { clear = true })
+        vim.api.nvim_create_autocmd("CursorHold", {
+          buffer = bufnr,
+          group = augroup,
+          callback = function()
+            local line = vim.api.nvim_win_get_cursor(0)[1]
+
+            -- Check if we have a valid float already for this line
+            if diag_float[bufnr] then
+              local win = diag_float[bufnr].win
+              if win and vim.api.nvim_win_is_valid(win) and diag_float[bufnr].line == line then
+                return
+              end
+              -- Close old float if it exists
+              if win and vim.api.nvim_win_is_valid(win) then
+                vim.api.nvim_win_close(win, true)
+              end
+            end
+
+            -- Only open float if there are diagnostics on this line
+            local diagnostics = vim.diagnostic.get(0, { lnum = line - 1 })
+            if vim.tbl_isempty(diagnostics) then
+              diag_float[bufnr] = nil
+              return
+            end
+
+            -- Diagnostic options
+            local opts = {
+              focusable = false,
+              close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+              border = "rounded",
+              source = "always",
+              prefix = " ",
+              scope = "line",
+            }
+
+            local float_win = vim.diagnostic.open_float(nil, opts)
+
+            -- Track the float window and the line it is for
+            if float_win then
+              diag_float[bufnr] = { win = float_win, line = line }
+            else
+              diag_float[bufnr] = nil
+            end
+          end,
+        })
+
+        local opts = { noremap = true, silent = true, buffer = bufnr }
+        local fzf = require("fzf-lua")
+        vim.keymap.set("n", "gd", fzf.lsp_definitions, vim.tbl_extend("force", { desc = "Go to definition" }, opts))
+        vim.keymap.set(
+          "n",
+          "gi",
+          fzf.lsp_implementations,
+          vim.tbl_extend("force", { desc = "Go to implementation" }, opts)
+        )
+        vim.keymap.set("n", "gr", fzf.lsp_references, vim.tbl_extend("force", { desc = "Find references" }, opts))
+        vim.keymap.set(
+          "n",
+          "<leader>ca",
+          fzf.lsp_code_actions,
+          vim.tbl_extend("force", { desc = "[C]ode [A]ctions" }, opts)
+        )
+        vim.keymap.set(
+          "n",
+          "<leader>D",
+          fzf.lsp_typedefs,
+          vim.tbl_extend("force", { desc = "Go to type definition" }, opts)
+        )
+        vim.keymap.set("n", "<leader>st", function()
+          require("todo-comments.fzf").todo()
+        end, vim.tbl_extend("force", { desc = "[S]earch [T]odo" }, opts))
+        vim.keymap.set("n", "<leader>sT", function()
+          require("todo-comments.fzf").todo({ keywords = { "TODO", "FIX", "FIXME" } })
+        end, vim.tbl_extend("force", { desc = "[S]earch [T]odo and FIXME" }, opts))
+
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", { desc = "Hover documentation" }, opts))
+        vim.keymap.set(
+          "n",
+          "<leader>sS",
+          vim.lsp.buf.signature_help,
+          vim.tbl_extend("force", { desc = "[S]how [S]ignature help" }, opts)
+        )
+        vim.keymap.set("n", "<leader>n", vim.lsp.buf.rename, vim.tbl_extend("force", { desc = "Rename symbol" }, opts))
+        vim.keymap.set("n", "[d", function()
+          vim.diagnostic.jump({ count = -1, float = true })
+        end, vim.tbl_extend("force", { desc = "Prev diagnostic" }, opts))
+        vim.keymap.set("n", "]d", function()
+          vim.diagnostic.jump({ count = 1, float = true })
+        end, vim.tbl_extend("force", { desc = "Next diagnostic" }, opts))
+        vim.keymap.set("n", "<leader>L", function()
+          print(vim.inspect(vim.lsp.get_clients({ bufnr = bufnr })))
+        end, vim.tbl_extend("force", { desc = "List LSP clients" }, opts))
+      end
+
+      -- =========================================================
+      -- Server configurations
+      -- =========================================================
+      local function common(name, settings)
+        vim.lsp.config(
+          name,
+          vim.tbl_deep_extend("force", {
+            on_attach = on_attach_common,
+            capabilities = capabilities,
+          }, settings or {})
+        )
+      end
+
+      common("nixd", {
         settings = {
           nixd = {
-            formatting = {
-              command = { "nixfmt" },
-            },
-            nixpkgs = {
-              expr = "import <nixpkgs> { }",
-            },
-            options = {
-              nixos = {
-                expr = '(builtins.getFlake "/home/airi/Code/nvim-flake").nixosConfigurations.sforza.options',
-              },
-              ["home-manager"] = {
-                expr = '(builtins.getFlake "/home/airi/Code/nvim-flake").homeConfigurations."airi@sforza".options',
-              },
-            },
+            formatting = { command = { "nixfmt" } },
+            nixpkgs = { expr = "import <nixpkgs> { }" },
           },
         },
       })
 
-      vim.lsp.config("gopls", {
-        cmd = { "gopls" },
-        capabilities = capabilities,
+      common("gopls", {
         settings = {
           gopls = {
             experimentalPostfixCompletions = true,
@@ -213,9 +230,7 @@ return {
         init_options = { usePlaceholders = true },
       })
 
-      vim.lsp.config("basedpyright", {
-        cmd = { "basedpyright-langserver", "--stdio" },
-        capabilities = capabilities,
+      common("basedpyright", {
         settings = {
           python = {
             analysis = {
@@ -228,9 +243,7 @@ return {
         },
       })
 
-      vim.lsp.config("emmylua_ls", {
-        cmd = { "emmylua_ls" },
-        capabilities = capabilities,
+      common("emmylua_ls", {
         settings = {
           Lua = {
             runtime = { version = "LuaJIT" },
@@ -240,9 +253,16 @@ return {
         },
       })
 
-      vim.lsp.config("rust_analyzer", {
-        cmd = { "rust-analyzer" },
-        capabilities = capabilities,
+      common("rust_analyzer", {
+        on_attach = function(client, bufnr)
+          on_attach_common(client, bufnr)
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            callback = function()
+              vim.lsp.buf.format()
+            end,
+          })
+        end,
         settings = {
           ["rust-analyzer"] = {
             diagnostics = { enable = true, styleLints = { enable = true } },
@@ -260,110 +280,43 @@ return {
         },
       })
 
-      vim.lsp.config("taplo", {
-        cmd = { "taplo", "lsp", "stdio" },
-        capabilities = capabilities,
-      })
-
-      vim.lsp.config("html", {
-        cmd = { "vscode-html-language-server", "--stdio" },
-        capabilities = capabilities,
-      })
-
-      vim.lsp.config("cssls", {
-        cmd = { "vscode-css-language-server", "--stdio" },
-        capabilities = capabilities,
-      })
-
-      vim.lsp.config("ts_ls", {
-        cmd = { "typescript-language-server", "--stdio" },
-        capabilities = capabilities,
-      })
-
-      vim.lsp.config("vue_ls", {
-        cmd = { "vue-language-server", "--stdio" },
-        capabilities = capabilities,
-      })
-
-      vim.lsp.config("bashls", {
-        cmd = { "bash-language-server", "start" },
-        capabilities = capabilities,
-      })
-
-      vim.lsp.config("hls", {
-        cmd = { "haskell-language-server-wrapper", "--lsp" },
-        capabilities = capabilities,
-      })
-
-      vim.lsp.config("clangd", {
-        cmd = {
-          "clangd",
-          "--enable-config",
-          "--pch-storage=memory",
-          "--compile-commands-dir=''${workspaceFolder}/build",
-          "--background-index",
-          "--clang-tidy",
-          "--log=verbose",
-          "--all-scopes-completion",
-          "--header-insertion=iwyu",
-          "--fallback-style=LLVM",
-          "--completion-style=detailed",
-          "--function-arg-placeholders",
-          "--pretty",
-        },
-        capabilities = vim.tbl_deep_extend("force", capabilities, { offsetEncoding = { "utf-16" } }),
-      })
-
-      vim.lsp.config("cmake", {
-        cmd = { "cmake-language-server" },
-        capabilities = capabilities,
-      })
-
-      vim.lsp.config("mesonlsp", {
-        cmd = { "mesonlsp", "--lsp" },
-        capabilities = capabilities,
-      })
-
-      vim.lsp.config("yamlls", {
-        cmd = { "yaml-language-server", "--stdio" },
-        capabilities = capabilities,
-      })
-
-      vim.lsp.config("marksman", {
-        cmd = { "marksman", "server" },
-        capabilities = capabilities,
-      })
-
-      vim.lsp.config("jsonls", {
-        cmd = { "vscode-json-language-server", "--stdio" },
-        capabilities = capabilities,
-      })
-
-      -- ---------------------
-      -- Enable all configured servers
-      -- ---------------------
-      local servers = {
-        "nixd",
-        "gopls",
-        "basedpyright",
-        "lua_ls",
-        "rust_analyzer",
+      for _, s in ipairs({
         "taplo",
         "html",
         "cssls",
         "ts_ls",
-        "vue_ls",
         "bashls",
         "hls",
         "clangd",
         "cmake",
         "mesonlsp",
-        "yamlls",
-        "marksman",
-        "jsonls",
-      }
+      }) do
+        common(s)
+      end
 
-      for _, s in ipairs(servers) do
+      -- Special case: clangd offsetEncoding
+      vim.lsp.config("clangd", {
+        on_attach = on_attach_common,
+        capabilities = vim.tbl_deep_extend("force", capabilities, { offsetEncoding = { "utf-16" } }),
+      })
+
+      -- Enable all configured servers
+      for _, s in ipairs({
+        "nixd",
+        "gopls",
+        "basedpyright",
+        "emmylua_ls",
+        "rust_analyzer",
+        "taplo",
+        "html",
+        "cssls",
+        "ts_ls",
+        "bashls",
+        "hls",
+        "clangd",
+        "cmake",
+        "mesonlsp",
+      }) do
         vim.lsp.enable(s)
       end
     end,

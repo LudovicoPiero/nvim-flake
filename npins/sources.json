@@ -169,19 +169,6 @@
       "url": "https://github.com/lukas-reineke/indent-blankline.nvim/archive/005b56001b2cb30bfa61b7986bc50657816ba4ba.tar.gz",
       "hash": "sha256-0q/V+b4UrDRnaC/eRWOi9HU9a61vQSAM9/C8ZQyKt+Y="
     },
-    "lazydev.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "folke",
-        "repo": "lazydev.nvim"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "5231c62aa83c2f8dc8e7ba957aa77098cda1257d",
-      "url": "https://github.com/folke/lazydev.nvim/archive/5231c62aa83c2f8dc8e7ba957aa77098cda1257d.tar.gz",
-      "hash": "sha256-1g1PLFR3bc++NimbrRpoOMZyqYWHeX6pDoxsiuoJHus="
-    },
     "lspkind.nvim": {
       "type": "Git",
       "repository": {

@@ -14,6 +14,7 @@ vim.o.signcolumn = "yes"
 vim.o.termguicolors = true
 vim.o.showmode = false
 vim.o.scrolloff = 10
+vim.o.winborder = "rounded"
 
 -- === Cursor & Input ===
 vim.o.mouse = "a"

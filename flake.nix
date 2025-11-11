@@ -99,6 +99,7 @@
                   cmake-format
 
                   # --- Common tools ---
+                  copilot-language-server
                   bash-language-server
                   shellharden
                   typescript-language-server

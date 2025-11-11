@@ -3,39 +3,37 @@ return {
   { "LuaSnip" },
   { "lspkind.nvim" },
   { "blink.compat" },
-  -- { "blink-copilot" },
-  -- {
-  --   "copilot.lua",
-  --   after = function()
-  --     require("copilot").setup({
-  --       suggestion = {
-  --         enabled = false,
-  --         auto_trigger = true,
-  --         hide_during_completion = true,
-  --         keymap = {
-  --           accept = false, -- handled by nvim-cmp / blink.cmp
-  --           next = "<M-]>",
-  --           prev = "<M-[>",
-  --         },
-  --       },
-  --       panel = { enabled = false },
-  --       filetypes = {
-  --         gitcommit = true,
-  --         markdown = true,
-  --         help = true,
-  --       },
-  --     })
-  --   end,
-  -- },
+  { "blink-copilot" },
+  {
+    "copilot.lua",
+    after = function()
+      require("copilot").setup({
+        suggestion = {
+          enabled = false,
+          auto_trigger = true,
+          hide_during_completion = true,
+          keymap = {
+            accept = false, -- handled by nvim-cmp / blink.cmp
+            next = "<M-]>",
+            prev = "<M-[>",
+          },
+        },
+        panel = { enabled = false },
+        filetypes = {
+          gitcommit = true,
+          markdown = true,
+          help = true,
+        },
+      })
+    end,
+  },
 
   {
     "blink.cmp",
-    event = "InsertEnter",
-
     before = function()
       require("lz.n").trigger_load("blink.compat")
-      -- require("lz.n").trigger_load("blink-copilot")
-      -- require("lz.n").trigger_load("copilot.lua")
+      require("lz.n").trigger_load("blink-copilot")
+      require("lz.n").trigger_load("copilot.lua")
       require("lz.n").trigger_load("lspkind.nvim")
       require("lz.n").trigger_load("friendly-snippets")
       require("lz.n").trigger_load("LuaSnip")
@@ -109,31 +107,11 @@ return {
         },
 
         sources = {
-          default = {
-            "lsp",
-            "snippets",
-            "buffer",
-            "path",
-            -- "copilot",
-            "lazydev",
-          },
+          default = { "lsp", "snippets", "buffer", "path", "copilot" },
           providers = {
-            lazydev = {
-              module = "lazydev.integrations.blink",
-              name = "LazyDev",
-              score_offset = 100,
-            },
             buffer = {
-              -- Make buffer completions appear at the end.
-              score_offset = -100,
-              enabled = function()
-                -- Filetypes for which buffer completions are enabled; add filetypes to extend:
-                local enabled_filetypes = {
-                  "markdown",
-                  "text",
-                }
-                local filetype = vim.bo.filetype
-                return vim.tbl_contains(enabled_filetypes, filetype)
+              min_keyword_length = function()
+                return vim.bo.filetype == "markdown" and 0 or 1
               end,
             },
             lsp = { score_offset = 4 },
@@ -155,13 +133,13 @@ return {
                 show_hidden_files_by_default = false,
               },
             },
-            -- copilot = {
-            --   enabled = true,
-            --   name = "copilot",
-            --   module = "blink-copilot",
-            --   score_offset = 100,
-            --   async = true,
-            -- },
+            copilot = {
+              enabled = true,
+              name = "copilot",
+              module = "blink-copilot",
+              score_offset = 100,
+              async = true,
+            },
           },
         },
 
