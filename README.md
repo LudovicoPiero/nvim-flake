@@ -11,10 +11,15 @@ Welcome to my Neovim configuration! This setup leverages the power of [mnw](http
 
 ## 📷 Screenshots
 
+<details>
+<summary>Click to view screenshots</summary>
+
 <div style="display: flex; gap: 10px; justify-content: center;">
   <img src="assets/screenshot1.png" alt="Screenshot 1" style="width: 48%; border: 1px solid #ddd; border-radius: 4px; padding: 5px;">
   <img src="assets/screenshot2.png" alt="Screenshot 2" style="width: 48%; border: 1px solid #ddd; border-radius: 4px; padding: 5px;">
 </div>
+
+</details>
 
 ## 🌟 Introduction
 
