@@ -56,3 +56,27 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end
   end,
 })
+
+-- open help in vertical split
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "help",
+  command = "wincmd L",
+})
+
+-- syntax highlighting for dotenv files
+vim.api.nvim_create_autocmd("BufRead", {
+  group = vim.api.nvim_create_augroup("dotenv_ft", { clear = true }),
+  pattern = { ".env", ".env.*" },
+  callback = function()
+    vim.bo.filetype = "dosini"
+  end,
+})
+
+-- IDE like highlight when stopping cursor
+vim.api.nvim_create_autocmd("CursorMovedI", {
+  group = vim.api.nvim_create_augroup("LspReferenceHighlight", { clear = true }),
+  desc = "Clear highlights when entering insert mode",
+  callback = function()
+    vim.lsp.buf.clear_references()
+  end,
+})

@@ -1,4 +1,3 @@
--- lsp
 -- LSP Configuration
 local fidget = require("fidget")
 local blink_cmp = require("blink.cmp")

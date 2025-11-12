@@ -78,6 +78,19 @@
       "url": "https://github.com/zbirenbaum/copilot.lua/archive/5bde2cfe01f049f522eeb8b52c5c723407db8bdf.tar.gz",
       "hash": "sha256-/8baBZIhZdQ4B0hoTmh68I2p08rJJ7INil77qIu9vCU="
     },
+    "diffview.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "sindrets",
+        "repo": "diffview.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "4516612fe98ff56ae0415a259ff6361a89419b0a",
+      "url": "https://github.com/sindrets/diffview.nvim/archive/4516612fe98ff56ae0415a259ff6361a89419b0a.tar.gz",
+      "hash": "sha256-SX+ybIzL/w6uyCy4iZKnWnzTFwqB1oXSgyYVAdpdKi8="
+    },
     "fidget.nvim": {
       "type": "Git",
       "repository": {
@@ -194,6 +207,19 @@
       "revision": "68d4478920c7afdfa21c13706464e275d9ce3255",
       "url": "https://github.com/nvim-mini/mini.nvim/archive/68d4478920c7afdfa21c13706464e275d9ce3255.tar.gz",
       "hash": "sha256-gt5fZ1PZjVku5g30zbpWEOxTNlRB6QrMDMBIyAOPQRw="
+    },
+    "neogit": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "NeogitOrg",
+        "repo": "neogit"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "614a63489be5734b14f314c3449535566b8352d4",
+      "url": "https://github.com/NeogitOrg/neogit/archive/614a63489be5734b14f314c3449535566b8352d4.tar.gz",
+      "hash": "sha256-w1l17TIQIBjMPDlPvMHQCMjanY88r1TFWISVIkHnwN8="
     },
     "nvim-lspconfig": {
       "type": "Git",
