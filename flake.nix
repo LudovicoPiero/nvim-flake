@@ -42,7 +42,10 @@
                     # is this necessary?
                     pure = lib.fileset.toSource {
                       root = ./.;
-                      fileset = lib.fileset.unions [ ./nvim ];
+                      fileset = lib.fileset.unions [
+                        ./init.lua
+                        ./nvim
+                      ];
                     };
                   };
                 };
