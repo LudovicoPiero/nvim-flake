@@ -24,19 +24,14 @@
               default = inputs.mnw.lib.wrap pkgs {
                 inherit (inputs'.nvim-overlay.packages) neovim;
 
-                initLua = ''
-                  require("lain")
-                  require("lz.n").load("lazy")
-                '';
+                # Lua config files to load at startup
+                luaFiles = [ ./init.lua ];
 
                 plugins = {
-                  start = [
-                    pkgs.vimPlugins.lz-n
-                    pkgs.vimPlugins.plenary-nvim
-                  ];
+                  start = [ pkgs.vimPlugins.plenary-nvim ];
 
                   # Anything that you're loading lazily should be put here
-                  opt = [ pkgs.vimPlugins.nvim-treesitter.withAllGrammars ];
+                  opt = with pkgs.vimPlugins; [ nvim-treesitter.withAllGrammars ];
                   optAttrs = {
                     "blink.cmp" = self'.packages.blink-cmp;
                     "blink.pairs" = self'.packages.blink-pairs;
@@ -47,7 +42,7 @@
                     # is this necessary?
                     pure = lib.fileset.toSource {
                       root = ./.;
-                      fileset = lib.fileset.unions [ ./lua ];
+                      fileset = lib.fileset.unions [ ./nvim ];
                     };
                   };
                 };
@@ -117,6 +112,7 @@
               };
 
               nvim = self'.packages.default;
+              neovim = self'.packages.default;
             };
         };
     };
