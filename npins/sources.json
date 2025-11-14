@@ -78,6 +78,19 @@
       "url": "https://github.com/zbirenbaum/copilot.lua/archive/5bde2cfe01f049f522eeb8b52c5c723407db8bdf.tar.gz",
       "hash": "sha256-/8baBZIhZdQ4B0hoTmh68I2p08rJJ7INil77qIu9vCU="
     },
+    "cuddlefish.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "comfysage",
+        "repo": "cuddlefish.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "8381e244350e03b702422da97587d027ea1708fb",
+      "url": "https://github.com/comfysage/cuddlefish.nvim/archive/8381e244350e03b702422da97587d027ea1708fb.tar.gz",
+      "hash": "sha256-Nx++ZAL82tvSb8f0pHg+fIDm1D0q/PlQ/OOrOZTBsVM="
+    },
     "diffview.nvim": {
       "type": "Git",
       "repository": {
