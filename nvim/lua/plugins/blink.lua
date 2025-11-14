@@ -67,6 +67,11 @@ copilot.setup({
 blink_cmp.setup({
   cmdline = { enabled = false },
 
+  keymap = {
+    preset = "enter",
+    ["<C-y>"] = { "select_and_accept" },
+  },
+
   appearance = {
     nerd_font_variant = "mono",
     use_nvim_cmp_as_default = true,
