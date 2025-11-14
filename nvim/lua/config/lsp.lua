@@ -124,6 +124,16 @@ common("nixd", {
     nixd = {
       formatting = { command = { "nixfmt" } },
       nixpkgs = { expr = "import <nixpkgs> { }" },
+      options = {
+        nixos = {
+          -- NOTE:
+          -- You may want to change this ;)
+          expr = '(builtins.getFlake "/home/lewdo/Code/nvim-flake").nixosConfigurations.sforza.options',
+        },
+        home_manager = {
+          expr = '(builtins.getFlake "/home/lewdo/Code/nvim-flake").homeConfigurations."airi@sforza".options',
+        },
+      },
     },
   },
 })

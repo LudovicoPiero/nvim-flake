@@ -4,7 +4,10 @@
   outputs =
     { flake-parts, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [ ./packages ];
+      imports = [
+        ./flake
+        ./packages
+      ];
       systems = [ "x86_64-linux" ];
       perSystem =
         {

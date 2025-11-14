@@ -66,7 +66,7 @@ conform.setup({
     goimports = { command = "goimports" },
 
     -- Nix
-    nixfmt = { command = "nixfmt", prepend_args = { "--strict" } },
+    nixfmt = { command = "nixfmt", prepend_args = { "--strict", "--width=80" } },
 
     -- Shell
     shfmt = { command = "shfmt", prepend_args = { "-i", "2", "-ci" } },
