@@ -1,6 +1,6 @@
 -- lua/plugins/yazi.lua
 -- Disable netrw (default file browser)
-vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_netrwPlugin = 1
 local yazi = require("yazi")
 
 -- Setup
