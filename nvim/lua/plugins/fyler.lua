@@ -96,7 +96,7 @@ fyler.setup({
             width = "70%",
           },
           split_left_most = {
-            width = "30%",
+            width = "20%",
             win_opts = {
               winfixwidth = true, -- keep the window width fixed when other windows resize
             },
