@@ -6,7 +6,7 @@ vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Kickstart-style mappings
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<Esc>", "<CMD>nohlsearch<CR>", { silent = true })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
 -- Terminal mode escape
