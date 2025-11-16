@@ -8,7 +8,7 @@ fyler.setup({
   views = {
     finder = {
       -- Close explorer when file is selected
-      close_on_select = true,
+      close_on_select = false,
       -- Auto-confirm simple file operations
       confirm_simple = false,
       -- Replace netrw as default explorer
