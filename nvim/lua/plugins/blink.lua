@@ -1,5 +1,14 @@
 local blink_pairs = require("blink.pairs")
 
+---@type boolean
+local has_icons = vim.g.have_nerd_font == true
+local function maybe_icon(icon, gap)
+  if has_icons and icon then
+    return icon .. (gap or "")
+  end
+  return "" -- no icons when nerd font is disabled
+end
+
 blink_pairs.setup({
   mappings = {
     enabled = true,
@@ -75,9 +84,7 @@ blink_cmp.setup({
   appearance = {
     nerd_font_variant = "mono",
     use_nvim_cmp_as_default = true,
-    kind_icons = {
-      Copilot = "",
-    },
+    kind_icons = has_icons and { Copilot = "" } or { Copilot = "" },
   },
 
   completion = {
@@ -95,7 +102,12 @@ blink_cmp.setup({
         components = {
           kind_icon = {
             text = function(ctx)
+              if not has_icons then
+                return "" -- suppress icons globally
+              end
+
               local icon = ctx.kind_icon
+
               if vim.tbl_contains({ "Path" }, ctx.source_name) then
                 local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
                 if dev_icon then
@@ -104,17 +116,24 @@ blink_cmp.setup({
               else
                 icon = lspkind.symbolic(ctx.kind, { mode = "symbol" })
               end
-              return icon .. ctx.icon_gap
+
+              return maybe_icon(icon, ctx.icon_gap)
             end,
 
             highlight = function(ctx)
+              if not has_icons then
+                return "" -- prevent highlight groups from being applied
+              end
+
               local hl = ctx.kind_hl
+
               if vim.tbl_contains({ "Path" }, ctx.source_name) then
                 local _, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
                 if dev_hl then
                   hl = dev_hl
                 end
               end
+
               return hl
             end,
           },
