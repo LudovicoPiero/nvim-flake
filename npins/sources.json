@@ -273,6 +273,19 @@
       "url": "https://github.com/stevearc/oil.nvim/archive/7e1cd7703ff2924d7038476dcbc04b950203b902.tar.gz",
       "hash": "sha256-ebRao8UU8UI1S6Lumkd5vUiYYSj9UAazcEzThKyl8Uk="
     },
+    "onedark.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "navarasu",
+        "repo": "onedark.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "6c10964f91321c6a0f09bcc41dd64e7a6602bc4f",
+      "url": "https://github.com/navarasu/onedark.nvim/archive/6c10964f91321c6a0f09bcc41dd64e7a6602bc4f.tar.gz",
+      "hash": "sha256-egkOvCbyFh693o+F/ATZaZeL7v8Xs2uXqRkvyje2ZpI="
+    },
     "todo-comments.nvim": {
       "type": "Git",
       "repository": {
@@ -285,19 +298,6 @@
       "revision": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",
       "url": "https://github.com/folke/todo-comments.nvim/archive/31e3c38ce9b29781e4422fc0322eb0a21f4e8668.tar.gz",
       "hash": "sha256-VGeIRfwQsHgSO89Pmn6yIP9na1F6mmYZx0HDLe9IKCQ="
-    },
-    "tokyonight.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "folke",
-        "repo": "tokyonight.nvim"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd",
-      "url": "https://github.com/folke/tokyonight.nvim/archive/5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd.tar.gz",
-      "hash": "sha256-4zfkv3egdWJ/GCWUehV0MAIXxsrGT82Wd1Qqj1SCGOk="
     },
     "trouble.nvim": {
       "type": "Git",
