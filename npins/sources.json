@@ -143,6 +143,19 @@
       "url": "https://github.com/rafamadriz/friendly-snippets/archive/572f5660cf05f8cd8834e096d7b4c921ba18e175.tar.gz",
       "hash": "sha256-FzApcTbWfFkBD9WsYMhaCyn6ky8UmpUC2io/co/eByM="
     },
+    "fyler.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "A7Lavinraj",
+        "repo": "fyler.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "f70af39b33d167c1bfefcc590d4c9afdcbe4954a",
+      "url": "https://github.com/A7Lavinraj/fyler.nvim/archive/f70af39b33d167c1bfefcc590d4c9afdcbe4954a.tar.gz",
+      "hash": "sha256-5yIg6u7llz2xJ69wYNgNfi7U2woo0yRGyngJBUmDemc="
+    },
     "fzf-lua": {
       "type": "Git",
       "repository": {
