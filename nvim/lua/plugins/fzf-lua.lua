@@ -1,15 +1,46 @@
+---@diagnostic disable: undefined-global
 local fzf = require("fzf-lua")
 
 fzf.setup({
-  fzf_opts = {
-    ["--layout"] = "default",
-  },
   winopts = {
-    preview = {
-      vertical = "up:50%",
-      horizontal = "right:50%",
-      delay = 10,
+    height = 0.85,
+    width = 0.80,
+    row = 0.35,
+    col = 0.50,
+    border = "rounded",
+    treesitter = {
+      enabled = true,
+      fzf_colors = { ["hl"] = "-1:reverse", ["hl+"] = "-1:reverse" },
     },
+    preview = {
+      layout = "flex",
+      border = "rounded",
+      warp = true,
+      title = false,
+      scrollbar = false,
+      delay = 20,
+      winopts = {
+        number = true,
+        relativenumber = false,
+        cursorline = true,
+        cursorlineopt = "both",
+        cursorcolumn = false,
+        signcolumn = "no",
+        list = false,
+        foldenable = false,
+        foldmethod = "manual",
+      },
+    },
+  },
+  fzf_opts = {
+    ["--ansi"] = true,
+    ["--style"] = "minimal",
+    ["--info"] = "inline-right",
+    ["--height"] = "100%",
+    ["--layout"] = "reverse",
+    ["--border"] = "none",
+    ["--highlight-line"] = true,
+    ["--marker"] = "✓",
   },
 })
 
@@ -19,7 +50,7 @@ fzf.register_ui_select()
 -- Keymaps
 local map = vim.keymap.set
 
-vim.keymap.set("n", "<leader>c", "<cmd>FzfLua files<cr>", { desc = "Find Files" })
+map("n", "<leader>c", "<cmd>FzfLua files<cr>", { desc = "Find Files" })
 map("n", "<leader>sq", function()
   FzfLua.quickfix()
 end, { desc = "[S]earch [Q]uickfix List" })
