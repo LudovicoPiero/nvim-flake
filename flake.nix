@@ -112,6 +112,7 @@
                   marksman
                   nodePackages.yaml-language-server
                   vscode-langservers-extracted
+                  svelte-language-server
                   chafa
                   # inputs'.self.packages.tree-sitter-cli #TODO
                 ];

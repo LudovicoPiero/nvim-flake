@@ -196,6 +196,7 @@ for _, s in ipairs({
   "html",
   "cssls",
   "ts_ls",
+  "svelte",
   "bashls",
   "hls",
   "clangd",
@@ -227,6 +228,7 @@ for _, s in ipairs({
   "clangd",
   "cmake",
   "mesonlsp",
+  "svelte",
 }) do
   vim.lsp.enable(s)
 end
