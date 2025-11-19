@@ -108,7 +108,6 @@
                 chafa
               ];
 
-              # Helper to load npins sources (currently unused in your config, but cleaned up here)
               npinsToPlugins =
                 input:
                 builtins.mapAttrs (_: v: v { inherit pkgs; }) (
@@ -135,7 +134,6 @@
                   }
                   // npinsToPlugins ./npins/sources.json;
 
-                  # This copies your config cleaner than a simple symlink
                   dev.lain = {
                     pure = lib.fileset.toSource {
                       root = ./.;

@@ -1,6 +1,8 @@
--- LSP Configuration
+local M = {}
+
 local fidget = require("fidget")
-local blink_cmp = require("blink.cmp")
+local lsp_utils = require("lain.lsp.utils")
+local servers = require("lain.lsp.servers")
 
 -- Initialize fidget (LSP progress indicator)
 fidget.setup({})
@@ -30,21 +32,11 @@ vim.diagnostic.config({
 })
 
 --------------------------------------------------------------------------------
--- Capabilities
---------------------------------------------------------------------------------
-local cmp_capabilities = blink_cmp.get_lsp_capabilities()
-local base_cap = vim.lsp.protocol.make_client_capabilities()
-local capabilities = vim.tbl_deep_extend("force", base_cap, cmp_capabilities)
-capabilities.textDocument.foldingRange = { dynamicRegistration = false, lineFoldingOnly = true }
-
---------------------------------------------------------------------------------
 -- Common on_attach and LspAttach behavior
 --------------------------------------------------------------------------------
 local diag_float = {}
 
 local function on_attach_common(client, bufnr)
-  local opts = { noremap = true, silent = true, buffer = bufnr }
-
   -- Floating diagnostics on CursorHold
   local augroup = vim.api.nvim_create_augroup("LspDiagnosticsFloat", { clear = true })
   vim.api.nvim_create_autocmd("CursorHold", {
@@ -105,130 +97,11 @@ local function on_attach_common(client, bufnr)
   end, { desc = "Next diagnostic", buffer = bufnr })
 end
 
---------------------------------------------------------------------------------
--- Server setup helper
---------------------------------------------------------------------------------
-local function common(name, settings)
-  vim.lsp.config(
-    name,
-    vim.tbl_deep_extend("force", {
-      on_attach = on_attach_common,
-      capabilities = capabilities,
-    }, settings or {})
-  )
-end
+-- Get capabilities
+local capabilities = lsp_utils.get_capabilities()
 
--- Server configurations
-common("nixd", {
-  settings = {
-    nixd = {
-      formatting = { command = { "nixfmt" } },
-      nixpkgs = { expr = "import <nixpkgs> { }" },
-      options = {
-        nixos = {
-          -- NOTE:
-          -- You may want to change this ;)
-          expr = '(builtins.getFlake "/home/lewdo/Code/nvim-flake").nixosConfigurations.sforza.options',
-        },
-        home_manager = {
-          expr = '(builtins.getFlake "/home/lewdo/Code/nvim-flake").homeConfigurations."airi@sforza".options',
-        },
-      },
-    },
-  },
-})
+-- Setup servers
+servers.setup(on_attach_common, capabilities)
 
-common("gopls", {
-  settings = {
-    gopls = {
-      experimentalPostfixCompletions = true,
-      analyses = { unusedparams = true, shadow = true },
-      staticcheck = true,
-      gofumpt = true,
-    },
-  },
-  init_options = { usePlaceholders = true },
-})
+return M
 
-common("basedpyright", {
-  settings = {
-    python = {
-      analysis = {
-        autoSearchPaths = true,
-        diagnosticMode = "workspace",
-        useLibraryCodeForTypes = true,
-        typeCheckingMode = "off",
-      },
-    },
-  },
-})
-
-common("emmylua_ls", {
-  settings = {
-    Lua = {
-      runtime = { version = "LuaJIT" },
-      diagnostics = { globals = { "vim" } },
-      workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-    },
-  },
-})
-
-common("rust_analyzer", {
-  on_attach = function(client, bufnr)
-    on_attach_common(client, bufnr)
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format()
-      end,
-    })
-  end,
-  settings = {
-    ["rust-analyzer"] = {
-      diagnostics = { enable = true },
-      files = { excludeDirs = { ".direnv", "rust/.direnv" } },
-    },
-  },
-})
-
-for _, s in ipairs({
-  "taplo",
-  "html",
-  "cssls",
-  "ts_ls",
-  "svelte",
-  "bashls",
-  "hls",
-  "clangd",
-  "cmake",
-  "mesonlsp",
-}) do
-  common(s)
-end
-
--- clangd special case
-vim.lsp.config("clangd", {
-  on_attach = on_attach_common,
-  capabilities = vim.tbl_deep_extend("force", capabilities, { offsetEncoding = { "utf-16" } }),
-})
-
--- Finally enable all configured servers
-for _, s in ipairs({
-  "nixd",
-  "gopls",
-  "basedpyright",
-  "emmylua_ls",
-  "rust_analyzer",
-  "taplo",
-  "html",
-  "cssls",
-  "ts_ls",
-  "bashls",
-  "hls",
-  "clangd",
-  "cmake",
-  "mesonlsp",
-  "svelte",
-}) do
-  vim.lsp.enable(s)
-end

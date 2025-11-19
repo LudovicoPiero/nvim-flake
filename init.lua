@@ -4,7 +4,6 @@ if mnw == nil then
   return
 end
 
--- Add your plugin directory to runtimepath
 local plugin_root = mnw.configDir .. "/pack/mnw/start/lain/nvim"
 vim.opt.rtp:prepend(plugin_root)
 
@@ -19,12 +18,5 @@ for name, type in vim.fs.dir(opt_dir) do
   end
 end
 
--- Load your configuration modules
-require("config.globals")
-require("config.colorscheme")
-require("config.options")
-require("config.keymaps")
-require("config.autocmd")
-require("config.lsp")
-
-require("plugins")
+-- Load the new configuration
+require("lain")
