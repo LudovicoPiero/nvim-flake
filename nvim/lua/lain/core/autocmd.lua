@@ -80,3 +80,18 @@ vim.api.nvim_create_autocmd("CursorMovedI", {
     vim.lsp.buf.clear_references()
   end,
 })
+
+--- Remove whitespace on save
+vim.api.nvim_create_autocmd("BufWritePre", {
+  group = vim.api.nvim_create_augroup("TrimWhitespace", { clear = true }),
+  pattern = "*", -- Apply to all file types
+  callback = function()
+    -- Save cursor position to restore later
+    local curpos = vim.api.nvim_win_get_cursor(0)
+    -- Remove trailing whitespaces
+    vim.cmd([[keeppatterns %s/\s\+$//e]])
+    -- Restore cursor position
+    vim.api.nvim_win_set_cursor(0, curpos)
+  end,
+  desc = "Trim trailing whitespace before saving",
+})
