@@ -143,7 +143,7 @@ blink_cmp.setup({
   },
 
   sources = {
-    default = { "lsp", "snippets", "buffer", "path", "copilot" },
+    default = { "copilot", "lsp", "snippets", "buffer", "path" },
     providers = {
       buffer = {
         min_keyword_length = function()
