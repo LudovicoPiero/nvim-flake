@@ -1,5 +1,17 @@
----@diagnostic disable: undefined-global
-require("diffview").setup({})
+local neogit = require("neogit")
 
-require("neogit").setup({})
-vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit UI" })
+-- 1. Setup Neogit
+-- Magit for Neovim
+neogit.setup({
+  kind = "floating", -- "tab" | "split" | "floating"
+  integrations = {
+    diffview = true, -- Opens diffs in Diffview instead of internal view
+  },
+})
+
+-- 2. Keymaps
+local map = vim.keymap.set
+
+-- Neogit
+map("n", "<leader>gg", neogit.open, { desc = "Neogit Status" })
+map("n", "<leader>gc", ":Neogit commit<CR>", { desc = "Neogit Commit" })

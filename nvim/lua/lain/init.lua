@@ -12,7 +12,4 @@ require("lain.core.colorscheme")
 require("lain.lsp")
 require("lain.plugins")
 
--- uncomment the line below to get a notification when the config is reloaded
--- vim.notify("Lain's Neovim config loaded!", vim.log.levels.INFO)
-
 return M

@@ -10,7 +10,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # "Minimal Neovim Wrapper" - Solid choice for a minimal wrapper
     mnw.url = "github:gerg-l/mnw";
 
     nvim-overlay = {
@@ -21,7 +20,6 @@
 
     rust-overlay = {
       url = "github:oxalica/rust-overlay/59c45eb69d9222a4362673141e00ff77842cd219";
-      # Pinned to 2025-10-31.
     };
   };
 
@@ -46,11 +44,10 @@
         {
           packages =
             let
-              # --- Dependency Management ---
-              # Grouping these makes the actual wrapper logic much easier to read.
+              # --- Tool Groups ---
               nixTools = with pkgs; [
                 statix
-                nixfmt-rfc-style # 'nixfmt' is often deprecated/renamed
+                nixfmt
                 nixd
               ];
 
@@ -106,8 +103,13 @@
                 vscode-langservers-extracted
                 svelte-language-server
                 chafa
+                fzf
+                ripgrep
+                bat
+                fd
               ];
 
+              # Helper for npins plugins
               npinsToPlugins =
                 input:
                 builtins.mapAttrs (_: v: v { inherit pkgs; }) (
@@ -119,7 +121,7 @@
               default = inputs.mnw.lib.wrap pkgs {
                 inherit (inputs'.nvim-overlay.packages) neovim;
 
-                # Lua config files to load at startup
+                # Load init.lua at startup
                 luaFiles = [ ./init.lua ];
 
                 plugins = {
@@ -128,6 +130,7 @@
                   # Lazy loaded plugins
                   opt = with pkgs.vimPlugins; [ nvim-treesitter.withAllGrammars ];
 
+                  # Map manual flake packages
                   optAttrs = {
                     "blink.cmp" = self'.packages.blink-cmp;
                     "blink.pairs" = self'.packages.blink-pairs;
@@ -154,7 +157,7 @@
                   perl.enable = true;
                 };
 
-                # Concatenate all the tool lists we defined above
+                # Add all tools to the Neovim PATH
                 extraBinPath =
                   nixTools
                   ++ goTools
@@ -165,7 +168,7 @@
                   ++ commonTools;
               };
 
-              # Aliases
+              # Aliases for convenience
               nvim = self'.packages.default;
               neovim = self'.packages.default;
             };

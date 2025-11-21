@@ -1,69 +1,32 @@
 local blink_pairs = require("blink.pairs")
-
----@type boolean
-local has_icons = vim.g.have_nerd_font == true
-local function maybe_icon(icon, gap)
-  if has_icons and icon then
-    return icon .. (gap or "")
-  end
-  return "" -- no icons when nerd font is disabled
-end
-
-blink_pairs.setup({
-  mappings = {
-    enabled = true,
-    pairs = {
-      ["'"] = {},
-    },
-  },
-  highlights = {
-    enabled = true,
-    groups = {
-      "BlinkPairsOrange",
-      "BlinkPairsPurple",
-      "BlinkPairsBlue",
-    },
-    matchparen = {
-      enabled = true,
-      group = "MatchParen",
-    },
-  },
-  debug = false,
-})
-
-vim.keymap.set("n", "<leader>tp", function()
-  -- Toggle blink pairs mappings
-  vim.g.blink_pairs_disabled = not vim.g.blink_pairs_disabled
-
-  local mappings = require("blink.pairs.mappings")
-  if vim.g.blink_pairs_disabled then
-    mappings.disable()
-  else
-    mappings.enable()
-  end
-end, { desc = "[T]oggle auto [P]airs" })
-
---- Blink.cmp
--- Load all required modules safely
-local lspkind = require("lspkind")
 local blink_cmp = require("blink.cmp")
 local copilot = require("copilot")
 
--- Load snippets from VSCode-style snippet sources
-require("luasnip.loaders.from_vscode").lazy_load()
-
--- Setup Copilot
-copilot.setup({
-  suggestion = {
-    enabled = false,
-    auto_trigger = true,
-    hide_during_completion = true,
-    keymap = {
-      accept = false, -- handled by blink.cmp
-      next = "<M-]>",
-      prev = "<M-[>",
-    },
+-- 1. Setup Blink Pairs
+blink_pairs.setup({
+  mappings = {
+    enabled = true,
+    pairs = { ["'"] = {} },
   },
+  highlights = {
+    enabled = true,
+    matchparen = { enabled = true, group = "MatchParen" },
+  },
+})
+
+-- Toggle keymap
+vim.keymap.set("n", "<leader>tp", function()
+  vim.g.blink_pairs_disabled = not vim.g.blink_pairs_disabled
+  if vim.g.blink_pairs_disabled then
+    require("blink.pairs.mappings").disable()
+  else
+    require("blink.pairs.mappings").enable()
+  end
+end, { desc = "[T]oggle auto [P]airs" })
+
+-- 2. Setup Copilot (Backend)
+copilot.setup({
+  suggestion = { enabled = false },
   panel = { enabled = false },
   filetypes = {
     gitcommit = true,
@@ -72,8 +35,9 @@ copilot.setup({
   },
 })
 
--- Setup blink.cmp
+-- 3. Setup Blink CMP
 blink_cmp.setup({
+  -- Disable cmdline completion (cleaner UI)
   cmdline = { enabled = false },
 
   keymap = {
@@ -82,61 +46,51 @@ blink_cmp.setup({
   },
 
   appearance = {
-    nerd_font_variant = "mono",
     use_nvim_cmp_as_default = true,
-    kind_icons = has_icons and { Copilot = "" } or { Copilot = "" },
+    nerd_font_variant = "mono",
+    -- Native icon definition (Replaces lspkind)
+    kind_icons = {
+      Copilot = "",
+      Text = "󰉿",
+      Method = "󰆧",
+      Function = "󰊕",
+      Constructor = "",
+      Field = "󰜢",
+      Variable = "󰀫",
+      Class = "󰠱",
+      Interface = "",
+      Module = "",
+      Property = "󰜢",
+      Unit = "󰑭",
+      Value = "󰎠",
+      Enum = "",
+      Keyword = "󰌋",
+      Snippet = "",
+      Color = "󰏘",
+      File = "󰈙",
+      Reference = "󰈇",
+      Folder = "󰉋",
+      EnumMember = "",
+      Constant = "󰏿",
+      Struct = "󰙅",
+      Event = "",
+      Operator = "󰆕",
+      TypeParameter = "",
+    },
   },
 
   completion = {
     documentation = { auto_show = true, auto_show_delay_ms = 500 },
     ghost_text = { enabled = true },
+
     menu = {
-      auto_show = true,
       border = "rounded",
       draw = {
         treesitter = { "lsp" },
         columns = {
+          { "kind_icon" },
           { "label", "label_description", gap = 1 },
-          { "kind_icon", "kind" },
-        },
-        components = {
-          kind_icon = {
-            text = function(ctx)
-              if not has_icons then
-                return "" -- suppress icons globally
-              end
-
-              local icon = ctx.kind_icon
-
-              if vim.tbl_contains({ "Path" }, ctx.source_name) then
-                local dev_icon, _ = require("nvim-web-devicons").get_icon(ctx.label)
-                if dev_icon then
-                  icon = dev_icon
-                end
-              else
-                icon = lspkind.symbolic(ctx.kind, { mode = "symbol" })
-              end
-
-              return maybe_icon(icon, ctx.icon_gap)
-            end,
-
-            highlight = function(ctx)
-              if not has_icons then
-                return "" -- prevent highlight groups from being applied
-              end
-
-              local hl = ctx.kind_hl
-
-              if vim.tbl_contains({ "Path" }, ctx.source_name) then
-                local _, dev_hl = require("nvim-web-devicons").get_icon(ctx.label)
-                if dev_hl then
-                  hl = dev_hl
-                end
-              end
-
-              return hl
-            end,
-          },
+          { "kind" },
         },
       },
     },
@@ -153,40 +107,28 @@ blink_cmp.setup({
       lsp = { score_offset = 4 },
       snippets = {
         score_offset = 4,
-        opts = {
-          use_show_condition = true,
-          show_autosnippets = true,
-        },
       },
       path = {
         score_offset = 3,
         opts = {
           trailing_slash = true,
-          label_trailing_slash = true,
-          get_cwd = function(context)
-            return vim.fn.expand(("#%d:p:h"):format(context.bufnr))
-          end,
           show_hidden_files_by_default = false,
         },
       },
       copilot = {
-        enabled = true,
         name = "copilot",
         module = "blink-copilot",
-        score_offset = 100,
+        score_offset = 100, -- Force Copilot to top
         async = true,
       },
     },
   },
 
+  -- If you want to use Luasnip for snippets:
   snippets = { preset = "luasnip" },
 
-  fuzzy = {
-    implementation = "rust",
-    prebuilt_binaries = {
-      download = false,
-    },
-  },
+  -- Use pre-built binaries (faster startup)
+  fuzzy = { implementation = "rust" },
 
   signature = {
     enabled = true,

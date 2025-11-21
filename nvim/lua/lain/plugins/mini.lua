@@ -1,17 +1,14 @@
--- Better Around/Inside textobjects
---
--- Examples:
---  - va)  - [V]isually select [A]round [)]paren
---  - yinq - [Y]ank [I]nside [N]ext [Q]uote
---  - ci'  - [C]hange [I]nside [']quote
+local has_icons = vim.g.have_nerd_font
+
+--------------------------------------------------------------------------------
+-- 1. Mini AI & SplitJoin
+--------------------------------------------------------------------------------
 require("mini.ai").setup({ n_lines = 500 })
 require("mini.splitjoin").setup()
 
--- Add/delete/replace surroundings (brackets, quotes, etc.)
---
--- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
--- - sd'   - [S]urround [D]elete [']quotes
--- - sr)'  - [S]urround [R]eplace [)] [']
+--------------------------------------------------------------------------------
+-- 2. Mini Surround
+--------------------------------------------------------------------------------
 require("mini.surround").setup({
   mappings = {
     add = "gsa", -- Add surrounding in Normal and Visual modes
@@ -24,23 +21,30 @@ require("mini.surround").setup({
   },
 })
 
--- Simple and easy statusline.
---  You could remove this setup call if you don't like it,
---  and try some other statusline plugin
+--------------------------------------------------------------------------------
+-- 3. Mini Statusline
+--------------------------------------------------------------------------------
 local statusline = require("mini.statusline")
--- set use_icons to true if you have a Nerd Font
-statusline.setup({ use_icons = vim.g.have_nerd_font })
+statusline.setup({ use_icons = has_icons })
 
--- You can configure sections in the statusline by overriding their
--- default behavior. For example, here we set the section for
--- cursor location to LINE:COLUMN
----@diagnostic disable-next-line: duplicate-set-field
+-- Override location section to simple LINE:COL
 statusline.section_location = function()
   return "%2l:%-2v"
 end
 
-vim.keymap.set("n", "<leader>bd", function()
+--------------------------------------------------------------------------------
+-- 4. Mini BufRemove (Smart Buffer Closing)
+--------------------------------------------------------------------------------
+require("mini.bufremove").setup()
+
+local function close_buffer(force)
   local bd = require("mini.bufremove").delete
+
+  if force then
+    bd(0, true)
+    return
+  end
+
   if vim.bo.modified then
     local choice = vim.fn.confirm(("Save changes to %q?"):format(vim.fn.bufname()), "&Yes\n&No\n&Cancel")
     if choice == 1 then -- Yes
@@ -52,8 +56,11 @@ vim.keymap.set("n", "<leader>bd", function()
   else
     bd(0)
   end
-end, { desc = "Delete Buffer" })
+end
 
+vim.keymap.set("n", "<leader>bd", function()
+  close_buffer(false)
+end, { desc = "Delete Buffer" })
 vim.keymap.set("n", "<leader>bD", function()
-  require("mini.bufremove").delete(0, true)
-end, { desc = "Delete Buffer (Force)" })
+  close_buffer(true)
+end, { desc = "Force Delete Buffer" })

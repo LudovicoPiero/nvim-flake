@@ -1,97 +1,115 @@
---- Auto-commands ---
+local function augroup(name)
+  return vim.api.nvim_create_augroup("lain_" .. name, { clear = true })
+end
+
+-- 1. Highlight on Yank
 vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
+  group = augroup("highlight_yank"),
+  desc = "Highlight yanked text",
   callback = function()
-    vim.highlight.on_yank()
+    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 40 })
   end,
 })
 
--- Auto-close help, quickfix, etc. with 'q'
+-- 2. Close specific windows with 'q'
 vim.api.nvim_create_autocmd("FileType", {
-  group = vim.api.nvim_create_augroup("close_with_q", { clear = true }),
+  group = augroup("close_with_q"),
   pattern = {
     "help",
     "qf",
-    "lspinfo",
     "man",
-    "checkhealth",
     "notify",
+    "checkhealth",
+    "lspinfo",
     "startuptime",
     "tsplayground",
     "PlenaryTestPopup",
+    "gitsigns.blame",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
-    vim.keymap.set("n", "q", "<CMD>close<CR>", {
-      buffer = event.buf,
-      silent = true,
-      desc = "Close window",
-    })
+    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
   end,
 })
 
--- auto-create missing dirs when saving a file
+-- 3. Auto-create directories on save
 vim.api.nvim_create_autocmd("BufWritePre", {
-  desc = "Auto-create missing dirs when saving a file",
-  group = vim.api.nvim_create_augroup("kickstart-auto-create-dir", { clear = true }),
-  pattern = "*",
-  callback = function()
-    local dir = vim.fn.expand("<afile>:p:h")
-    if vim.fn.isdirectory(dir) == 0 then
-      vim.fn.mkdir(dir, "p")
+  group = augroup("auto_create_dir"),
+  callback = function(event)
+    if event.match:match("^%w%w+://") then
+      return
     end
+
+    local file = vim.uv.fs_realpath(event.match) or event.match
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
   end,
 })
 
--- Restore cursor position on file open
+-- 4. Restore cursor position
 vim.api.nvim_create_autocmd("BufReadPost", {
-  desc = "Restore cursor position on file open",
-  group = vim.api.nvim_create_augroup("kickstart-restore-cursor", { clear = true }),
-  pattern = "*",
-  callback = function()
-    local line = vim.fn.line("'\"")
-    if line > 1 and line <= vim.fn.line("$") then
-      vim.cmd("normal! g'\"")
+  group = augroup("restore_cursor"),
+  callback = function(event)
+    local exclude = { "gitcommit" }
+    local buf = event.buf
+    if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].lazy_vim_last_loc then
+      return
+    end
+    vim.b[buf].lazy_vim_last_loc = true
+    local mark = vim.api.nvim_buf_get_mark(buf, '"')
+    local lcount = vim.api.nvim_buf_line_count(buf)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
     end
   end,
 })
 
--- open help in vertical split
+-- 5. Open Help in vertical split (Right side)
 vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("help_split"),
   pattern = "help",
   command = "wincmd L",
 })
 
--- syntax highlighting for dotenv files
-vim.api.nvim_create_autocmd("BufRead", {
-  group = vim.api.nvim_create_augroup("dotenv_ft", { clear = true }),
+-- 6. Syntax highlighting for dotfiles
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  group = augroup("filetype_settings"),
   pattern = { ".env", ".env.*" },
   callback = function()
-    vim.bo.filetype = "dosini"
+    vim.bo.filetype = "sh"
   end,
 })
 
--- IDE like highlight when stopping cursor
+-- 7. Clear LSP references in Insert Mode
+-- (Prevents the highlighted word from sticking when you start typing)
 vim.api.nvim_create_autocmd("CursorMovedI", {
-  group = vim.api.nvim_create_augroup("LspReferenceHighlight", { clear = true }),
-  desc = "Clear highlights when entering insert mode",
+  group = augroup("clear_lsp_refs"),
   callback = function()
     vim.lsp.buf.clear_references()
   end,
 })
 
---- Remove whitespace on save
+-- 8. Trim Whitespace on Save
 vim.api.nvim_create_autocmd("BufWritePre", {
-  group = vim.api.nvim_create_augroup("TrimWhitespace", { clear = true }),
-  pattern = "*", -- Apply to all file types
+  group = augroup("trim_whitespace"),
+  pattern = "*",
   callback = function()
-    -- Save cursor position to restore later
-    local curpos = vim.api.nvim_win_get_cursor(0)
-    -- Remove trailing whitespaces
+    -- Skip for markdown (trailing spaces signify line break) and binary files
+    if vim.bo.filetype == "markdown" or vim.bo.binary then
+      return
+    end
+
+    local save = vim.fn.winsaveview()
     vim.cmd([[keeppatterns %s/\s\+$//e]])
-    -- Restore cursor position
-    vim.api.nvim_win_set_cursor(0, curpos)
+    vim.fn.winrestview(save)
   end,
-  desc = "Trim trailing whitespace before saving",
+})
+
+-- 9. Auto-resize splits when window is resized
+vim.api.nvim_create_autocmd("VimResized", {
+  group = augroup("resize_splits"),
+  callback = function()
+    local current_tab = vim.fn.tabpagenr()
+    vim.cmd("tabdo wincmd =")
+    vim.cmd("tabnext " .. current_tab)
+  end,
 })
