@@ -1,18 +1,55 @@
-require("trouble").setup({})
+local trouble = require("trouble")
 
-vim.keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Diagnostics (Trouble)" })
-vim.keymap.set(
-  "n",
-  "<leader>xX",
-  "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-  { desc = "Buffer Diagnostics (Trouble)" }
-)
-vim.keymap.set("n", "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>", { desc = "Symbols (Trouble)" })
-vim.keymap.set(
-  "n",
-  "<leader>cl",
-  "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-  { desc = "LSP Definitions / References (Trouble)" }
-)
-vim.keymap.set("n", "<leader>xL", "<cmd>Trouble loclist toggle<cr>", { desc = "Location List (Trouble)" })
-vim.keymap.set("n", "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List (Trouble)" })
+trouble.setup({
+  auto_close = false,
+  focus = true,
+
+  -- Visuals
+  icons = {
+    indent = {
+      top = "│ ",
+      middle = "├╴",
+      last = "└╴",
+      fold_open = " ",
+      fold_closed = " ",
+      ws = "  ",
+    },
+    folder_closed = " ",
+    folder_open = " ",
+  },
+})
+
+-- Keymaps
+local map = vim.keymap.set
+
+-- 1. Diagnostics
+map("n", "<leader>xx", function()
+  trouble.toggle("diagnostics")
+end, { desc = "Diagnostics (Workspace)" })
+
+map("n", "<leader>xX", function()
+  trouble.toggle({ mode = "diagnostics", filter = { buf = 0 } })
+end, { desc = "Diagnostics (Buffer)" })
+
+-- 2. LSP Integration
+map("n", "<leader>cs", function()
+  -- focus = false: keep cursor in code while seeing symbols on side
+  trouble.toggle({ mode = "symbols", focus = false })
+end, { desc = "LSP Symbols" })
+
+map("n", "<leader>cl", function()
+  trouble.toggle({
+    mode = "lsp",
+    focus = false,
+    win = { position = "right" }, -- Show refs on the right side
+  })
+end, { desc = "LSP Definitions / References" })
+
+-- 3. Vim Lists
+map("n", "<leader>xL", function()
+  trouble.toggle("loclist")
+end, { desc = "Location List" })
+
+map("n", "<leader>xQ", function()
+  trouble.toggle("qflist")
+end, { desc = "Quickfix List" })

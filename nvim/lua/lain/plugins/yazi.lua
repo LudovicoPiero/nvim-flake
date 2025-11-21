@@ -1,20 +1,37 @@
--- lua/plugins/yazi.lua
--- Disable netrw (default file browser)
--- vim.g.loaded_netrwPlugin = 1
 local yazi = require("yazi")
 
--- Setup
 yazi.setup({
   open_for_directories = false,
   keymaps = {
     show_help = "<F1>",
+    open_file_in_vertical_split = "<c-v>",
+    open_file_in_horizontal_split = "<c-x>",
+    open_file_in_tab = "<c-t>",
+    grep_in_directory = "<c-s>",
+    replace_in_directory = "<c-g>",
+    cycle_open_buffers = "<tab>",
+    copy_relative_path = "<c-y>",
+    send_to_quickfix = "<c-q>",
   },
+  floating_window_scaling_factor = 0.85,
+  yazi_floating_window_winblend = 0,
+  yazi_floating_window_border = "rounded",
 })
 
 -- Keymaps
 local map = vim.keymap.set
-local opts = { silent = true, noremap = true }
 
-map({ "n", "v" }, "<leader>ty", "<cmd>Yazi<CR>", vim.tbl_extend("force", opts, { desc = "Open yazi at current file" }))
-map("n", "<leader>tc", "<cmd>Yazi cwd<CR>", vim.tbl_extend("force", opts, { desc = "Open file manager at CWD" }))
-map("n", "<leader>tt", "<cmd>Yazi toggle<CR>", vim.tbl_extend("force", opts, { desc = "Resume last yazi session" }))
+-- 1. Open at current file (Default)
+map("n", "<leader>ty", function()
+  yazi.yazi()
+end, { desc = "Yazi (Current File)" })
+
+-- 2. Open at Current Working Directory (CWD)
+map("n", "<leader>tc", function()
+  yazi.yazi(nil, vim.fn.getcwd())
+end, { desc = "Yazi (CWD)" })
+
+-- 3. Resume/Toggle last session
+map("n", "<leader>tt", function()
+  yazi.toggle()
+end, { desc = "Yazi (Toggle)" })
