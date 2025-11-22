@@ -104,19 +104,6 @@
       "url": "https://github.com/sindrets/diffview.nvim/archive/4516612fe98ff56ae0415a259ff6361a89419b0a.tar.gz",
       "hash": "sha256-SX+ybIzL/w6uyCy4iZKnWnzTFwqB1oXSgyYVAdpdKi8="
     },
-    "fidget.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "j-hui",
-        "repo": "fidget.nvim"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "e32b672d8fd343f9d6a76944fedb8c61d7d8111a",
-      "url": "https://github.com/j-hui/fidget.nvim/archive/e32b672d8fd343f9d6a76944fedb8c61d7d8111a.tar.gz",
-      "hash": "sha256-XXTeJweQRIsC/WFhFxFbepOETV8e5Wfmh513su2Wve0="
-    },
     "flash.nvim": {
       "type": "Git",
       "repository": {
@@ -194,19 +181,6 @@
       "revision": "84a4987ff36798c2fc1169cbaff67960aed9776f",
       "url": "https://github.com/NMAC427/guess-indent.nvim/archive/84a4987ff36798c2fc1169cbaff67960aed9776f.tar.gz",
       "hash": "sha256-M/FkwCXXhojVFEcCuHo/GkuCCSX9GlVYHBUECSZxBjs="
-    },
-    "indent-blankline.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "lukas-reineke",
-        "repo": "indent-blankline.nvim"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "005b56001b2cb30bfa61b7986bc50657816ba4ba",
-      "url": "https://github.com/lukas-reineke/indent-blankline.nvim/archive/005b56001b2cb30bfa61b7986bc50657816ba4ba.tar.gz",
-      "hash": "sha256-0q/V+b4UrDRnaC/eRWOi9HU9a61vQSAM9/C8ZQyKt+Y="
     },
     "lspkind.nvim": {
       "type": "Git",
@@ -324,6 +298,19 @@
       "revision": "6c10964f91321c6a0f09bcc41dd64e7a6602bc4f",
       "url": "https://github.com/navarasu/onedark.nvim/archive/6c10964f91321c6a0f09bcc41dd64e7a6602bc4f.tar.gz",
       "hash": "sha256-egkOvCbyFh693o+F/ATZaZeL7v8Xs2uXqRkvyje2ZpI="
+    },
+    "snacks.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "folke",
+        "repo": "snacks.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "fe7cfe9800a182274d0f868a74b7263b8c0c020b",
+      "url": "https://github.com/folke/snacks.nvim/archive/fe7cfe9800a182274d0f868a74b7263b8c0c020b.tar.gz",
+      "hash": "sha256-vRedYg29QGPGW0hOX9qbRSIImh1d/SoDZHImDF2oqKM="
     },
     "todo-comments.nvim": {
       "type": "Git",
