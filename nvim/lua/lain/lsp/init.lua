@@ -1,11 +1,7 @@
 local M = {}
 
-local fidget = require("fidget")
 local lsp_utils = require("lain.lsp.utils")
 local servers = require("lain.lsp.servers")
-
--- Initialize fidget (LSP progress indicator)
-fidget.setup({})
 
 --------------------------------------------------------------------------------
 -- Diagnostic Config

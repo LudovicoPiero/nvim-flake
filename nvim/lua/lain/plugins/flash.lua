@@ -1,7 +1,20 @@
 -- lua/plugins/flash.lua
 local flash = require("flash")
 
-flash.setup({})
+flash.setup({
+  labels = "asdfghjklqwertyuiopzxcvbnm",
+  search = {
+    mode = "fuzzy",
+  },
+  jump = {
+    autojump = true,
+  },
+  modes = {
+    char = {
+      jump_labels = true, -- Show jump labels when doing f/t scans
+    },
+  },
+})
 
 -- Keymaps
 local map = vim.keymap.set
