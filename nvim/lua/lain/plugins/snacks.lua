@@ -7,17 +7,28 @@ snacks.setup({
   -- Handling for large files
   bigfile = { enabled = true },
 
+  -- Configure image support
+  image = { doc = { enabled = false } },
+
   -- Replaces Fidget (Notifications)
   notifier = {
     enabled = true,
     timeout = 3000,
   },
 
+  -- Configure Picker and `vim.ui.select`
+  picker = { ui_select = true },
+
   -- Replaces mini.bufremove (Smart buffer delete)
   bufdelete = { enabled = true },
 
   -- Replaces indent-blankline (Indent guides)
-  indent = { enabled = true },
+  indent = {
+    enabled = true,
+    indent = { char = "▏" },
+    scope = { char = "▏" },
+    animate = { enabled = false },
+  },
 
   -- Nice input UI for renaming
   input = { enabled = true },
