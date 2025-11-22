@@ -125,7 +125,10 @@
                 luaFiles = [ ./init.lua ];
 
                 plugins = {
-                  start = [ pkgs.vimPlugins.plenary-nvim ];
+                  start = [
+                    pkgs.vimPlugins.plenary-nvim
+                    pkgs.vimPlugins.nui-nvim
+                  ];
 
                   # Lazy loaded plugins
                   opt = with pkgs.vimPlugins; [ nvim-treesitter.withAllGrammars ];
