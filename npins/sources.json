@@ -260,6 +260,19 @@
       "url": "https://github.com/folke/noice.nvim/archive/7bfd942445fb63089b59f97ca487d605e715f155.tar.gz",
       "hash": "sha256-FKzhFVmPxshDV4mWpD3LofjRpd6pXesf9QQei1s5rAo="
     },
+    "nvim-highlight-colors": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "brenoprata10",
+        "repo": "nvim-highlight-colors"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "e0c4a58ec8c3ca7c92d3ee4eb3bc1dd0f7be317e",
+      "url": "https://github.com/brenoprata10/nvim-highlight-colors/archive/e0c4a58ec8c3ca7c92d3ee4eb3bc1dd0f7be317e.tar.gz",
+      "hash": "sha256-BIcOU2Gie90wujQFZ+aD3wYTRegSKw4CBxC95DRwo9I="
+    },
     "nvim-lspconfig": {
       "type": "Git",
       "repository": {

@@ -37,7 +37,6 @@ copilot.setup({
 
 -- 3. Setup Blink CMP
 blink_cmp.setup({
-  -- Disable cmdline completion (cleaner UI)
   cmdline = { enabled = false },
 
   keymap = {
@@ -48,7 +47,6 @@ blink_cmp.setup({
   appearance = {
     use_nvim_cmp_as_default = true,
     nerd_font_variant = "mono",
-    -- Native icon definition (Replaces lspkind)
     kind_icons = {
       Copilot = "",
       Text = "󰉿",
@@ -92,6 +90,32 @@ blink_cmp.setup({
           { "label", "label_description", gap = 1 },
           { "kind" },
         },
+        components = {
+          -- Custom kind_icon to render highlighting from nvim-highlight-colors
+          kind_icon = {
+            text = function(ctx)
+              local icon = ctx.kind_icon
+              -- if LSP source, check for color derived from documentation
+              if ctx.item.source_name == "LSP" then
+                local color_item = require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
+                if color_item and color_item.abbr ~= "" then
+                  icon = color_item.abbr
+                end
+              end
+              return icon .. ctx.icon_gap
+            end,
+            highlight = function(ctx)
+              local highlight = "BlinkCmpKind" .. ctx.kind
+              if ctx.item.source_name == "LSP" then
+                local color_item = require("nvim-highlight-colors").format(ctx.item.documentation, { kind = ctx.kind })
+                if color_item and color_item.abbr_hl_group then
+                  highlight = color_item.abbr_hl_group
+                end
+              end
+              return highlight
+            end,
+          },
+        },
       },
     },
   },
@@ -105,9 +129,7 @@ blink_cmp.setup({
         end,
       },
       lsp = { score_offset = 4 },
-      snippets = {
-        score_offset = 4,
-      },
+      snippets = { score_offset = 4 },
       path = {
         score_offset = 3,
         opts = {
@@ -118,18 +140,14 @@ blink_cmp.setup({
       copilot = {
         name = "copilot",
         module = "blink-copilot",
-        score_offset = 100, -- Force Copilot to top
+        score_offset = 100,
         async = true,
       },
     },
   },
 
-  -- If you want to use Luasnip for snippets:
   snippets = { preset = "luasnip" },
-
-  -- Use pre-built binaries (faster startup)
   fuzzy = { implementation = "rust" },
-
   signature = {
     enabled = true,
     window = { border = "rounded" },
