@@ -121,7 +121,6 @@
                     doCheck = false;
                   }
                 ) (import ./npins/npins.nix { inherit input; });
-
             in
             {
               default = inputs.mnw.lib.wrap pkgs {

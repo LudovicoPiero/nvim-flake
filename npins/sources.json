@@ -208,6 +208,19 @@
       "url": "https://github.com/nvim-mini/mini.nvim/archive/6e885e4c27743ae6bf5957ea78ce86c032835f09.tar.gz",
       "hash": "sha256-p76dZwBD4+iGeZ/2dWwaU7NgcJpQiVjvFvkXRknWMPQ="
     },
+    "neocord": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "IogaMaster",
+        "repo": "neocord"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "2ebf3792a8100376bb65fd66d5dbf60f50af7529",
+      "url": "https://github.com/IogaMaster/neocord/archive/2ebf3792a8100376bb65fd66d5dbf60f50af7529.tar.gz",
+      "hash": "sha256-o4xuQE+GAsshNCppB6pGPwmVT66K1xBll60sd68Rnfk="
+    },
     "neogit": {
       "type": "Git",
       "repository": {
