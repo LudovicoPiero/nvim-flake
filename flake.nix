@@ -112,9 +112,15 @@
               # Helper for npins plugins
               npinsToPlugins =
                 input:
-                builtins.mapAttrs (_: v: v { inherit pkgs; }) (
-                  import ./npins/npins.nix { inherit input; }
-                );
+                builtins.mapAttrs (
+                  name: v:
+                  # Wrap the raw source in buildVimPlugin to generate doc/tags
+                  pkgs.vimUtils.buildVimPlugin {
+                    name = name;
+                    src = v { inherit pkgs; };
+                    doCheck = false;
+                  }
+                ) (import ./npins/npins.nix { inherit input; });
 
             in
             {
