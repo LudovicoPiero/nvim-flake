@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 local todo = require("todo-comments")
 
 todo.setup({
@@ -13,9 +14,8 @@ todo.setup({
 })
 
 vim.keymap.set("n", "<leader>st", function()
-  require("fzf-lua").live_grep({
-    prompt = "TODOs> ",
-    search = "TODO|FIX|HACK|PERF|NOTE|WARNING", -- The keywords you care about
-    no_esc = true, -- Treat the pipe | as an OR operator, not a literal character
-  })
+  Snacks.picker.todo_comments()
+end, { desc = "[S]earch [T]odos" })
+vim.keymap.set("n", "<leader>sT", function()
+  Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
 end, { desc = "[S]earch [T]odos" })

@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 local M = {}
 
 local lsp_utils = require("lain.lsp.utils")
@@ -33,56 +34,55 @@ vim.diagnostic.config({
 --------------------------------------------------------------------------------
 -- LSP Attach Logic
 --------------------------------------------------------------------------------
+-- stylua: ignore start
+local diagnostic_augroup = vim.api.nvim_create_augroup("LspDiagnosticsFloat", { clear = true })
 local function on_attach_common(client, bufnr)
-  -- 1. Auto-Show Diagnostics on Hover (Refactored)
-  -- We don't need to manually manage window IDs anymore.
-  -- scope="cursor" is less intrusive than "line"
-  local augroup = vim.api.nvim_create_augroup("LspDiagnosticsFloat", { clear = true })
+  -- Helper: Easier key mapping
+  local map = function(keys, func, desc)
+    vim.keymap.set("n", keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
+  end
+
+  -- 1. Auto-Show Diagnostics on Hover
+  --    Scope = 'cursor' keeps it less noisy than 'line'
   vim.api.nvim_create_autocmd("CursorHold", {
     buffer = bufnr,
-    group = augroup,
+    group = diagnostic_augroup,
     callback = function()
-      local opts = {
+      vim.diagnostic.open_float(nil, {
         focusable = false,
         close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
         border = "rounded",
         source = "always",
         prefix = " ",
-        scope = "cursor", -- Changed from 'line' to 'cursor' to reduce noise
-      }
-      vim.diagnostic.open_float(nil, opts)
+        scope = "cursor",
+      })
     end,
   })
 
-  -- 2. Keymaps (FZF-Lua + Native)
-  local fzf = require("fzf-lua")
-  local map = function(keys, func, desc)
-    vim.keymap.set("n", keys, func, { buffer = bufnr, desc = "LSP: " .. desc })
-  end
+  -- 2. Navigation (Snacks)
+  map("gd", function() Snacks.picker.lsp_definitions() end, "Go to Definition")
+  map("gD", function() Snacks.picker.lsp_declarations() end, "Go to Declaration")
+  map("gi", function() Snacks.picker.lsp_implementations() end, "Go to Implementation")
+  map("grr", function() Snacks.picker.lsp_references() end, "Find References")
+  map("<leader>D", function() Snacks.picker.lsp_type_definitions() end, "Type Definition")
 
-  -- Navigation
-  map("gd", fzf.lsp_definitions, "Go to Definition")
-  map("gi", fzf.lsp_implementations, "Go to Implementation")
-  map("grr", fzf.lsp_references, "Find References")
-  map("<leader>D", fzf.lsp_typedefs, "Type Definition")
+  -- 2.1 Call Hierarchy & Symbols
+  map("gai", function() Snacks.picker.lsp_incoming_calls() end, "Calls Incoming")
+  map("gao", function() Snacks.picker.lsp_outgoing_calls() end, "Calls Outgoing")
+  map("<leader>ss", function() Snacks.picker.lsp_symbols() end, "Document Symbols")
+  map("<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, "Workspace Symbols")
 
-  -- Actions
-  map("<leader>ca", fzf.lsp_code_actions, "Code Actions")
-  map("<leader>rn", vim.lsp.buf.rename, "Rename Symbol") -- Standard is <leader>rn or grn
-
-  -- Info
-  map("<leader>sS", vim.lsp.buf.signature_help, "Signature Help")
+  -- 3. Actions & Info (Native)
+  map("<leader>ca", vim.lsp.buf.code_action, "Code Actions")
+  map("<leader>rn", vim.lsp.buf.rename, "Rename Symbol")
   map("K", vim.lsp.buf.hover, "Hover Documentation")
+  map("gK", vim.lsp.buf.signature_help, "Signature Help")
 
-  -- Diagnostics (Modern 0.11+ API)
-  map("[d", function()
-    vim.diagnostic.jump({ count = -1, float = true })
-  end, "Prev Diagnostic")
-  map("]d", function()
-    vim.diagnostic.jump({ count = 1, float = true })
-  end, "Next Diagnostic")
+  -- 4. Diagnostics (Jump)
+  map("[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, "Prev Diagnostic")
+  map("]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, "Next Diagnostic")
 
-  -- Toggle Inlay Hints (Neovim 0.10+ feature)
+  -- 5. Toggles
   if client.server_capabilities.inlayHintProvider then
     map("<leader>th", function()
       local current = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
@@ -90,6 +90,7 @@ local function on_attach_common(client, bufnr)
     end, "Toggle Inlay Hints")
   end
 end
+-- stylua: ignore end
 
 -- Get capabilities
 local capabilities = lsp_utils.get_capabilities()
