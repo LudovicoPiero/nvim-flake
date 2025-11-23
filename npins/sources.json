@@ -78,19 +78,6 @@
       "url": "https://github.com/zbirenbaum/copilot.lua/archive/4383e05a47493d7ff77b058c0548129eb38ec7fb.tar.gz",
       "hash": "sha256-NMIXOb/20aEmXvPgSDPzVuRIV+OUnJyfXVaVEuVAaTM="
     },
-    "cuddlefish.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "comfysage",
-        "repo": "cuddlefish.nvim"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "8381e244350e03b702422da97587d027ea1708fb",
-      "url": "https://github.com/comfysage/cuddlefish.nvim/archive/8381e244350e03b702422da97587d027ea1708fb.tar.gz",
-      "hash": "sha256-Nx++ZAL82tvSb8f0pHg+fIDm1D0q/PlQ/OOrOZTBsVM="
-    },
     "diffview.nvim": {
       "type": "Git",
       "repository": {
@@ -143,19 +130,6 @@
       "url": "https://github.com/A7Lavinraj/fyler.nvim/archive/fd89f751cd459e2f029763b4d091e4cca2bc39ab.tar.gz",
       "hash": "sha256-024/7OdbLjMRkseYLyyvwk6bdQ0TUVw7VVZLPyrLb1o="
     },
-    "fzf-lua": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "ibhagwan",
-        "repo": "fzf-lua"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "3b4a5d13adeb33f387d744b6ed777bb5401cba94",
-      "url": "https://github.com/ibhagwan/fzf-lua/archive/3b4a5d13adeb33f387d744b6ed777bb5401cba94.tar.gz",
-      "hash": "sha256-JfIqSMnAWdj1FbDsdyvRim38mNFPlJViJdSQQURA2VY="
-    },
     "gitsigns.nvim": {
       "type": "Git",
       "repository": {
@@ -181,19 +155,6 @@
       "revision": "84a4987ff36798c2fc1169cbaff67960aed9776f",
       "url": "https://github.com/NMAC427/guess-indent.nvim/archive/84a4987ff36798c2fc1169cbaff67960aed9776f.tar.gz",
       "hash": "sha256-M/FkwCXXhojVFEcCuHo/GkuCCSX9GlVYHBUECSZxBjs="
-    },
-    "lspkind.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "onsails",
-        "repo": "lspkind.nvim"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "3ddd1b4edefa425fda5a9f95a4f25578727c0bb3",
-      "url": "https://github.com/onsails/lspkind.nvim/archive/3ddd1b4edefa425fda5a9f95a4f25578727c0bb3.tar.gz",
-      "hash": "sha256-TVKYttrJrEgKfQaEsVGDQH/1i5vr0B3sJIJ4wtQWzns="
     },
     "mini.nvim": {
       "type": "Git",
@@ -285,19 +246,6 @@
       "revision": "8dcb311b0c92d460fac00eac706abd43d94d68af",
       "url": "https://github.com/nvim-tree/nvim-web-devicons/archive/8dcb311b0c92d460fac00eac706abd43d94d68af.tar.gz",
       "hash": "sha256-klBjUtj0AvarN5a6O8Hh2t5BuOTe/m3ps2cHnlxVJvE="
-    },
-    "oil.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "stevearc",
-        "repo": "oil.nvim"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "7e1cd7703ff2924d7038476dcbc04b950203b902",
-      "url": "https://github.com/stevearc/oil.nvim/archive/7e1cd7703ff2924d7038476dcbc04b950203b902.tar.gz",
-      "hash": "sha256-ebRao8UU8UI1S6Lumkd5vUiYYSj9UAazcEzThKyl8Uk="
     },
     "onedark.nvim": {
       "type": "Git",
