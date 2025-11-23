@@ -1,6 +1,7 @@
 local blink_pairs = require("blink.pairs")
 local blink_cmp = require("blink.cmp")
 local copilot = require("copilot")
+require("luasnip.loaders.from_vscode").lazy_load()
 
 -- 1. Setup Blink Pairs
 blink_pairs.setup({
