@@ -31,3 +31,17 @@ statusline.setup({ use_icons = has_icons })
 statusline.section_location = function()
   return "%2l:%-2v"
 end
+
+--------------------------------------------------------------------------------
+-- 4. Mini Misc (Restore Cursor)
+--------------------------------------------------------------------------------
+local misc = require("mini.misc")
+misc.setup()
+vim.filetype.add({
+  filename = {
+    ["COMMIT_EDITMSG"] = "gitcommit",
+    ["git-rebase-todo"] = "gitrebase",
+  },
+})
+vim.g.minimisc_restore_cursor_ignore_filetypes = { "gitcommit", "gitrebase" }
+misc.setup_restore_cursor()

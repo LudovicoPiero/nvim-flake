@@ -2,7 +2,7 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("lain_" .. name, { clear = true })
 end
 
--- 1. Highlight on Yank
+-- Highlight on Yank
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = augroup("highlight_yank"),
   desc = "Highlight yanked text",
@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- 2. Close specific windows with 'q'
+-- Close specific windows with 'q'
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("close_with_q"),
   pattern = {
@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- 3. Auto-create directories on save
+-- Auto-create directories on save
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = augroup("auto_create_dir"),
   callback = function(event)
@@ -45,32 +45,14 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
--- 4. Restore cursor position
-vim.api.nvim_create_autocmd("BufReadPost", {
-  group = augroup("restore_cursor"),
-  callback = function(event)
-    local exclude = { "gitcommit" }
-    local buf = event.buf
-    if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].lazy_vim_last_loc then
-      return
-    end
-    vim.b[buf].lazy_vim_last_loc = true
-    local mark = vim.api.nvim_buf_get_mark(buf, '"')
-    local lcount = vim.api.nvim_buf_line_count(buf)
-    if mark[1] > 0 and mark[1] <= lcount then
-      pcall(vim.api.nvim_win_set_cursor, 0, mark)
-    end
-  end,
-})
-
--- 5. Open Help in vertical split (Right side)
+-- Open Help in vertical split (Right side)
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("help_split"),
   pattern = "help",
   command = "wincmd L",
 })
 
--- 6. Syntax highlighting for dotfiles
+-- Syntax highlighting for dotfiles
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   group = augroup("filetype_settings"),
   pattern = { ".env", ".env.*" },
@@ -79,7 +61,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
--- 7. Clear LSP references in Insert Mode
+-- Clear LSP references in Insert Mode
 -- (Prevents the highlighted word from sticking when you start typing)
 vim.api.nvim_create_autocmd("CursorMovedI", {
   group = augroup("clear_lsp_refs"),
@@ -88,7 +70,7 @@ vim.api.nvim_create_autocmd("CursorMovedI", {
   end,
 })
 
--- 8. Trim Whitespace on Save
+-- Trim Whitespace on Save
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = augroup("trim_whitespace"),
   pattern = "*",
@@ -104,7 +86,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
--- 9. Auto-resize splits when window is resized
+-- Auto-resize splits when window is resized
 vim.api.nvim_create_autocmd("VimResized", {
   group = augroup("resize_splits"),
   callback = function()
