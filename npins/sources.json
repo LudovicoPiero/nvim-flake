@@ -208,6 +208,19 @@
       "url": "https://github.com/folke/noice.nvim/archive/7bfd942445fb63089b59f97ca487d605e715f155.tar.gz",
       "hash": "sha256-FKzhFVmPxshDV4mWpD3LofjRpd6pXesf9QQei1s5rAo="
     },
+    "nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "catppuccin",
+        "repo": "nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "ce4a8e0d5267e67056f9f4dcf6cb1d0933c8ca00",
+      "url": "https://github.com/catppuccin/nvim/archive/ce4a8e0d5267e67056f9f4dcf6cb1d0933c8ca00.tar.gz",
+      "hash": "sha256-ds+Rm9H00s++RC1dH4OQpCg1FXSm4HuwDGzr4ah0YBU="
+    },
     "nvim-highlight-colors": {
       "type": "Git",
       "repository": {
@@ -246,19 +259,6 @@
       "revision": "8dcb311b0c92d460fac00eac706abd43d94d68af",
       "url": "https://github.com/nvim-tree/nvim-web-devicons/archive/8dcb311b0c92d460fac00eac706abd43d94d68af.tar.gz",
       "hash": "sha256-klBjUtj0AvarN5a6O8Hh2t5BuOTe/m3ps2cHnlxVJvE="
-    },
-    "onedark.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "navarasu",
-        "repo": "onedark.nvim"
-      },
-      "branch": "master",
-      "submodules": false,
-      "revision": "7a84bd361c70df1f26789b08441717f12e23afd3",
-      "url": "https://github.com/navarasu/onedark.nvim/archive/7a84bd361c70df1f26789b08441717f12e23afd3.tar.gz",
-      "hash": "sha256-9Pz148dQCO/Ev1M8VJy20Cy+bAQdxqCCXlYbjYsIfPI="
     },
     "snacks.nvim": {
       "type": "Git",
