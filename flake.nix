@@ -63,7 +63,6 @@
               pythonTools = with pkgs; [
                 basedpyright
                 ruff
-                black
               ];
 
               rustTools = with pkgs; [

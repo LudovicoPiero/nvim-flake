@@ -115,14 +115,41 @@ M.setup = function()
     },
 
     -- Python
+    ruff = {},
     basedpyright = {
       settings = {
-        python = {
+        basedpyright = {
+          disableOrganizeImports = true, -- use ruff for import sorting
           analysis = {
             autoSearchPaths = true,
             diagnosticMode = "workspace",
             useLibraryCodeForTypes = true,
-            typeCheckingMode = "off",
+            typeCheckingMode = "strict",
+
+            diagnosticSeverityOverrides = {
+              -- Fix diagnostics level
+              reportUnknownParameterType = "warning",
+              reportMissingParameterType = "warning",
+              reportUnknownArgumentType = "warning",
+              reportUnknownLambdaType = "warning",
+              reportUnknownMemberType = "warning",
+              reportUnusedFunction = "warning",
+              reportUnusedVariable = "warning",
+              reportUntypedFunctionDecorator = "warning",
+              reportDeprecated = "warning",
+
+              -- Enable extra diagnostics
+              reportUnusedCallResult = "warning",
+              reportUninitializedInstanceVariable = "warning",
+
+              -- Gradual typing in new projects
+              reportMissingImports = false,
+              reportMissingTypeStubs = false,
+              reportUnknownVariableType = false,
+
+              -- Covered by ruff
+              reportUnusedImport = false,
+            },
           },
         },
       },

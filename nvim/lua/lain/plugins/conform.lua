@@ -18,7 +18,14 @@ local prettier_fts = {
 local formatters_by_ft = {
   -- Core
   lua = { "stylua" },
-  python = { "ruff_fix", "ruff_format" },
+  python = {
+    -- To organize the imports.
+    "ruff_organize_imports",
+    -- To fix auto-fixable lint errors.
+    "ruff_fix",
+    -- To run the Ruff formatter.
+    "ruff_format",
+  },
   nix = { "nixfmt" },
   go = { "gofumpt", "goimports" },
   rust = { "rustfmt" },
@@ -56,17 +63,6 @@ conform.setup({
     },
     shfmt = {
       prepend_args = { "-i", "2", "-ci" },
-    },
-    -- Python: Ruff specific setup
-    ruff_format = {
-      command = "ruff",
-      args = { "format", "--stdin-filename", "$FILENAME", "-" },
-      stdin = true,
-    },
-    ruff_fix = {
-      command = "ruff",
-      args = { "check", "--fix", "--stdin-filename", "$FILENAME", "-" },
-      stdin = true,
     },
   },
 })
