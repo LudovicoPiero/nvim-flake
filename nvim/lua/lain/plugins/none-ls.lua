@@ -12,6 +12,17 @@ null_ls.setup({
     -- Suggestions (e.g. fix 'unused let')
     code_actions.statix,
 
-    --TODO: add more diagnostics and code actions for other languages
+    -- === PYTHON ===
+    -- Ruff is excellent for linting (imports, syntax, modernization)
+    diagnostics.ruff,
+
+    -- === GO ===
+    -- The heavy hitter for Go linting
+    diagnostics.golangci_lint,
+
+    -- === SHELL ===
+    -- Catch bash/sh errors
+    diagnostics.shellcheck,
+    code_actions.shellcheck,
   },
 })

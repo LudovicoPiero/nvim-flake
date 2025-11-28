@@ -3,7 +3,7 @@ local M = {}
 
 M.setup = function()
   -- 1. Capabilities
-  local capabilities = require("blink.cmp").get_lsp_capabilities()
+  local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
   -- 2. On Attach
   local diagnostic_augroup = vim.api.nvim_create_augroup("LspDiagnosticsFloat", { clear = true })

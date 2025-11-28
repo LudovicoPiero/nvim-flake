@@ -140,11 +140,7 @@
                   opt = with pkgs.vimPlugins; [ nvim-treesitter.withAllGrammars ];
 
                   # Map manual flake packages
-                  optAttrs = {
-                    "blink.cmp" = self'.packages.blink-cmp;
-                    "blink.pairs" = self'.packages.blink-pairs;
-                  }
-                  // npinsToPlugins ./npins/sources.json;
+                  optAttrs = npinsToPlugins ./npins/sources.json;
 
                   dev.lain = {
                     pure = lib.fileset.toSource {
