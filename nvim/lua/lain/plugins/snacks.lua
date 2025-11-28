@@ -1,28 +1,23 @@
----@diagnostic disable: undefined-global
 local snacks = require("snacks")
 
 snacks.setup({
-  -- Disable the smooth scrolling animation
+  -- UI & UX
   scroll = { enabled = false },
-
-  -- Handling for large files
   bigfile = { enabled = true },
-
-  -- Configure image support
   image = { doc = { enabled = false } },
+  input = { enabled = true },
 
-  -- Replaces Fidget (Notifications)
+  -- Notifications
   notifier = {
     enabled = true,
     timeout = 3000,
   },
 
-  -- Configure Picker and `vim.ui.select`
+  -- Picker
   picker = { ui_select = true },
-  -- Replaces mini.bufremove (Smart buffer delete)
-  bufdelete = { enabled = true },
 
-  -- Replaces indent-blankline (Indent guides)
+  -- Buffer & Indent
+  bufdelete = { enabled = true },
   indent = {
     enabled = true,
     indent = { char = "▏" },
@@ -30,10 +25,7 @@ snacks.setup({
     animate = { enabled = false },
   },
 
-  -- Nice input UI for renaming
-  input = { enabled = true },
-
-  -- Start screen
+  -- Dashboard
   dashboard = {
     enabled = true,
     sections = {
@@ -58,61 +50,58 @@ snacks.setup({
 -- Keymaps
 local map = vim.keymap.set
 
--- Buffer Delete (Replaces mini.bufremove)
+-- Actions
 map("n", "<leader>bd", function()
   snacks.bufdelete()
 end, { desc = "Delete Buffer" })
-
--- Rename File (Smart rename that updates LSP imports)
 map("n", "<leader>rf", function()
   snacks.rename.rename_file()
 end, { desc = "Rename File" })
-
--- LazyGit (Floating terminal)
 map("n", "<leader>gl", function()
   snacks.lazygit()
 end, { desc = "LazyGit" })
 
 -- Files
 map("n", "<leader>sf", function()
-  Snacks.picker.files({ matcher = { frecency = true, history_bonus = true, ignorecase = false } })
+  snacks.picker.files({ matcher = { frecency = true, history_bonus = true, ignorecase = false } })
 end, { desc = "Search Files" })
+
 map("n", "<leader>s.", function()
-  Snacks.picker.recent()
+  snacks.picker.recent()
 end, { desc = "Recent Files" })
 map("n", "<leader><leader>", function()
-  Snacks.picker.buffers()
+  snacks.picker.buffers()
 end, { desc = "Open Buffers" })
 
--- Search / Grep
+-- Grep
 map("n", "<leader>sg", function()
-  Snacks.picker.grep()
+  snacks.picker.grep()
 end, { desc = "Live Grep" })
 map({ "n", "x" }, "<leader>sw", function()
-  Snacks.picker.grep_word()
+  snacks.picker.grep_word()
 end, { desc = "Grep Current Word" })
 map("n", "<leader>/", function()
-  Snacks.picker.lines()
+  snacks.picker.lines()
 end, { desc = "Grep Buffer" })
 
--- Diagnostics / LSP
+-- Diagnostics
 map("n", "<leader>sd", function()
-  Snacks.picker.diagnostics_buffer()
+  snacks.picker.diagnostics_buffer()
 end, { desc = "Document Diagnostics" })
 map("n", "<leader>sD", function()
-  Snacks.picker.diagnostics()
+  snacks.picker.diagnostics()
 end, { desc = "Workspace Diagnostics" })
 map("n", "<leader>sq", function()
-  Snacks.picker.qflist()
+  snacks.picker.qflist()
 end, { desc = "Quickfix List" })
 
--- Metasearch
+-- Meta
 map("n", "<leader>sb", function()
-  Snacks.picker.pickers()
+  snacks.picker.pickers()
 end, { desc = "Snacks Pickers" })
 map("n", "<leader>sh", function()
-  Snacks.picker.help()
+  snacks.picker.help()
 end, { desc = "Search Help" })
 map("n", "<leader>sk", function()
-  Snacks.picker.keymaps()
+  snacks.picker.keymaps()
 end, { desc = "Search Keymaps" })
