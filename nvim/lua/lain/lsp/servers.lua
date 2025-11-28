@@ -1,8 +1,89 @@
----@diagnostic disable: param-type-mismatch
--- nvim/lua/lain/lsp/servers.lua
+---@diagnostic disable: param-type-mismatch, undefined-global
 local M = {}
 
-M.setup = function(on_attach, capabilities)
+M.setup = function()
+  -- 1. Capabilities
+  local capabilities = require("blink.cmp").get_lsp_capabilities()
+
+  -- 2. On Attach
+  local diagnostic_augroup = vim.api.nvim_create_augroup("LspDiagnosticsFloat", { clear = true })
+
+  local on_attach = function(client, bufnr)
+    local map = function(keys, func, desc)
+      vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+    end
+
+    -- Auto-hover diagnostics
+    vim.api.nvim_create_autocmd("CursorHold", {
+      buffer = bufnr,
+      group = diagnostic_augroup,
+      callback = function()
+        vim.diagnostic.open_float(nil, {
+          focusable = false,
+          close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+          border = "rounded",
+          source = "always",
+          prefix = " ",
+          scope = "cursor",
+        })
+      end,
+    })
+
+    -- Navigation (Snacks)
+    map("gd", function()
+      Snacks.picker.lsp_definitions()
+    end, "Go to Definition")
+    map("gD", function()
+      Snacks.picker.lsp_declarations()
+    end, "Go to Declaration")
+    map("gi", function()
+      Snacks.picker.lsp_implementations()
+    end, "Go to Implementation")
+    map("grr", function()
+      Snacks.picker.lsp_references()
+    end, "Find References")
+    map("<leader>D", function()
+      Snacks.picker.lsp_type_definitions()
+    end, "Type Definition")
+
+    -- Symbols
+    map("gai", function()
+      Snacks.picker.lsp_incoming_calls()
+    end, "Calls Incoming")
+    map("gao", function()
+      Snacks.picker.lsp_outgoing_calls()
+    end, "Calls Outgoing")
+    map("<leader>ss", function()
+      Snacks.picker.lsp_symbols()
+    end, "Document Symbols")
+    map("<leader>sS", function()
+      Snacks.picker.lsp_workspace_symbols()
+    end, "Workspace Symbols")
+
+    -- Actions
+    map("<leader>ca", vim.lsp.buf.code_action, "Code Actions")
+    map("<leader>rn", vim.lsp.buf.rename, "Rename Symbol")
+    map("K", vim.lsp.buf.hover, "Hover Documentation")
+    map("gK", vim.lsp.buf.signature_help, "Signature Help")
+
+    -- Diagnostics
+    map("[d", function()
+      vim.diagnostic.jump({ count = -1, float = true })
+    end, "Prev Diagnostic")
+    map("]d", function()
+      vim.diagnostic.jump({ count = 1, float = true })
+    end, "Next Diagnostic")
+
+    -- Toggle Inlay Hints
+    if client.server_capabilities.inlayHintProvider then
+      map("<leader>th", function()
+        local current = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+        vim.lsp.inlay_hint.enable(not current, { bufnr = bufnr })
+      end, "Toggle Inlay Hints")
+    end
+  end
+
+  -- 3. Server Configs
   local configs = {
     -- Nix
     nil_ls = {
@@ -11,8 +92,10 @@ M.setup = function(on_attach, capabilities)
       root_markers = { "flake.nix", "default.nix", ".git" },
       settings = {
         ["nil"] = {
-          formatting = {
-            command = { "nixfmt" },
+          nix = {
+            flake = {
+              autoArchive = true,
+            },
           },
         },
       },
@@ -45,7 +128,7 @@ M.setup = function(on_attach, capabilities)
       },
     },
 
-    -- EmmyLua (Rust version)
+    -- Lua
     emmylua_ls = {
       settings = {
         Lua = {
@@ -56,7 +139,7 @@ M.setup = function(on_attach, capabilities)
       },
     },
 
-    -- C/C++ (Offset encoding fix)
+    -- C/C++
     clangd = {
       capabilities = vim.tbl_deep_extend("force", vim.deepcopy(capabilities), {
         offsetEncoding = { "utf-16" },
@@ -72,21 +155,6 @@ M.setup = function(on_attach, capabilities)
           files = { excludeDirs = { ".direnv", "rust/.direnv" } },
         },
       },
-      on_attach = function(client, bufnr)
-        on_attach(client, bufnr)
-
-        -- Format on save with a unique augroup to prevent stacking listeners
-        local grp = vim.api.nvim_create_augroup("LspFormatRust", { clear = false })
-        vim.api.nvim_clear_autocmds({ group = grp, buffer = bufnr })
-
-        vim.api.nvim_create_autocmd("BufWritePre", {
-          buffer = bufnr,
-          group = grp,
-          callback = function()
-            vim.lsp.buf.format({ async = false })
-          end,
-        })
-      end,
     },
   }
 
@@ -102,22 +170,21 @@ M.setup = function(on_attach, capabilities)
     "mesonlsp",
   }
 
+  -- 4. Setup Loop
   local function register(name, config)
-    local defaults = {
+    local final_config = vim.tbl_deep_extend("force", {
       on_attach = on_attach,
       capabilities = capabilities,
-    }
-    local final_config = vim.tbl_deep_extend("force", defaults, config or {})
+      root_markers = { ".git" },
+    }, config or {})
 
     vim.lsp.config(name, final_config)
     vim.lsp.enable(name)
   end
 
-  -- 4. Execution Loop
   for _, name in ipairs(simple_servers) do
     register(name, {})
   end
-
   for name, conf in pairs(configs) do
     register(name, conf)
   end
