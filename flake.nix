@@ -5,11 +5,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     mnw.url = "github:gerg-l/mnw";
 
     nvim-overlay = {
@@ -17,20 +12,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
-
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay/59c45eb69d9222a4362673141e00ff77842cd219";
-    };
   };
-
   outputs =
     { flake-parts, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        ./flake
-        ./packages
-      ];
-
       systems = [ "x86_64-linux" ];
 
       perSystem =
@@ -39,9 +24,15 @@
           lib,
           inputs',
           self',
+          system,
           ...
         }:
         {
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+
           packages =
             let
               # --- Tool Groups ---

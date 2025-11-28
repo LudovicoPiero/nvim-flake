@@ -1,7 +1,7 @@
 local gitsigns = require("gitsigns")
 
 gitsigns.setup({
-  -- Visuals: Use bars instead of text, looks cleaner
+  -- Use bars for signs.
   signs = {
     add = { text = "┃" },
     change = { text = "┃" },
@@ -11,7 +11,6 @@ gitsigns.setup({
     untracked = { text = "┆" },
   },
 
-  -- Match your other rounded windows (LSP, Blink)
   preview_config = {
     border = "rounded",
   },
@@ -21,7 +20,7 @@ gitsigns.setup({
       vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
     end
 
-    -- Navigation
+    -- Hunk navigation
     map("n", "]c", function()
       if vim.wo.diff then
         vim.cmd.normal({ "]c", bang = true })
@@ -38,8 +37,8 @@ gitsigns.setup({
       end
     end, "Prev Git Hunk")
 
-    -- Actions: Visual Mode
-    -- Changed <leader>h to <leader>g to match normal mode
+    -- Visual mode actions
+    -- Use <leader>g prefix for consistency.
     map("v", "<leader>gs", function()
       gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
     end, "Stage Hunk")
@@ -48,7 +47,7 @@ gitsigns.setup({
       gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
     end, "Reset Hunk")
 
-    -- Actions: Normal Mode
+    -- Normal mode actions
     map("n", "<leader>gs", gitsigns.stage_hunk, "Stage Hunk")
     map("n", "<leader>gr", gitsigns.reset_hunk, "Reset Hunk")
     map("n", "<leader>gS", gitsigns.stage_buffer, "Stage Buffer")
@@ -61,7 +60,7 @@ gitsigns.setup({
       gitsigns.diffthis("@")
     end, "Diff (Commit)")
 
-    -- Toggles
+    -- Toggle commands
     map("n", "<leader>tb", gitsigns.toggle_current_line_blame, "Toggle Git Blame")
     map("n", "<leader>td", gitsigns.toggle_deleted, "Toggle Deleted")
   end,

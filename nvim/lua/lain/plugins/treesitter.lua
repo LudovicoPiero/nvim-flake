@@ -1,12 +1,12 @@
 require("nvim-treesitter.configs").setup({
-  -- Parsers are managed by Nix, so we disable auto-install
+  -- Parsers are managed by Nix.
   ensure_installed = {},
   auto_install = false,
   sync_install = false,
 
   highlight = {
     enable = true,
-    -- Ruby often behaves better with legacy syntax for highlighting specific edge cases
+    -- Use regex highlighting for Ruby.
     additional_vim_regex_highlighting = { "ruby" },
   },
 
@@ -15,14 +15,14 @@ require("nvim-treesitter.configs").setup({
     disable = { "ruby" },
   },
 
-  -- Smart Selection: The best feature of Treesitter
+  -- Incremental selection.
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = "<C-space>", -- Start selecting with Ctrl+Space
-      node_incremental = "<C-space>", -- Expand selection
+      init_selection = "<C-space>", -- Start selection.
+      node_incremental = "<C-space>", -- Expand.
       scope_incremental = false,
-      node_decremental = "<bs>", -- Shrink selection with Backspace
+      node_decremental = "<bs>", -- Shrink.
     },
   },
 })

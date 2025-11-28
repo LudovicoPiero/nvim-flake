@@ -7,11 +7,10 @@ wk.setup({
   delay = 0,
 
   icons = {
-    breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-    separator = "➜", -- symbol used between a key and it's label
-    group = "+", -- symbol prepended to a group
-
-    mappings = has_icons, -- Use icons for mappings?
+    breadcrumb = "»", -- Breadcrumb symbol.
+    separator = "➜", -- Separator symbol.
+    group = "+", -- Group symbol.
+    mappings = has_icons, -- Use icons.
 
     keys = has_icons and {} or {
       Up = "<Up> ",
@@ -45,15 +44,15 @@ wk.setup({
     },
   },
 
-  -- Layout configuration
+  -- Layout.
   layout = {
-    height = { min = 4, max = 25 }, -- min and max height of the columns
-    width = { min = 20, max = 50 }, -- min and max width of the columns
-    spacing = 3, -- spacing between columns
-    align = "left", -- align columns left, center or right
+    height = { min = 4, max = 25 }, -- Column height.
+    width = { min = 20, max = 50 }, -- Column width.
+    spacing = 3, -- Column spacing.
+    align = "left", -- Column alignment.
   },
 
-  -- Document key chains with explicit icons
+  -- Add icons to key chains.
   spec = {
     { "<leader>b", group = "Buffers", icon = "󰓩 " },
     { "<leader>c", group = "Code", icon = "󰅱 " },
@@ -64,7 +63,7 @@ wk.setup({
     { "<leader>t", group = "Toggle", icon = " " },
     { "<leader>x", group = "Trouble", icon = "󰅚 " },
 
-    -- LSP Specific
+    -- LSP.
     { "g", group = "Go To", icon = " " },
     { "gr", group = "LSP References", icon = " " },
   },

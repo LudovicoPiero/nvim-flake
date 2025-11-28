@@ -4,17 +4,17 @@ local code_actions = null_ls.builtins.code_actions
 
 null_ls.setup({
   sources = {
-    -- === NIX ===
-    -- Dead code detection
+    -- Nix
+    -- deadnix: Dead code detection.
     diagnostics.deadnix,
-    -- Anti-pattern checking
+    -- statix: Anti-pattern checking.
     diagnostics.statix,
-    -- Suggestions (e.g. fix 'unused let')
+    -- statix: Code actions.
     code_actions.statix,
 
-    -- === GO ===
+    -- Go
     diagnostics.golangci_lint,
 
-    --TODO: add more stuff here
+    -- TODO: Add more sources.
   },
 })

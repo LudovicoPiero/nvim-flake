@@ -4,9 +4,9 @@ local autopairs = require("nvim-autopairs")
 local copilot = require("copilot")
 local copilot_cmp = require("copilot_cmp")
 
--- 1. Setup Copilot (Backend)
+-- Copilot backend setup.
 copilot.setup({
-  suggestion = { enabled = false }, -- Disable standard virtual text
+  suggestion = { enabled = false }, -- Disable virtual text suggestions.
   panel = { enabled = false },
   filetypes = {
     gitcommit = true,
@@ -16,20 +16,20 @@ copilot.setup({
 })
 copilot_cmp.setup()
 
--- 2. Setup Auto-pairs
+-- Autopairs setup.
 autopairs.setup({
-  check_ts = true, -- Enable treesitter integration
+  check_ts = true, -- Treesitter integration.
   fast_wrap = { map = "<M-e>" },
 })
 
--- Connect Auto-pairs to CMP
+-- Connect autopairs to cmp.
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
--- 3. Load Snippets
+-- Load snippets.
 require("luasnip.loaders.from_vscode").lazy_load()
 
--- 4. Icons
+-- Completion icons.
 local kind_icons = {
   Copilot = "",
   Text = "󰉿",
@@ -59,9 +59,9 @@ local kind_icons = {
   TypeParameter = "",
 }
 
--- 5. CMP Setup
+-- cmp setup.
 cmp.setup({
-  -- Snippet Engine
+  -- Snippet engine.
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -69,15 +69,15 @@ cmp.setup({
   },
 
   completion = {
-    -- menu: display popup menu
-    -- menuone: display popup menu even if there is only one match
-    -- noinsert: highlight the first item automatically (vs 'noselect')
+    -- menu: show popup.
+    -- menuone: show popup for one match.
+    -- noinsert: auto-highlight first item.
     completeopt = "menu,menuone,noinsert",
   },
 
   preselect = cmp.PreselectMode.Item,
 
-  -- Window Styling
+  -- Window style.
   window = {
     completion = cmp.config.window.bordered({
       border = "rounded",
@@ -88,12 +88,12 @@ cmp.setup({
     }),
   },
 
-  -- Ghost Text
+  -- Ghost text (inline completion).
   experimental = {
     ghost_text = true,
   },
 
-  -- Mappings
+  -- Key mappings.
   mapping = cmp.mapping.preset.insert({
     ["<C-n>"] = cmp.mapping.select_next_item(),
     ["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -102,11 +102,11 @@ cmp.setup({
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.abort(),
 
-    -- Accept
+    -- Accept completion.
     ["<C-y>"] = cmp.mapping.confirm({ select = true }),
     ["<CR>"] = cmp.mapping.confirm({ select = true }),
 
-    -- Tab
+    -- Tab completion.
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -128,14 +128,14 @@ cmp.setup({
     end, { "i", "s" }),
   }),
 
-  -- Formatting
+  -- Completion formatting.
   formatting = {
     fields = { "kind", "abbr", "menu" },
     format = function(entry, vim_item)
-      -- Icons
+      -- Add icons.
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
 
-      -- Source Labels
+      -- Add source labels.
       vim_item.menu = ({
         copilot = "[AI]",
         nvim_lsp = "[LSP]",
@@ -148,7 +148,7 @@ cmp.setup({
     end,
   },
 
-  -- Sources & Sorting
+  -- Completion sources and sorting.
   sorting = {
     priority_weight = 2,
     comparators = {

@@ -1,6 +1,6 @@
--- Set <space> as a leader key
+-- Set leader keys.
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- If you have a Nerd Font installed and selected in your terminal
+-- Disable nerd font specific UI.
 vim.g.have_nerd_font = false

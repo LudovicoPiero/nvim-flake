@@ -7,15 +7,14 @@ map("n", "<leader>ts", "<CMD>Fyler kind=split_left_most<CR>", { desc = "[T]oggle
 fyler.setup({
   views = {
     finder = {
-      -- Close explorer when file is selected
+      -- Close on select.
       close_on_select = false,
-      -- Auto-confirm simple file operations
+      -- Auto-confirm simple actions.
       confirm_simple = false,
-      -- Replace netrw as default explorer
+      -- Replace netrw.
       default_explorer = true,
-      -- Move deleted files/directories to the system trash
+      -- Delete to trash.
       delete_to_trash = false,
-      -- Git status
       git_status = {
         enabled = true,
         symbols = {
@@ -29,13 +28,11 @@ fyler.setup({
           Ignored = "#",
         },
       },
-      -- Indentation guides
       indentscope = {
         enabled = true,
         group = "FylerIndentMarker",
         marker = "│",
       },
-      -- Key mappings
       mappings = {
         ["q"] = "CloseView",
         ["<CR>"] = "Select",
@@ -48,13 +45,12 @@ fyler.setup({
         ["#"] = "CollapseAll",
         ["<BS>"] = "CollapseNode",
       },
-      -- Current file tracking
+      -- Follow current file.
       follow_current_file = true,
-      -- File system watching(includes git status)
+      -- Watch filesystem.
       watcher = {
         enabled = false,
       },
-      -- Window configuration
       win = {
         border = vim.o.winborder == "" and "single" or vim.o.winborder,
         buf_opts = {
@@ -80,7 +76,7 @@ fyler.setup({
           split_above_all = {
             height = "70%",
             win_opts = {
-              winfixheight = true, -- keep the window height fixed when other windows resize
+              winfixheight = true, -- Fixed height.
             },
           },
           split_below = {
@@ -98,7 +94,7 @@ fyler.setup({
           split_left_most = {
             width = "20%",
             win_opts = {
-              winfixwidth = true, -- keep the window width fixed when other windows resize
+              winfixwidth = true, -- Fixed width.
             },
           },
           split_right = {

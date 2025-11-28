@@ -1,7 +1,7 @@
 ---@diagnostic disable: undefined-global
 local M = {}
 
--- 1. UI Configuration
+-- Configure LSP UI.
 vim.diagnostic.config({
   severity_sort = true,
   update_in_insert = false,
@@ -29,7 +29,7 @@ vim.diagnostic.config({
   },
 })
 
--- 2. Start Servers
+-- Start language servers.
 require("lain.lsp.servers").setup()
 
 return M

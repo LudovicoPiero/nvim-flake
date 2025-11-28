@@ -1,54 +1,38 @@
 require("nvim-highlight-colors").setup({
-  ---Render style
-  ---@usage 'background'|'foreground'|'virtual'
+  -- Render style ('background'|'foreground'|'virtual').
   render = "virtual",
 
-  ---Set virtual symbol (requires render to be set to 'virtual')
+  -- Virtual symbol.
   virtual_symbol = "󱓻",
-
-  ---Set virtual symbol suffix (defaults to '')
+  -- Virtual symbol prefix.
   virtual_symbol_prefix = "",
-
-  ---Set virtual symbol suffix (defaults to ' ')
+  -- Virtual symbol suffix.
   virtual_symbol_suffix = " ",
 
-  ---Set virtual symbol position()
-  ---@usage 'inline'|'eol'|'eow'
-  ---inline mimics VS Code style
-  ---eol stands for `end of column` - Recommended to set `virtual_symbol_suffix = ''` when used.
-  ---eow stands for `end of word` - Recommended to set `virtual_symbol_prefix = ' ' and virtual_symbol_suffix = ''` when used.
+  -- Virtual symbol position ('inline'|'eol'|'eow').
   virtual_symbol_position = "inline",
 
-  ---Highlight hex colors, e.g. '#FFFFFF'
+  -- Highlight hex colors.
   enable_hex = true,
-
-  ---Highlight short hex colors e.g. '#fff'
+  -- Highlight short hex colors.
   enable_short_hex = true,
-
-  ---Highlight rgb colors, e.g. 'rgb(0 0 0)'
+  -- Highlight rgb colors.
   enable_rgb = true,
-
-  ---Highlight hsl colors, e.g. 'hsl(150deg 30% 40%)'
+  -- Highlight hsl colors.
   enable_hsl = true,
-
-  ---Highlight ansi colors, e.g '\033[0;34m'
+  -- Highlight ansi colors.
   enable_ansi = true,
-
-  -- Highlight hsl colors without function, e.g. '--foreground: 0 69% 69%;'
+  -- Highlight CSS hsl colors.
   enable_hsl_without_function = true,
-
-  ---Highlight CSS variables, e.g. 'var(--testing-color)'
+  -- Highlight CSS variables.
   enable_var_usage = true,
-
-  ---Highlight named colors, e.g. 'green'
+  -- Highlight named colors.
   enable_named_colors = true,
-
-  ---Highlight tailwind colors, e.g. 'bg-blue-500'
+  -- Highlight tailwind colors.
   enable_tailwind = false,
 
-  ---Set custom colors
-  ---Label must be properly escaped with '%' to adhere to `string.gmatch`
-  --- :help string.gmatch
+  -- Custom colors.
+  -- Label is a lua pattern.
   custom_colors = {
     { label = "%-%-theme%-primary%-color", color = "#0f1219" },
     { label = "%-%-theme%-secondary%-color", color = "#5a5d64" },

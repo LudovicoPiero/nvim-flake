@@ -18,20 +18,19 @@ yazi.setup({
   yazi_floating_window_border = "rounded",
 })
 
--- Keymaps
 local map = vim.keymap.set
 
--- 1. Open at current file (Default)
+-- Open at current file.
 map("n", "<leader>ty", function()
   yazi.yazi()
 end, { desc = "Yazi (Current File)" })
 
--- 2. Open at Current Working Directory (CWD)
+-- Open at CWD.
 map("n", "<leader>tc", function()
   yazi.yazi(nil, vim.fn.getcwd())
 end, { desc = "Yazi (CWD)" })
 
--- 3. Resume/Toggle last session
+-- Toggle last session.
 map("n", "<leader>tt", function()
   yazi.toggle()
 end, { desc = "Yazi (Toggle)" })

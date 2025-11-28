@@ -2,7 +2,7 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("lain_" .. name, { clear = true })
 end
 
--- Highlight on Yank
+-- Highlight yanked text.
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = augroup("highlight_yank"),
   desc = "Highlight yanked text",
@@ -11,7 +11,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- Close specific windows with 'q'
+-- Close certain filetypes with 'q'.
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("close_with_q"),
   pattern = {
@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Auto-create directories on save
+-- Create parent directories on save.
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = augroup("auto_create_dir"),
   callback = function(event)
@@ -45,14 +45,14 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
--- Open Help in vertical split (Right side)
+-- Open help in a vertical split.
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("help_split"),
   pattern = "help",
   command = "wincmd L",
 })
 
--- Syntax highlighting for dotfiles
+-- Set filetype for dotfiles.
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   group = augroup("filetype_settings"),
   pattern = { ".env", ".env.*" },
@@ -61,8 +61,8 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
--- Clear LSP references in Insert Mode
--- (Prevents the highlighted word from sticking when you start typing)
+-- Clear LSP references in insert mode.
+-- Avoids sticky reference highlighting.
 vim.api.nvim_create_autocmd("CursorMovedI", {
   group = augroup("clear_lsp_refs"),
   callback = function()
@@ -70,12 +70,12 @@ vim.api.nvim_create_autocmd("CursorMovedI", {
   end,
 })
 
--- Trim Whitespace on Save
+-- Trim trailing whitespace on save.
 vim.api.nvim_create_autocmd("BufWritePre", {
   group = augroup("trim_whitespace"),
   pattern = "*",
   callback = function()
-    -- Skip for markdown (trailing spaces signify line break) and binary files
+    -- Skip for markdown and binary files.
     if vim.bo.filetype == "markdown" or vim.bo.binary then
       return
     end
@@ -86,7 +86,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
--- Auto-resize splits when window is resized
+-- Resize splits on window resize.
 vim.api.nvim_create_autocmd("VimResized", {
   group = augroup("resize_splits"),
   callback = function()

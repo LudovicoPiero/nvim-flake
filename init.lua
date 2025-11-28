@@ -1,5 +1,5 @@
 ---@diagnostic disable: undefined-global
--- Only run if mnw is available (i.e., under Nix)
+-- Only run under Nix.
 if mnw == nil then
   return
 end
@@ -7,10 +7,10 @@ end
 local plugin_root = mnw.configDir .. "/pack/mnw/start/lain/nvim"
 vim.opt.rtp:prepend(plugin_root)
 
--- Ensure packpath includes the rest of the plugins
+-- Add plugins to packpath.
 vim.opt.packpath:prepend(mnw.configDir .. "/pack")
 
--- Automatically load all optional plugins under pack/mnw/opt
+-- Load optional plugins.
 local opt_dir = mnw.configDir .. "/pack/mnw/opt"
 for name, type in vim.fs.dir(opt_dir) do
   if type == "directory" then
@@ -18,5 +18,5 @@ for name, type in vim.fs.dir(opt_dir) do
   end
 end
 
--- Load the new configuration
+-- Load main configuration.
 require("lain")

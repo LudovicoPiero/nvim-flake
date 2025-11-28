@@ -1,24 +1,24 @@
 require("catppuccin").setup({
-  flavour = "mocha", -- latte, frappe, macchiato, mocha
-  background = { -- :h background
+  flavour = "mocha",
+  background = {
     light = "latte",
     dark = "mocha",
   },
-  transparent_background = false, -- disables setting the background color.
+  transparent_background = false,
   float = {
-    transparent = false, -- enable transparent floating windows
-    solid = false, -- use solid styling for floating windows, see |winborder|
+    transparent = false,
+    solid = false,
   },
-  show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
-  term_colors = false, -- sets terminal colors (e.g. `g:terminal_color_0`)
+  show_end_of_buffer = false,
+  term_colors = false,
   dim_inactive = {
-    enabled = false, -- dims the background color of inactive window
+    enabled = false,
     shade = "dark",
-    percentage = 0.15, -- percentage of the shade to apply to the inactive window
+    percentage = 0.15,
   },
-  no_italic = false, -- Force no italic
-  no_bold = false, -- Force no bold
-  no_underline = false, -- Force no underline
+  no_italic = false,
+  no_bold = false,
+  no_underline = false,
   lsp_styles = {
     virtual_text = {
       errors = { "italic" },
@@ -51,5 +51,5 @@ require("catppuccin").setup({
   },
 })
 
--- setup must be called before loading
+-- Load the colorscheme.
 vim.cmd.colorscheme("catppuccin")

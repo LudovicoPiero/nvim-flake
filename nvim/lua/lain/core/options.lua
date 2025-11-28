@@ -1,6 +1,6 @@
 local opt = vim.opt
 
--- === UI & Display ===
+-- UI
 opt.number = true
 opt.relativenumber = true
 opt.cursorline = true
@@ -10,20 +10,19 @@ opt.showmode = false
 opt.scrolloff = 10
 opt.colorcolumn = "80,100"
 opt.laststatus = 3
-
--- Sets default border for all floating windows (LSP, diagnostic, etc.)
+-- Default border for floats.
 opt.winborder = "rounded"
 
--- === Modern Neovim Features ===
+-- Modern features.
 opt.smoothscroll = true
 opt.splitkeep = "screen"
 
--- === Cursor & Input ===
+-- Cursor and input.
 opt.mouse = "a"
 opt.guicursor = "n-v-i-c:block-Cursor"
 opt.timeoutlen = 300
 
--- === Indentation ===
+-- Indentation.
 opt.expandtab = true
 opt.smartindent = true
 opt.shiftwidth = 2
@@ -31,26 +30,26 @@ opt.tabstop = 2
 opt.softtabstop = 2
 opt.breakindent = true
 
--- === Search ===
+-- Search.
 opt.ignorecase = true
 opt.smartcase = true
 opt.hlsearch = true
 opt.inccommand = "split"
 
--- === Splits ===
+-- Splits.
 opt.splitbelow = true
 opt.splitright = true
 
--- === File & Undo ===
+-- File and undo.
 opt.undofile = true
 opt.swapfile = false
 opt.updatetime = 250
 opt.exrc = true -- Allow local .nvim.lua files
 
--- === Clipboard ===
+-- Clipboard.
 opt.clipboard = "unnamedplus"
 
--- === Visuals ===
+-- Visual characters.
 opt.fillchars = {
   eob = " ",
   vert = "│",

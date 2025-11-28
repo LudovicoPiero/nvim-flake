@@ -1,4 +1,3 @@
--- lua/plugins/flash.lua
 local flash = require("flash")
 
 flash.setup({
@@ -11,12 +10,11 @@ flash.setup({
   },
   modes = {
     char = {
-      jump_labels = true, -- Show jump labels when doing f/t scans
+      jump_labels = true, -- Show jump labels for f/t.
     },
   },
 })
 
--- Keymaps
 local map = vim.keymap.set
 map("n", "s", function()
   flash.jump()
