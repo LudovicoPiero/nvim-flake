@@ -115,11 +115,10 @@ M.setup = function()
     },
 
     -- Python
-    ruff = {},
     basedpyright = {
       settings = {
         basedpyright = {
-          disableOrganizeImports = true, -- use ruff for import sorting
+          disableOrganizeImports = true, -- Let Ruff handle this
           analysis = {
             autoSearchPaths = true,
             diagnosticMode = "workspace",
@@ -127,28 +126,30 @@ M.setup = function()
             typeCheckingMode = "strict",
 
             diagnosticSeverityOverrides = {
-              -- Fix diagnostics level
+              -- 1. Downgrade Errors to Warnings (Keep the noise manageable)
               reportUnknownParameterType = "warning",
               reportMissingParameterType = "warning",
               reportUnknownArgumentType = "warning",
               reportUnknownLambdaType = "warning",
               reportUnknownMemberType = "warning",
-              reportUnusedFunction = "warning",
-              reportUnusedVariable = "warning",
               reportUntypedFunctionDecorator = "warning",
               reportDeprecated = "warning",
 
-              -- Enable extra diagnostics
+              -- 2. Restore "Unused" Warnings
+              reportUnusedFunction = "warning",
+              reportUnusedVariable = "warning",
+
+              -- 3. Enable Extra Checks
               reportUnusedCallResult = "warning",
               reportUninitializedInstanceVariable = "warning",
 
-              -- Gradual typing in new projects
+              -- 4. Silence things that annoy new projects
               reportMissingImports = false,
-              reportMissingTypeStubs = false,
+              reportMissingTypeStubs = false, -- Very important for libraries
               reportUnknownVariableType = false,
 
-              -- Covered by ruff
-              reportUnusedImport = false,
+              -- 5. Let Ruff handle imports entirely
+              reportUnusedImport = "warning",
             },
           },
         },
