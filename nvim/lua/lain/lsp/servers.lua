@@ -1,24 +1,18 @@
+---@diagnostic disable: param-type-mismatch
 -- nvim/lua/lain/lsp/servers.lua
 local M = {}
 
 M.setup = function(on_attach, capabilities)
-  -- 1. Define "Complex" configurations
   local configs = {
     -- Nix
-    nixd = {
+    nil_ls = {
+      cmd = { "nil" },
+      filetypes = { "nix" },
+      root_markers = { "flake.nix", "default.nix", ".git" },
       settings = {
-        nixd = {
-          formatting = { command = { "nixfmt" } },
-          nixpkgs = { expr = "import <nixpkgs> { }" },
-          options = {
-            nixos = {
-              -- NOTE:
-              -- You may want to change this ;)
-              expr = '(builtins.getFlake "/home/lain/Code/nvim-flake").nixosConfigurations.sforza.options',
-            },
-            home_manager = {
-              expr = '(builtins.getFlake "/home/lain/Code/nvim-flake").homeConfigurations."airi@sforza".options',
-            },
+        ["nil"] = {
+          formatting = {
+            command = { "nixfmt" },
           },
         },
       },
@@ -73,6 +67,7 @@ M.setup = function(on_attach, capabilities)
     rust_analyzer = {
       settings = {
         ["rust-analyzer"] = {
+          cargo = { allFeatures = true },
           diagnostics = { enable = true },
           files = { excludeDirs = { ".direnv", "rust/.direnv" } },
         },
@@ -95,7 +90,6 @@ M.setup = function(on_attach, capabilities)
     },
   }
 
-  -- 2. List of "Simple" servers (default config)
   local simple_servers = {
     "taplo",
     "html",
@@ -108,7 +102,6 @@ M.setup = function(on_attach, capabilities)
     "mesonlsp",
   }
 
-  -- 3. Helper to register and enable
   local function register(name, config)
     local defaults = {
       on_attach = on_attach,

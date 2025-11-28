@@ -46,9 +46,10 @@
             let
               # --- Tool Groups ---
               nixTools = with pkgs; [
+                deadnix
                 statix
                 nixfmt
-                nixd
+                nil
               ];
 
               goTools = with pkgs; [
@@ -116,7 +117,7 @@
                   name: v:
                   # Wrap the raw source in buildVimPlugin to generate doc/tags
                   pkgs.vimUtils.buildVimPlugin {
-                    name = name;
+                    inherit name;
                     src = v { inherit pkgs; };
                     doCheck = false;
                   }
