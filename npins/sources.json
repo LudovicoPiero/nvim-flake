@@ -169,19 +169,6 @@
       "url": "https://github.com/rafamadriz/friendly-snippets/archive/572f5660cf05f8cd8834e096d7b4c921ba18e175.tar.gz",
       "hash": "sha256-FzApcTbWfFkBD9WsYMhaCyn6ky8UmpUC2io/co/eByM="
     },
-    "fyler.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "A7Lavinraj",
-        "repo": "fyler.nvim"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "a1e5204ca87d1125d55d6f6ebd60bdb1da76b977",
-      "url": "https://github.com/A7Lavinraj/fyler.nvim/archive/a1e5204ca87d1125d55d6f6ebd60bdb1da76b977.tar.gz",
-      "hash": "sha256-d0uiwYvxhepFvUuUZAewsO1NntLWeHMuoHgfvX9S9K8="
-    },
     "gitsigns.nvim": {
       "type": "Git",
       "repository": {
@@ -325,6 +312,19 @@
       "url": "https://github.com/nvim-tree/nvim-web-devicons/archive/8dcb311b0c92d460fac00eac706abd43d94d68af.tar.gz",
       "hash": "sha256-klBjUtj0AvarN5a6O8Hh2t5BuOTe/m3ps2cHnlxVJvE="
     },
+    "oil.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "stevearc",
+        "repo": "oil.nvim"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "01cb3a8ad7d5e8707041edc775af83dbf33838f4",
+      "url": "https://github.com/stevearc/oil.nvim/archive/01cb3a8ad7d5e8707041edc775af83dbf33838f4.tar.gz",
+      "hash": "sha256-OSfnL7H/haV4BeuS5r3GdBtD4si3vymtQO3q2437Kio="
+    },
     "snacks.nvim": {
       "type": "Git",
       "repository": {
@@ -376,19 +376,6 @@
       "revision": "3aab2147e74890957785941f0c1ad87d0a44c15a",
       "url": "https://github.com/folke/which-key.nvim/archive/3aab2147e74890957785941f0c1ad87d0a44c15a.tar.gz",
       "hash": "sha256-rKaYnXM4gRkkF/+xIFm2oCZwtAU6CeTdRWU93N+Jmbc="
-    },
-    "yazi.nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "mikavilpas",
-        "repo": "yazi.nvim"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "1b53abd2a1639ad6740dfa7d5288784026ae4f9f",
-      "url": "https://github.com/mikavilpas/yazi.nvim/archive/1b53abd2a1639ad6740dfa7d5288784026ae4f9f.tar.gz",
-      "hash": "sha256-sLcCUZxN8teDVEhLriKe2A8SIOGSZjJOqAywH75ZxAQ="
     }
   },
   "version": 7
