@@ -139,9 +139,9 @@ cmp.setup({
       vim_item.menu = ({
         copilot = "[AI]",
         nvim_lsp = "[LSP]",
-        luasnip = "[Snip]",
-        buffer = "[Buf]",
-        path = "[Path]",
+        luasnip = "[SNIP]",
+        buffer = "[BUF]",
+        path = "[PATH]",
       })[entry.source.name]
 
       return vim_item
@@ -171,7 +171,6 @@ cmp.setup({
     { name = "nvim_lsp", group_index = 2 },
     { name = "luasnip", group_index = 2 },
     { name = "path", group_index = 2 },
-  }, {
     { name = "buffer", group_index = 2 },
   }),
 })
