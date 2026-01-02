@@ -90,7 +90,7 @@ cmp.setup({
 
   -- Ghost text (inline completion).
   experimental = {
-    ghost_text = true,
+    ghost_text = false, -- disabled because of copilot_cmp conflicts
   },
 
   -- Key mappings.
