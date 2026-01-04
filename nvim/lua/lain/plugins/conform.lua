@@ -64,4 +64,3 @@ vim.keymap.set("n", "<leader>ff", function()
     lsp_format = "fallback",
   })
 end, { desc = "[F]ormat [F]ile" })
-

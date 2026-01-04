@@ -234,19 +234,6 @@
       "url": "https://github.com/nvimtools/none-ls.nvim/archive/1917c86818b5e058f53c2ea0ad38fc57534d62fc.tar.gz",
       "hash": "sha256-kcYSzeN9kzcb9E3hy2lGdTEUt4xfr+y3DUtq/sA+IlY="
     },
-    "nvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "catppuccin",
-        "repo": "nvim"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "ce4a8e0d5267e67056f9f4dcf6cb1d0933c8ca00",
-      "url": "https://github.com/catppuccin/nvim/archive/ce4a8e0d5267e67056f9f4dcf6cb1d0933c8ca00.tar.gz",
-      "hash": "sha256-ds+Rm9H00s++RC1dH4OQpCg1FXSm4HuwDGzr4ah0YBU="
-    },
     "nvim-autopairs": {
       "type": "Git",
       "repository": {
@@ -261,17 +248,20 @@
       "hash": "sha256-cRIg1qO3WMxzcDQti0GEJl77KnlRCqyBN+g76PviWt0="
     },
     "nvim-cmp": {
-      "type": "Git",
+      "type": "GitRelease",
       "repository": {
         "type": "GitHub",
         "owner": "hrsh7th",
         "repo": "nvim-cmp"
       },
-      "branch": "main",
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
       "submodules": false,
-      "revision": "d97d85e01339f01b842e6ec1502f639b080cb0fc",
-      "url": "https://github.com/hrsh7th/nvim-cmp/archive/d97d85e01339f01b842e6ec1502f639b080cb0fc.tar.gz",
-      "hash": "sha256-Z6F8auKq1jSgGoPhV4RbkB1YTexnolSbEjpa/JJI/Fc="
+      "version": "v0.0.2",
+      "revision": "8c82d0bd31299dbff7f8e780f5e06d2283de9678",
+      "url": "https://api.github.com/repos/hrsh7th/nvim-cmp/tarball/refs/tags/v0.0.2",
+      "hash": "sha256-TmXpMgkPWXHn4+leojZg1V18wOiPDsKQeG1h8nGgVHo="
     },
     "nvim-highlight-colors": {
       "type": "Git",
@@ -350,6 +340,19 @@
       "revision": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668",
       "url": "https://github.com/folke/todo-comments.nvim/archive/31e3c38ce9b29781e4422fc0322eb0a21f4e8668.tar.gz",
       "hash": "sha256-VGeIRfwQsHgSO89Pmn6yIP9na1F6mmYZx0HDLe9IKCQ="
+    },
+    "tokyonight.nvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "folke",
+        "repo": "tokyonight.nvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd",
+      "url": "https://github.com/folke/tokyonight.nvim/archive/5da1b76e64daf4c5d410f06bcb6b9cb640da7dfd.tar.gz",
+      "hash": "sha256-4zfkv3egdWJ/GCWUehV0MAIXxsrGT82Wd1Qqj1SCGOk="
     },
     "trouble.nvim": {
       "type": "Git",

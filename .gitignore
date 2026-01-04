@@ -7,10 +7,8 @@ todo
 
 ### Linux ###
 *~
-
-# ~/Code/nvim-flake refactor* ≡ 1m 27s
-❯ nix build .temporary files which can be created if a process still has a handle open of a deleted file
 .fuse_hidden*
+result
 
 # KDE directory preferences
 .directory
