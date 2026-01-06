@@ -69,6 +69,7 @@ let
     ripgrep
     bat
     fd
+    lazygit
   ];
 
   # Helper for npins plugins
