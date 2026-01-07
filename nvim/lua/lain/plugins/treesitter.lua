@@ -1,28 +1,22 @@
-require("nvim-treesitter.configs").setup({
-  -- Parsers are managed by Nix.
-  ensure_installed = {},
-  auto_install = false,
-  sync_install = false,
+require("nvim-treesitter").setup({})
 
-  highlight = {
-    enable = true,
-    -- Use regex highlighting for Ruby.
-    additional_vim_regex_highlighting = { "ruby" },
-  },
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("TreesitterHighlight", { clear = true }),
+  callback = function()
+    -- Start treesitter highlighting for the current buffer
+    -- pcall prevents errors if no parser is available for the filetype
+    pcall(vim.treesitter.start)
+  end,
+})
 
-  indent = {
-    enable = true,
-    disable = { "ruby" },
-  },
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- Optional: Start with folds open
+vim.opt.foldlevel = 99
 
-  -- Incremental selection.
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "<C-space>", -- Start selection.
-      node_incremental = "<C-space>", -- Expand.
-      scope_incremental = false,
-      node_decremental = "<bs>", -- Shrink.
-    },
-  },
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("TreesitterIndent", { clear = true }),
+  callback = function()
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end,
 })
