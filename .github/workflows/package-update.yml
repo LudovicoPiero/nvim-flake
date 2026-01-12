@@ -1,4 +1,4 @@
-name: "Update Packages"
+name: "Update Neovim Plugins"
 
 on:
   workflow_dispatch:
@@ -35,10 +35,8 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
-          title: "Automated package updates"
+          title: "Automated neovim plugins updates"
           body: |
-            This PR combines:
-            - nvfetcher source updates
             - npins update ( for neovim plugins )
           labels: automated, uwu, keep-up-to-date
           branch: "package-update"
