@@ -8,14 +8,15 @@ on:
 
 jobs:
   update-packages:
-    if: github.repository == 'ludovicopiero/nvim-flake' # Don't run in forks
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v6.0.1
         with:
           token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - run: git config --global user.email "lewdovico@gnuweeb.org"
+      - run: git config --global user.name "Ludovico Piero"
 
       - name: Install Lix
         uses: samueldr/lix-gha-installer-action@latest
