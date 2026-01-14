@@ -126,9 +126,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "5ace9ecd0db9a7a6c14064e4ce4ede5b800325f3",
-      "url": "https://github.com/zbirenbaum/copilot.lua/archive/5ace9ecd0db9a7a6c14064e4ce4ede5b800325f3.tar.gz",
-      "hash": "sha256-Fh2kMKX/E4VZjxLp7im4ZmiuOgFAjqAtrfAmyh5zyfE="
+      "revision": "9688ca7ad7583c659979591d006e5ff0b0b0da07",
+      "url": "https://github.com/zbirenbaum/copilot.lua/archive/9688ca7ad7583c659979591d006e5ff0b0b0da07.tar.gz",
+      "hash": "sha256-eYqIbKV7vVc24u7AWGwRJ/F4JX0vomrw9r2qaSHwFhg="
     },
     "diffview.nvim": {
       "type": "Git",
@@ -311,9 +311,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "d278dc40f9de9980868a0a55fa666fba5e6aeacb",
-      "url": "https://github.com/stevearc/oil.nvim/archive/d278dc40f9de9980868a0a55fa666fba5e6aeacb.tar.gz",
-      "hash": "sha256-9Tz4WpZVRdjapjlJJsQBT/DoiRzhqlnPGTWpjFv/s0w="
+      "revision": "6b59a6cf623fa2245c7454ddb458df5bdb6615d3",
+      "url": "https://github.com/stevearc/oil.nvim/archive/6b59a6cf623fa2245c7454ddb458df5bdb6615d3.tar.gz",
+      "hash": "sha256-ULtIh+rY2m7OHC2U4bOBN/OcP5Uh0YgGa/Kgnke95Q0="
     },
     "snacks.nvim": {
       "type": "Git",
