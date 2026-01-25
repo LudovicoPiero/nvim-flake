@@ -165,8 +165,8 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "572f5660cf05f8cd8834e096d7b4c921ba18e175",
-      "url": "https://github.com/rafamadriz/friendly-snippets/archive/572f5660cf05f8cd8834e096d7b4c921ba18e175.tar.gz",
+      "revision": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
+      "url": "https://github.com/rafamadriz/friendly-snippets/archive/6cd7280adead7f586db6fccbd15d2cac7e2188b9.tar.gz",
       "hash": "sha256-FzApcTbWfFkBD9WsYMhaCyn6ky8UmpUC2io/co/eByM="
     },
     "gitsigns.nvim": {
@@ -204,9 +204,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "c163117900c17d4abf30bc09452a261c8536060c",
-      "url": "https://github.com/nvim-mini/mini.nvim/archive/c163117900c17d4abf30bc09452a261c8536060c.tar.gz",
-      "hash": "sha256-q8yYNlV+jtHm7Oo3PjWL52GYddUFhSCVDdrvtxkWm4M="
+      "revision": "9b935c218ddba02e5dc75c94f90143bce1f7c646",
+      "url": "https://github.com/nvim-mini/mini.nvim/archive/9b935c218ddba02e5dc75c94f90143bce1f7c646.tar.gz",
+      "hash": "sha256-dyKTxP4f6ZZ6MN4nz87X+K1d/WxhwnQ6+HxHSKgqacM="
     },
     "neocord": {
       "type": "Git",
@@ -285,9 +285,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "dec357ee48ff7e2e5b76898fd7c67b61a627d3ac",
-      "url": "https://github.com/neovim/nvim-lspconfig/archive/dec357ee48ff7e2e5b76898fd7c67b61a627d3ac.tar.gz",
-      "hash": "sha256-nKgwU4/vexCqRWOa0c2oTkQkEaL1OU2iik5QEqshKhg="
+      "revision": "419b082102fa813739588dd82e19a8b6b2442855",
+      "url": "https://github.com/neovim/nvim-lspconfig/archive/419b082102fa813739588dd82e19a8b6b2442855.tar.gz",
+      "hash": "sha256-+KjXMTkVVVt3rpxQHRtrlT74DDsfRnPNUlqi/pvIMxg="
     },
     "nvim-web-devicons": {
       "type": "Git",
