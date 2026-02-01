@@ -243,9 +243,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "007047febaa3681a8d2f3dd5126fdb9c6e81f393",
-      "url": "https://github.com/windwp/nvim-autopairs/archive/007047febaa3681a8d2f3dd5126fdb9c6e81f393.tar.gz",
-      "hash": "sha256-jyrHBri5eM0gYoAXjUy2kAxlPCYFU3/VN1ufPZti1HQ="
+      "revision": "59bce2eef357189c3305e25bc6dd2d138c1683f5",
+      "url": "https://github.com/windwp/nvim-autopairs/archive/59bce2eef357189c3305e25bc6dd2d138c1683f5.tar.gz",
+      "hash": "sha256-0IqXpxKCzqVz6i9QajPYJ0FdfReHQBhehrvN89/8n6U="
     },
     "nvim-cmp": {
       "type": "GitRelease",
@@ -285,9 +285,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "5fef3b4a5f1057553b78d048322782c3a9ae69c6",
-      "url": "https://github.com/neovim/nvim-lspconfig/archive/5fef3b4a5f1057553b78d048322782c3a9ae69c6.tar.gz",
-      "hash": "sha256-HboWGQgIWaPrBhIijFEDpJxEWmmbPK5krLlE5h7mxDw="
+      "revision": "3f58aeca0c6ece8a9fb8782ea3fcb6024f285be3",
+      "url": "https://github.com/neovim/nvim-lspconfig/archive/3f58aeca0c6ece8a9fb8782ea3fcb6024f285be3.tar.gz",
+      "hash": "sha256-vFbimjYoXkjvzq/QyzwOnIs0Q9KeXOwLiy7InRZdrSw="
     },
     "nvim-web-devicons": {
       "type": "Git",
