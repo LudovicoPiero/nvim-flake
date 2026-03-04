@@ -100,9 +100,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "e969e302bced7ffb9a0a0323629f31feb0ca35a6",
-      "url": "https://github.com/stevearc/conform.nvim/archive/e969e302bced7ffb9a0a0323629f31feb0ca35a6.tar.gz",
-      "hash": "sha256-G8aSYN23reYvN73+xDxa4XoYd8os2dsEaRgm78J6txo="
+      "revision": "40dcec5555f960b0a04340d76eabdf4efe78599d",
+      "url": "https://github.com/stevearc/conform.nvim/archive/40dcec5555f960b0a04340d76eabdf4efe78599d.tar.gz",
+      "hash": "sha256-mclRSYexUfSr6OU4ls5swUJln9V1uU4nvUGVp8+Gejw="
     },
     "copilot-cmp": {
       "type": "Git",
@@ -126,9 +126,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "00446a63cba4cc59bb24fc1e210a555a3e4acdfb",
-      "url": "https://github.com/zbirenbaum/copilot.lua/archive/00446a63cba4cc59bb24fc1e210a555a3e4acdfb.tar.gz",
-      "hash": "sha256-FL6OSeOtTTpswVBkMIun8tyoXchBQIOgofUBonlSVzQ="
+      "revision": "3061c49e0e2619915af90fb5a067cac90a20e896",
+      "url": "https://github.com/zbirenbaum/copilot.lua/archive/3061c49e0e2619915af90fb5a067cac90a20e896.tar.gz",
+      "hash": "sha256-xshhbdTLmaSd5C/4nGKHPIQvFRVfLT/WS7RrprYC1mA="
     },
     "diffview.nvim": {
       "type": "Git",
@@ -204,9 +204,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "0098de999048af0539183d625c52d733318a441b",
-      "url": "https://github.com/nvim-mini/mini.nvim/archive/0098de999048af0539183d625c52d733318a441b.tar.gz",
-      "hash": "sha256-zOn7NUb7NzZaNELMU9kJ/BOaWsKVRPGAfMWRtvuZDGw="
+      "revision": "cad365c212fb1e332cb93fa8f72697125799d00a",
+      "url": "https://github.com/nvim-mini/mini.nvim/archive/cad365c212fb1e332cb93fa8f72697125799d00a.tar.gz",
+      "hash": "sha256-mWakp4Xjxp2PNuRHyaNSHAIbUuNb4IIFvqZRsSTc32U="
     },
     "neocord": {
       "type": "Git",
