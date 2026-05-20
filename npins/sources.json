@@ -9,9 +9,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "a62e1083a3cfe8b6b206e7d3d33a51091df25357",
-      "url": "https://github.com/L3MON4D3/LuaSnip/archive/a62e1083a3cfe8b6b206e7d3d33a51091df25357.tar.gz",
-      "hash": "sha256-faK+6aY+RDZ3imFfPIDL3ZMurDjq8NIHMPxmp4y6FdI="
+      "revision": "0abc8f390b278c3b4aabc4c004ac8a088b65cf24",
+      "url": "https://github.com/L3MON4D3/LuaSnip/archive/0abc8f390b278c3b4aabc4c004ac8a088b65cf24.tar.gz",
+      "hash": "sha256-5Dm5maKjGcduew/cUZTWeyyVEgpZ0OpoVdMRYEw8Li0="
     },
     "bufferline.nvim": {
       "type": "Git",
@@ -204,9 +204,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "18797ed18f347d0d0da27fec28a67979b1207f70",
-      "url": "https://github.com/nvim-mini/mini.nvim/archive/18797ed18f347d0d0da27fec28a67979b1207f70.tar.gz",
-      "hash": "sha256-YkE1XwxpWukp19juZB2eIUpomybE0L9sz/+jCc/fx0k="
+      "revision": "264b5c8fc6e82212af0dc5c345145cfa916efeb6",
+      "url": "https://github.com/nvim-mini/mini.nvim/archive/264b5c8fc6e82212af0dc5c345145cfa916efeb6.tar.gz",
+      "hash": "sha256-2E8EYYWQcN3rpsKqV8AYzPPAF7PalLpDTe3t3Lo9SmE="
     },
     "neocord": {
       "type": "Git",
@@ -285,9 +285,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "f9349d4d99e7d66403ae8bf4fbd357b154dca7a7",
-      "url": "https://github.com/neovim/nvim-lspconfig/archive/f9349d4d99e7d66403ae8bf4fbd357b154dca7a7.tar.gz",
-      "hash": "sha256-C6+maop+hKjkAocb+7jZ/J6gO/wvDvvWCytETId68ds="
+      "revision": "246572944c2a1e2a646c2e7609ff619b0fe74c18",
+      "url": "https://github.com/neovim/nvim-lspconfig/archive/246572944c2a1e2a646c2e7609ff619b0fe74c18.tar.gz",
+      "hash": "sha256-zN51gdV4PExR9j1idlHwnl2WMwXo6OaTM3VtWHy1u2k="
     },
     "nvim-web-devicons": {
       "type": "Git",
@@ -298,9 +298,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "2795c26c916bb3c57dde308b82be51971fa92747",
-      "url": "https://github.com/nvim-tree/nvim-web-devicons/archive/2795c26c916bb3c57dde308b82be51971fa92747.tar.gz",
-      "hash": "sha256-2/TKHTA+qeVqOW5IqqHKaA4soUY5HSzekvtkOD5H1jc="
+      "revision": "7d8dad2c837fcdf2e65997e68657c1a21c568074",
+      "url": "https://github.com/nvim-tree/nvim-web-devicons/archive/7d8dad2c837fcdf2e65997e68657c1a21c568074.tar.gz",
+      "hash": "sha256-zUSPl8h2hFr/sIxWNz3Fxq1g68Guyy++bkHlkzwrKJc="
     },
     "oil.nvim": {
       "type": "Git",
