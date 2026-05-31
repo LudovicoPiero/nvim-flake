@@ -58,10 +58,10 @@ let
     haskell-language-server
     shfmt
     shellcheck
-    nodePackages.prettier
+    prettier
     taplo
     marksman
-    nodePackages.yaml-language-server
+    yaml-language-server
     vscode-langservers-extracted
     svelte-language-server
     chafa
