@@ -83,7 +83,7 @@ let
         src = v { inherit pkgs; };
         doCheck = false;
       }
-    ) (import ../npins/npins.nix { inherit input; });
+    ) (import ../npins { inherit input; });
 in
 inputs.mnw.lib.wrap pkgs {
   inherit (inputs'.nvim-overlay.packages) neovim;
