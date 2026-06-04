@@ -95,6 +95,7 @@ inputs.mnw.lib.wrap pkgs {
     start = [
       pkgs.vimPlugins.plenary-nvim
       pkgs.vimPlugins.nui-nvim
+      pkgs.vimPlugins.blink-cmp
     ];
 
     # Lazy loaded plugins

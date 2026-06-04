@@ -1,157 +1,123 @@
-local cmp = require("cmp")
-local luasnip = require("luasnip")
+local blink = require("blink.cmp")
 local autopairs = require("nvim-autopairs")
-local copilot = require("copilot")
-local copilot_cmp = require("copilot_cmp")
 
-copilot.setup({
+require("copilot").setup({
   suggestion = { enabled = false },
   panel = { enabled = false },
-  filetypes = {
-    gitcommit = true,
-    markdown = true,
-    help = true,
-  },
+  filetypes = { gitcommit = true, markdown = true, help = true },
 })
-copilot_cmp.setup()
 
 autopairs.setup({
   check_ts = true,
   fast_wrap = { map = "<M-e>" },
 })
 
-local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-
 require("luasnip.loaders.from_vscode").lazy_load()
 
-local kind_icons = {
-  Copilot = "",
-  Text = "󰉿",
-  Method = "󰆧",
-  Function = "󰊕",
-  Constructor = "",
-  Field = "󰜢",
-  Variable = "󰀫",
-  Class = "󰠱",
-  Interface = "",
-  Module = "",
-  Property = "󰜢",
-  Unit = "󰑭",
-  Value = "󰎠",
-  Enum = "",
-  Keyword = "󰌋",
-  Snippet = "",
-  Color = "󰏘",
-  File = "󰈙",
-  Reference = "󰈇",
-  Folder = "󰉋",
-  EnumMember = "",
-  Constant = "󰏿",
-  Struct = "󰙅",
-  Event = "",
-  Operator = "󰆕",
-  TypeParameter = "",
-}
-
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
+blink.setup({
+  keymap = {
+    preset = "default",
+    ["<C-y>"] = { "select_and_accept" },
+    ["<CR>"] = {
+      function(cmp)
+        if cmp.is_visible() then
+          return cmp.select_and_accept()
+        end
+      end,
+      "fallback",
+    },
+    ["<C-e>"] = { "cancel", "fallback" },
+    ["<C-n>"] = { "select_next", "fallback" },
+    ["<C-p>"] = { "select_prev", "fallback" },
+    ["<C-d>"] = { "scroll_documentation_up", "fallback" },
+    ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+    ["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
+    ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
+    ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
   },
 
-  completion = {
-    completeopt = "menu,menuone,noinsert",
-  },
-
-  preselect = cmp.PreselectMode.Item,
-
-  window = {
-    completion = cmp.config.window.bordered({
-      border = "rounded",
-      winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-    }),
-    documentation = cmp.config.window.bordered({
-      border = "rounded",
-    }),
-  },
-
-  experimental = {
-    ghost_text = false,
-  },
-
-  mapping = cmp.mapping.preset.insert({
-    ["<C-n>"] = cmp.mapping.select_next_item(),
-    ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<C-e>"] = cmp.mapping.abort(),
-
-    ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-    ["<CR>"] = cmp.mapping.confirm({ select = true }),
-
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-  }),
-
-  formatting = {
-    fields = { "kind", "abbr", "menu" },
-    format = function(entry, vim_item)
-      vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-
-      vim_item.menu = ({
-        copilot = "[AI]",
-        nvim_lsp = "[LSP]",
-        luasnip = "[SNIP]",
-        buffer = "[BUF]",
-        path = "[PATH]",
-      })[entry.source.name]
-
-      return vim_item
-    end,
-  },
-
-  sorting = {
-    priority_weight = 2,
-    comparators = {
-      cmp.config.compare.offset,
-      cmp.config.compare.exact,
-      require("copilot_cmp.comparators").prioritize,
-      cmp.config.compare.score,
-      cmp.config.compare.recently_used,
-      cmp.config.compare.locality,
-      cmp.config.compare.kind,
-      cmp.config.compare.sort_text,
-      cmp.config.compare.length,
-      cmp.config.compare.order,
+  appearance = {
+    use_nvim_cmp_as_default = false,
+    nerd_font_variant = "normal",
+    kind_icons = {
+      Copilot = "",
+      Text = "󰉿",
+      Method = "󰆧",
+      Function = "󰊕",
+      Constructor = "",
+      Field = "󰜢",
+      Variable = "󰀫",
+      Class = "󰠱",
+      Interface = "",
+      Module = "",
+      Property = "󰜢",
+      Unit = "󰑭",
+      Value = "󰎠",
+      Enum = "",
+      Keyword = "󰌋",
+      Snippet = "",
+      Color = "󰏘",
+      File = "󰈙",
+      Reference = "󰈇",
+      Folder = "󰉋",
+      EnumMember = "",
+      Constant = "󰏿",
+      Struct = "󰙅",
+      Event = "",
+      Operator = "󰆕",
+      TypeParameter = "",
     },
   },
 
-  sources = cmp.config.sources({
-    { name = "nvim_lsp_signature_help" },
-    { name = "copilot" },
-    { name = "nvim_lsp" },
-    { name = "luasnip" },
-    { name = "path" },
-    { name = "buffer", option = { get_bufnrs = vim.api.nvim_list_bufs } },
-  }),
+  completion = {
+    -- Disabled to let autopairs handle brackets safely
+    accept = { auto_brackets = { enabled = false } },
+
+    documentation = {
+      auto_show = true,
+      auto_show_delay_ms = 200,
+      window = { border = "rounded" },
+    },
+
+    menu = {
+      border = "rounded",
+      draw = {
+        columns = {
+          { "kind_icon" },
+          { "label", "label_description", gap = 1 },
+          { "source_name" },
+        },
+      },
+    },
+
+    ghost_text = { enabled = false },
+  },
+
+  signature = {
+    enabled = true,
+    window = { border = "rounded" },
+  },
+
+  snippets = { preset = "luasnip" },
+
+  sources = {
+    default = { "copilot", "lsp", "path", "snippets", "buffer" },
+    providers = {
+      copilot = {
+        name = "copilot",
+        module = "blink-cmp-copilot",
+        score_offset = 100,
+        async = true,
+        transform_items = function(_, items)
+          local kinds = require("blink.cmp.types").CompletionItemKind
+          local idx = #kinds + 1
+          kinds[idx] = "Copilot"
+          for _, item in ipairs(items) do
+            item.kind = idx
+          end
+          return items
+        end,
+      },
+    },
+  },
 })

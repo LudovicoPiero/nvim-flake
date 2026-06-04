@@ -94,3 +94,21 @@ vim.api.nvim_create_autocmd("VimResized", {
     vim.cmd("tabnext " .. current_tab)
   end,
 })
+
+local refresh_group = vim.api.nvim_create_augroup("AutoRefreshFile", { clear = true })
+-- Force Neovim to check if the file changed on disk when you switch focus or buffers
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+  group = refresh_group,
+  callback = function()
+    if vim.o.buftype == "" and not vim.api.nvim_buf_get_name(0):match("^%w+://") then
+      vim.cmd("checktime")
+    end
+  end,
+})
+-- Notify the post-reload event cleanly
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+  group = refresh_group,
+  callback = function()
+    vim.notify("File changed on disk. Buffer reloaded automatically.", vim.log.levels.WARN)
+  end,
+})
