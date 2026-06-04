@@ -10,13 +10,12 @@ pull_request_rules:
 
   - name: Automatic merge when CI passes
     conditions:
-      - check-success=Nix Flake Checker
+      - check-success=flake-checker
       - -conflict
       - -draft
       - -title~= (?i)wip
-      - status-success=Nix Flake Checker
     actions:
-      queue:
+      merge:
 
   - name: Toggle conflict label based on mergeability
     conditions:
