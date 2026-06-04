@@ -3,11 +3,7 @@ name: Nix Flake Checker
 on:
   workflow_dispatch:
   push:
-    branches:
-      - kofun
   pull_request:
-    branches:
-      - kofun
 
 jobs:
   flake-checker:
