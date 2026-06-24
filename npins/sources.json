@@ -139,9 +139,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "1345d191bb3da9c7b0e977f4387c5761f9bff68d",
-      "url": "https://github.com/nvim-mini/mini.nvim/archive/1345d191bb3da9c7b0e977f4387c5761f9bff68d.tar.gz",
-      "hash": "sha256-kCcyl4KUEY51UeGYmvuLD1hswWbwKhHGUt/0XLbPuUw="
+      "revision": "c594be5b095204e99473825ec2dee872e7409a4d",
+      "url": "https://github.com/nvim-mini/mini.nvim/archive/c594be5b095204e99473825ec2dee872e7409a4d.tar.gz",
+      "hash": "sha256-kXRUPZlAdcsurn5IKS6/mlJ+ra1/SPqPWG8ve9n48/w="
     },
     "neocord": {
       "type": "Git",
