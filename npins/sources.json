@@ -139,9 +139,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "0caecdd7408bc0a77697a83b931c742fcc5b0349",
-      "url": "https://github.com/nvim-mini/mini.nvim/archive/0caecdd7408bc0a77697a83b931c742fcc5b0349.tar.gz",
-      "hash": "sha256-5Pm+fQHJBcErkkTzP9g4D4y/Jv65B+dwpEAuEpJ6FRw="
+      "revision": "a311ed247d527db9592bb434356badc705363746",
+      "url": "https://github.com/nvim-mini/mini.nvim/archive/a311ed247d527db9592bb434356badc705363746.tar.gz",
+      "hash": "sha256-P2pe+CEVAwiXpXJO2aPcYgcKFiz61ZGlco9wV14IKVs="
     },
     "neocord": {
       "type": "Git",
@@ -204,9 +204,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "af9adce488c75ca0a81017945c2b7fa7b461bc23",
-      "url": "https://github.com/neovim/nvim-lspconfig/archive/af9adce488c75ca0a81017945c2b7fa7b461bc23.tar.gz",
-      "hash": "sha256-ckJLCAWPudUZEt3WkNsx/WTd9sUereg8hBHC9NOVTaw="
+      "revision": "684cb45c2faa24ce463b4fe9aaf011bfe1e0fb26",
+      "url": "https://github.com/neovim/nvim-lspconfig/archive/684cb45c2faa24ce463b4fe9aaf011bfe1e0fb26.tar.gz",
+      "hash": "sha256-Ygx+D6ZexvgX448xwcara+qUvwWoGbO/Wd0Iif2xbag="
     },
     "nvim-web-devicons": {
       "type": "Git",
